@@ -54,6 +54,7 @@ public class UserController {
         return userService.list(id);
     }
 
+
     @GetMapping("/logout")
     public String logout(){
       SecurityUtils.getSubject().logout();
