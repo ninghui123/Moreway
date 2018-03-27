@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>用户管理</title>
+		<meta name="description" content="Restyling jQuery UI Widgets and Elements" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/ace-fonts.css" />
+		<link rel="stylesheet" href="css/zzsc.css" />
+		<link rel="stylesheet" href="css/ace.min.css" id="main-ace-style" />
+		
+		
+			
+		<style type="text/css">
+			.CSSearchTbl{ border:1px #008CD4 solid;}
+			.CSSearchTbl thead{}
+			.CSSearchTbl thead tr{}
+			.CSSearchTbl thead tr th{  text-align:left; padding-left:10px;}
+			.CSSearchTbl tbody{}
+			.CSSearchTbl tbody tr{}
+			.CSSearchTbl tbody tr td{  padding: 10px;}
+			.CSSearchTbl tbody tr td.right{ text-align: left;}
+			.CSSearchTbl tbody tr td.left{ text-align: right;}
+			.table-responsive{ display: none;}
+		</style>
+	</head>
+	<body class="no-skin">
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="index.html">首页</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">用户管理</a>
+						</li>
+					</ul><!-- /.breadcrumb -->
+					<!-- #section:basics/content.searchbox -->
+					<div class="nav-search" id="nav-search">
+						<form class="form-search">
+							<span class="input-icon">
+								<input type="text" placeholder="请输入关键字 ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+								<i class="ace-icon fa fa-search nav-search-icon"></i>
+							</span>
+						</form>
+					</div><!-- /.nav-search -->
+				</div>
+				<div class="page-content">
+					<!-- /section:settings.box -->
+					<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div class="row">
+									<div class="col-xs-12">
+										<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+											<thead>
+											<tr>
+												<th class="center">
+													<label class="position-relative">
+														<input type="checkbox" class="ace" />
+														<span class="lbl"></span>
+														</label>
+													</th>
+													<th>ID</th>
+													<th>用户名称</th>
+													<th>用户密码</th>
+													<th>用户角色</th>
+													<th>操作</th>
+													
+													
+												</tr>
+											</thead>
+												<tr>
+													<td class="center">
+														<label class="position-relative">
+															<input type="checkbox" class="ace" />
+															<span class="lbl"></span>
+														</label>
+													</td>
+
+													<td>
+														<a href="#">2</a>
+													</td>
+													<td>信念</td>
+													<td>123</td>
+													<td>管理员</td>
+                                               <td>
+									    <button class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal">
+									    	<i class="ace-icon fa fa-pencil bigger-120"></i>
+									    </button>
+								            
+															
+
+															<button class="btn btn-xs btn-danger" title="删除">
+																<i class="ace-icon fa fa-trash-o bigger-120"></i>
+															</button>
+
+															
+														
+													</td>
+												</tr>
+										
+												
+											</tbody>
+										</table>
+                                         <ul class="pagination">
+												<li class="disabled">
+													<a href="#">首页</a>
+												</li>
+												<li class="disabled">
+													<a href="#">
+														<i class="ace-icon fa fa-angle-double-left"></i>
+													</a>
+												</li>
+
+												
+												<li class="active">
+													<a href="#">1</a>
+												</li>
+
+												<li>
+													<a href="#">2</a>
+												</li>
+
+												<li>
+													<a href="#">3</a>
+												</li>
+												<li>
+													<a href="#">4</a>
+												</li>
+
+												<li>
+													<a href="#">5</a>
+												</li>
+
+												<li>
+													<a href="#">
+														<i class="ace-icon fa fa-angle-double-right"></i>
+													</a>
+												</li>
+												<li class="">
+													<a href="#">尾页</a>
+												</li>
+											</ul>
+									</div><!-- /.span -->
+								</div><!-- /.row -->
+								<div class="hr hr-18 dotted hr-double"></div>
+								<div class="hr hr-18 dotted hr-double"></div>
+								<div id="modal-table" class="modal fade" tabindex="-1">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="typeahead"></label>
+									</div>
+											<div class="main-content">
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+
+					<div class="page-content-area">
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<form class="form-horizontal" role="form">
+									
+
+                               <div class="form-group">
+                               	<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名称：</label>
+									<div class="col-sm-9">
+										<input type="text" id="form-field-1" placeholder="信念" class="col-xs-10 col-sm-5" />
+									</div>
+                                       </div>
+                                  <div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户密码：</label>
+
+										<div class="col-sm-9">
+											<input type="text" id="form-field-1" placeholder="123" class="col-xs-10 col-sm-5" />
+										</div>
+                                        </div>
+													
+												
+												<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2">用户角色： </label>
+
+										<div class="form-group">
+										
+										<div class="col-sm-2">
+											<div >
+												<select class="form-control" id="form-field-select-1">
+																<option value="">请选择状态</option>
+																<option value="AL">未提交</option>
+																<option value="AK">已提交</option>
+																<option value="AZ">待审核</option>
+																<option value="AR">审核通过</option>
+															</select>
+											</div>
+										</div>
+									</div>
+									</div>
+
+
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9" >
+											<button class="btn btn-info" type="reset" onclick="window.location.href='user.html'">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												立即提交
+
+											</button>
+
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset" >
+												<i class="ace-icon fa fa-undo bigger-110"></i>
+												重置
+											</button>
+
+										</div>
+									</div>
+
+										
+								</form>
+
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+									</div><!-- /.modal-dialog -->
+								</div><!-- PAGE CONTENT ENDS -->
+<!--高级搜索-->
+								<div id="gjss" class="modal fade" tabindex="-1">
+									
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="typeahead"></label>
+
+										
+									</div>
+
+											
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+
+					<div class="page-content-area">
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<form class="form-horizontal" role="form">
+									<!-- #section:elements.form -->
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 名称：</label>
+
+										<div class="col-sm-9">
+											<input type="text" id="form-field-1" placeholder="完整公司名称" class="col-xs-10 col-sm-5" />
+										</div>
+									</div>
+
+												<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2">联系人： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="form-field-2" placeholder="姓名" class="col-xs-10 col-sm-5" />
+										</div>
+									</div>
+                                  <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2">联系电话： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="form-field-2" placeholder="手机或固话" class="col-xs-10 col-sm-5" />
+										</div>
+									</div>
+										<div class="col-md-offset-3 col-md-9" >
+											<button class="btn btn-info" type="reset" onclick="window.location.href='user.html'"">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												立即查询
+											</button>						
+										</div>	
+								</form>
+
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+		<!-- basic scripts -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='js/jquery.min.js'>"+"<"+"/script>");
+		</script>
+		<!-- <![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
+		<script src="js/jquery.dataTables.bootstrap.js"></script>
+        <script src="js/ace-extra.min.js"></script>
+		<script src="js/mail/jquery.min.js"></script>
+		<script src="js/mail/emailAutoComplete.js"></script>
+		<!-- ace scripts -->
+		<script src="js/ace-elements.min.js"></script>
+		<script src="js/ace.min.js"></script>
+		<script type="text/javascript">
+			jQuery(function($) {
+
+				$(".tbl-search").click(function(){
+					$(".table-responsive").slideDown("fast");
+				})
+
+				var oTable1 = 
+				$('#sample-table-2')
+				.dataTable( {
+					bAutoWidth: false,
+					bInfo:flase,
+					"aoColumns": [
+					  { "bSortable": false },
+					  null, 
+					  null,
+					  null,
+					  null, 
+					  null,
+					  { "bSortable": false },
+					  null,
+					  { "bSortable": false }
+					],
+					"aaSorting": [],
+			    } );
+			
+				$(document).on('click', 'th input:checkbox' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+				});
+
+
+				
+			
+			})
+
+		</script>
+	</body>
+</html>
