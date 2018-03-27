@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>-->
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/login.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<h1>宁辉</h1>
+<div class="admin">
+    <tr><td><h3>登录</h3></td></tr>
+    <tr><td>用户名：</td><input type="text" id="username" name="username"></tr><br>
+    <tr><td>密码</td><input type="text" id="password" name="password"></tr><br>
+    <tr><td><input type="button" value="登录" onclick="login();"></td></tr><br>
+</div>
+
+<!--<script type="text/javascript">-->
+    <!--function login() {-->
+        <!--var name=$("#username").val();-->
+        <!--alert(name)-->
+        <!--var pwd=$("#password").val();-->
+        <!--alert(pwd)-->
+       <!--$.ajax({-->
+           <!--async : false,-->
+        <!--url:"/login",-->
+           <!--type:"GET",-->
+           <!--dataType : "json",-->
+           <!--data:{"username":name,"password":pwd},-->
+              <!--success:function (data) {-->
+               <!--if (data.code==="500"){-->
+                  <!--alert("用户名密码错误")-->
+               <!--}-->
+               <!--if (data.code==="200"){-->
+                   <!--location.href ="index.html"-->
+               <!--}-->
+              <!--}-->
+       <!--})-->
+    <!--}-->
+<!--</script>-->
+</body>
+</html>
