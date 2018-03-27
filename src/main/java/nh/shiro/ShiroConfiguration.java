@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class ShiroConfiguration {
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。

@@ -27,11 +27,11 @@ public class UserController {
 //    @DeleteMapping("/login")
     public Map<String,Object> login(@RequestParam(required=false) String username, @RequestParam(required=false) String password){
         System.out.println(username+password);
-        UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(username,password);
-        Subject subject = SecurityUtils.getSubject();
+//        UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(username,password);
+//        Subject subject = SecurityUtils.getSubject();
         Map<String,Object>map=new HashMap<>();
         try {
-            subject.login(usernamePasswordToken);
+//            subject.login(usernamePasswordToken);
 //            //使用shiro后，session交由shiro管理，获取shiro管理的session
 //          Session session=subject.getSession();
 //          session.setAttribute("sss","sdas");
