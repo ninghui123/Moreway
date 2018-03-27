@@ -10,6 +10,7 @@ function login() {
         dataType : "json",
         data:{"username":name,"password":pwd},
         success:function (data) {
+
             if (data.code==="500"){
                 alert("用户名密码错误")
             }
