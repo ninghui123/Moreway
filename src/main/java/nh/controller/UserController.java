@@ -50,6 +50,7 @@ public class UserController {
 
     @ApiOperation(value = "查询列表")
     @GetMapping("/list")
+
     public User list(@RequestParam String id){
         return userService.list(id);
     }
