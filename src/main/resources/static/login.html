@@ -1,47 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>-->
 <head>
-    <meta charset="UTF-8">
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/login.js"></script>
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <title>登录页面 </title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/ace-fonts.css"/>
+    <link rel="stylesheet" href="css/ace.min.css" id="main-ace-style"/>
 </head>
-<body>
-<h1>宁辉</h1>
-<div class="admin">
-    <tr><td><h3>登录</h3></td></tr>
-    <tr><td>用户名：</td><input type="text" id="username" name="username"></tr><br>
+</head>
+
+<body class="login-layout blur-login">
+<div class="main-container">
+    <div class="main-content">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="login-container">
+                    <div class="center">
+                        <h1>
+                            <span class="white">净水机后台管理</span>
+                        </h1>
+                    </div>
+
+                    <div class="space-6"></div>
+
+                    <div class="position-relative">
+                        <div id="login-box" class="login-box visible widget-box no-border">
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <h4 class="header blue lighter bigger">
+                                        <i class="ace-icon fa fa-coffee green"></i>
+                                        输入登录信息
+                                    </h4>
+
+                                    <div class="space-6"></div>
+
+                                    <form>
+                                        <fieldset>
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" name="username"
+                                                                   placeholder="用户名"/>
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+                                            </label>
+
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control"
+                                                                   placeholder="密码"/>
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+                                            </label>
+
+                                            <div class="space"></div>
+
+                                            <div class="clearfix">
+
+                                                <button type="button" class="width-35 pull-right btn btn-sm btn-primary"
+                                                        onclick="login();">
+                                                    <i class="ace-icon fa fa-key"></i>
+                                                    <span class="bigger-110">登录</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="space-4"></div>
+                                        </fieldset>
+                                    </form>
+
+                                </div><!-- /.widget-main -->
 
 
-    <tr><td>密码</td><input type="text" id="password" name="password"></tr><br>
+                            </div><!-- /.widget-body -->
+                        </div><!-- /.login-box -->
 
 
-    <tr><td><input type="button" value="登录" onclick="login();"></td></tr><br>
-</div>
+                    </div><!-- /.position-relative -->
 
-<!--<script type="text/javascript">-->
-    <!--function login() {-->
-        <!--var name=$("#username").val();-->
-        <!--alert(name)-->
-        <!--var pwd=$("#password").val();-->
-        <!--alert(pwd)-->
-       <!--$.ajax({-->
-           <!--async : false,-->
-        <!--url:"/login",-->
-           <!--type:"GET",-->
-           <!--dataType : "json",-->
-           <!--data:{"username":name,"password":pwd},-->
-              <!--success:function (data) {-->
-               <!--if (data.code==="500"){-->
-                  <!--alert("用户名密码错误")-->
-               <!--}-->
-               <!--if (data.code==="200"){-->
-                   <!--location.href ="index.html"-->
-               <!--}-->
-              <!--}-->
-       <!--})-->
-    <!--}-->
-<!--</script>-->
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.main-content -->
+</div><!-- /.main-container -->
+
+
 </body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/login.js"></script>
 </html>

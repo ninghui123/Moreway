@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-//@Configuration
+@Configuration
 public class ShiroConfiguration {
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
@@ -39,6 +39,10 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/logout", "logout");
 //        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/js/**.js", "anon");
+        filterChainDefinitionMap.put("/css/**","anon");
+        filterChainDefinitionMap.put("/font/**","anon");
+        filterChainDefinitionMap.put("/fonts/**","anon");
+        filterChainDefinitionMap.put("/images/**","anon");
         //只有此url可以被访问
         filterChainDefinitionMap.put("/login", "anon");
         //配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
