@@ -2,6 +2,8 @@ package nh.controller;
 
 import io.swagger.annotations.ApiOperation;
 
+import nh.beans.Page;
+import nh.beans.PageMax;
 import nh.beans.User;
 import nh.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -22,10 +24,7 @@ public class UserController {
     UserService userService;
 
     @ApiOperation(value = "登录")
-//   @PutMapping("/login")
-    @PostMapping("/login")
-//    @GetMapping("/login")
-//    @DeleteMapping("/login")
+    @PostMapping("/user/login")
     public Map<String,Object> login(@RequestParam(required=false) String username, @RequestParam(required=false) String password){
         System.out.println(username+password);
         UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(username,password);
@@ -36,9 +35,7 @@ public class UserController {
 //            //使用shiro后，session交由shiro管理，获取shiro管理的session
 //          Session session=subject.getSession();
 //          session.setAttribute("sss","sdas");
-//          //获取session id
-//            response.sendRedirect("/index.html");
-            map.put("code","500");
+            map.put("code","200");
             return map;
         }catch (Exception e){
             e.printStackTrace();
@@ -49,11 +46,17 @@ public class UserController {
 }
     }
 
-    @ApiOperation(value = "查询列表")
-    @GetMapping("/list")
+    @ApiOperation(value = "查询单个")
+    @GetMapping("/user/one")
 
-    public User list(@RequestParam String id){
-        return userService.list(id);
+    public User listOne(@RequestParam String id){
+        return userService.listOne(id);
+    }
+
+    @ApiOperation(value = "查询列表")
+    @PostMapping("/user/list")
+   public User list(@RequestBody Page page){
+            return userService.list(page);
     }
 
 
@@ -61,5 +64,49 @@ public class UserController {
     public String logout(){
       SecurityUtils.getSubject().logout();
        return "/login";
+    }
+    @ApiOperation(value = "添加用户")
+    @PostMapping("/user/add")
+    public String add(@RequestBody User user){
+        try{
+            userService.add(user);
+            return "200";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "500";
+        }
+    }
+
+    @ApiOperation(value = "修改用户")
+    @PutMapping("/user/update")
+    public String update(@RequestBody User user){
+        try{
+            userService.update(user);
+            return "200";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "500";
+        }
+    }
+
+    @ApiOperation(value = "删除用户")
+    @DeleteMapping("/user/delete")
+    public String delete(@RequestParam String id){
+        try{
+            userService.delete(id);
+            return "200";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "500";
+        }
+    }
+
+    @ApiOperation(value = "最大页数")
+    @GetMapping("/user/pagemax")
+    public PageMax pageMax(){
+        PageMax pageMax=new PageMax();
+        pageMax.setMax((int) Math.ceil(userService.count()));
+        pageMax.setCount(userService.count());
+        return  pageMax;
     }
 }

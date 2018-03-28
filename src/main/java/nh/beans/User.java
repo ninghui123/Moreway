@@ -7,9 +7,10 @@ public class User {
     private String nickname;
     private String email;
     private String pswd;
-    private Date createTtime;
+    private Date createTime;
     private Date lastTime;
     private Integer status;
+    private Integer isDelete;
 
     public String getId() {
         return id;
@@ -43,12 +44,12 @@ public class User {
         this.pswd = pswd;
     }
 
-    public Date getCreateTtime() {
-        return createTtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateTtime(Date createTtime) {
-        this.createTtime = createTtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getLastTime() {
@@ -67,4 +68,11 @@ public class User {
         this.status = status;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
 }
