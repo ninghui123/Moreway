@@ -23,7 +23,8 @@ public class UserController {
 
     @ApiOperation(value = "登录")
 //   @PutMapping("/login")
-    @GetMapping("/login")
+    @PostMapping("/login")
+//    @GetMapping("/login")
 //    @DeleteMapping("/login")
     public Map<String,Object> login(@RequestParam(required=false) String username, @RequestParam(required=false) String password){
         System.out.println(username+password);
@@ -37,7 +38,7 @@ public class UserController {
 //          session.setAttribute("sss","sdas");
 //          //获取session id
 //            response.sendRedirect("/index.html");
-            map.put("code","200");
+            map.put("code","500");
             return map;
         }catch (Exception e){
             e.printStackTrace();

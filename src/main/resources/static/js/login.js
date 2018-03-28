@@ -1,10 +1,13 @@
 function login() {
     var name = $("input[name = 'username']").val();
-    var pwd=$(":password").val();
+
+    var pwd=$("input[name = 'password']").val();
+
     $.ajax({
+
         async : false,
         url:"/login",
-        type:"GET",
+        type:"POST",
         dataType : "json",
         data:{"username":name,"password":pwd},
         success:function (data) {
@@ -15,5 +18,6 @@ function login() {
                 location.href ="index.html"
             }
         }
+
     })
 }
