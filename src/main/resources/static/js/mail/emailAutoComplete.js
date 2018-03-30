@@ -1,359 +1,359 @@
 
 /**
- * ÓÊÏä×Ô¶¯ÌáÊ¾²å¼ş
+ * é‚®ç®±è‡ªåŠ¨æç¤ºæ’ä»¶
  * @constructor EmailAutoComplete
- * @ options {object} ¿ÉÅäÖÃÏî
+ * @ options {object} å¯é…ç½®é¡¹
  */
- function EmailAutoComplete(options) {
-	
-	this.config = {
-		targetCls      :  '.inputElem',       // Ä¿±êinputÔªËØ
-		parentCls      :  '.parentCls',       // µ±Ç°inputÔªËØµÄ¸¸¼¶Àà
-		hiddenCls      :  '.hiddenCls',       // µ±Ç°inputÒş²ØÓò 
-		searchForm     :  '.jqtransformdone', //form±íµ¥
-		hoverBg        :  'hoverBg',          // Êó±êÒÆÉÏÈ¥µÄ±³¾°
-		inputValColor  :  'black',              // ÊäÈë¿òÊäÈëÌáÊ¾ÑÕÉ«
-		mailArr        : ["@qq.com","@gmail.com","@126.com","@163.com","@hotmail.com","@yahoo.com","@yahoo.com.cn","@live.com","@sohu.com","@sina.com"], //ÓÊÏäÊı×é
-		isSelectHide   : true,                // µã»÷ÏÂÀ­¿ò ÊÇ·ñÒş²Ø Ä¬ÈÏÎªtrue
-		callback       : null                 // µã»÷Ä³Ò»Ïî»Øµ÷º¯Êı
-	};
-	this.cache = {
-		onlyFlag            : true,     // Ö»äÖÈ¾Ò»´Î
-		currentIndex        : -1,
+function EmailAutoComplete(options) {
+
+    this.config = {
+        targetCls      :  '.inputElem',       // ç›®æ ‡inputå…ƒç´ 
+        parentCls      :  '.parentCls',       // å½“å‰inputå…ƒç´ çš„çˆ¶çº§ç±»
+        hiddenCls      :  '.hiddenCls',       // å½“å‰inputéšè—åŸŸ
+        searchForm     :  '.jqtransformdone', //formè¡¨å•
+        hoverBg        :  'hoverBg',          // é¼ æ ‡ç§»ä¸Šå»çš„èƒŒæ™¯
+        inputValColor  :  'black',              // è¾“å…¥æ¡†è¾“å…¥æç¤ºé¢œè‰²
+        mailArr        : ["@qq.com","@gmail.com","@126.com","@163.com","@hotmail.com","@yahoo.com","@yahoo.com.cn","@live.com","@sohu.com","@sina.com"], //é‚®ç®±æ•°ç»„
+        isSelectHide   : true,                // ç‚¹å‡»ä¸‹æ‹‰æ¡† æ˜¯å¦éšè— é»˜è®¤ä¸ºtrue
+        callback       : null                 // ç‚¹å‡»æŸä¸€é¡¹å›è°ƒå‡½æ•°
+    };
+    this.cache = {
+        onlyFlag            : true,     // åªæ¸²æŸ“ä¸€æ¬¡
+        currentIndex        : -1,
         oldIndex            : -1
-	};
-	
-	this.init(options);
- }
+    };
+
+    this.init(options);
+}
 
 EmailAutoComplete.prototype = {
-	
-	constructor: EmailAutoComplete,
 
-	init: function(options){
-		this.config = $.extend(this.config,options || {});
+    constructor: EmailAutoComplete,
 
-		var self = this,
-			_config = self.config,
-			_cache = self.cache;
-		
-		$(_config.targetCls).each(function(index,item){
-			
-			$(item).keyup(function(e){
-				var target = e.target,
-					targetVal = $.trim($(this).val()),
-					keycode = e.keyCode,
-					elemHeight = $(this).outerHeight(),
-					elemWidth = $(this).outerWidth(),
-					parentNode = $(this).closest(_config.parentCls);
-				
-				$(parentNode).css({'position':'relative'});
-				// Èç¹ûÊäÈë¿òÖµÎª¿ÕµÄ»° ÄÇÃ´ÏÂÀ­¿òÒş²Ø
-				if(targetVal == '') {
-					$(item).attr({'data-html':''});
-					// ¸øÒş²ØÓò¸³Öµ
-					$(_config.hiddenCls,parentNode).val('');
+    init: function(options){
+        this.config = $.extend(this.config,options || {});
 
-					_cache.currentIndex = -1;
-					_cache.oldIndex = -1;
-					$(".auto-tip",parentNode) && !$(".auto-tip",parentNode).hasClass('hidden') && $(".auto-tip",parentNode).addClass('hidden');
-					self._removeBg(parentNode);
-				}else {
-					
-					$(item).attr({'data-html':targetVal});
+        var self = this,
+            _config = self.config,
+            _cache = self.cache;
 
-					// ¸øÒş²ØÓò¸³Öµ
-					$(_config.hiddenCls,parentNode).val(targetVal);
-					
-					$(".auto-tip",parentNode) && $(".auto-tip",parentNode).hasClass('hidden') && $(".auto-tip",parentNode).removeClass('hidden');
-					// äÖÈ¾ÏÂÀ­¿òÄÚÈİ
-					self._renderHTML({keycode:keycode,e:e,target:target,targetVal:targetVal,height:elemHeight,width:elemWidth,parentNode:parentNode});
-				}
-				
-				
-			});
-		});
-		
-	   // ×èÖ¹form±íµ¥Ä¬ÈÏenter¼üÌá½»
-	   $(_config.searchForm).each(function(index,item) {
-			$(item).keydown(function(e){
-				 var keyCode = e.keyCode;
-				 if(keyCode == 13) {
-					 return false;
-				 }
-			});
-	   });
+        $(_config.targetCls).each(function(index,item){
 
-	   // µã»÷ÎÄµµdocumentÊ±ºò ÏÂÀ­¿òÒş²Øµô
-	   $(document).click(function(e){
-		  e.stopPropagation();
-		  var target = e.target,
-			  tagCls = _config.targetCls.replace(/^\./,'');
+            $(item).keyup(function(e){
+                var target = e.target,
+                    targetVal = $.trim($(this).val()),
+                    keycode = e.keyCode,
+                    elemHeight = $(this).outerHeight(),
+                    elemWidth = $(this).outerWidth(),
+                    parentNode = $(this).closest(_config.parentCls);
 
-		  if(!$(target).hasClass(tagCls)) {
-			 $('.auto-tip') && $('.auto-tip').each(function(index,item){
-				 !$(item).hasClass('hidden') && $(item).addClass('hidden');
-			 });
-		  }
-	   });
-	},
+                $(parentNode).css({'position':'relative'});
+                // å¦‚æœè¾“å…¥æ¡†å€¼ä¸ºç©ºçš„è¯ é‚£ä¹ˆä¸‹æ‹‰æ¡†éšè—
+                if(targetVal == '') {
+                    $(item).attr({'data-html':''});
+                    // ç»™éšè—åŸŸèµ‹å€¼
+                    $(_config.hiddenCls,parentNode).val('');
+
+                    _cache.currentIndex = -1;
+                    _cache.oldIndex = -1;
+                    $(".auto-tip",parentNode) && !$(".auto-tip",parentNode).hasClass('hidden') && $(".auto-tip",parentNode).addClass('hidden');
+                    self._removeBg(parentNode);
+                }else {
+
+                    $(item).attr({'data-html':targetVal});
+
+                    // ç»™éšè—åŸŸèµ‹å€¼
+                    $(_config.hiddenCls,parentNode).val(targetVal);
+
+                    $(".auto-tip",parentNode) && $(".auto-tip",parentNode).hasClass('hidden') && $(".auto-tip",parentNode).removeClass('hidden');
+                    // æ¸²æŸ“ä¸‹æ‹‰æ¡†å†…å®¹
+                    self._renderHTML({keycode:keycode,e:e,target:target,targetVal:targetVal,height:elemHeight,width:elemWidth,parentNode:parentNode});
+                }
+
+
+            });
+        });
+
+        // é˜»æ­¢formè¡¨å•é»˜è®¤enteré”®æäº¤
+        $(_config.searchForm).each(function(index,item) {
+            $(item).keydown(function(e){
+                var keyCode = e.keyCode;
+                if(keyCode == 13) {
+                    return false;
+                }
+            });
+        });
+
+        // ç‚¹å‡»æ–‡æ¡£documentæ—¶å€™ ä¸‹æ‹‰æ¡†éšè—æ‰
+        $(document).click(function(e){
+            e.stopPropagation();
+            var target = e.target,
+                tagCls = _config.targetCls.replace(/^\./,'');
+
+            if(!$(target).hasClass(tagCls)) {
+                $('.auto-tip') && $('.auto-tip').each(function(index,item){
+                    !$(item).hasClass('hidden') && $(item).addClass('hidden');
+                });
+            }
+        });
+    },
 	/*
-	 * äÖÈ¾ÏÂÀ­¿òÌáÊ¾ÄÚÈİ
+	 * æ¸²æŸ“ä¸‹æ‹‰æ¡†æç¤ºå†…å®¹
 	 * @param cfg{object}
 	 */
-	_renderHTML: function(cfg) {
-		var self = this,
-			_config = self.config,
-			_cache = self.cache,
-			curVal;
-		var curIndex = self._keyCode(cfg.keycode);
-		
-		$('.auto-tip',cfg.parentNode).hasClass('hidden') && $('.auto-tip',cfg.parentNode).removeClass('hidden');
-		if(curIndex > -1){
-			// ¼üÅÌÉÏÏÂ²Ù×÷
-			self._keyUpAndDown(cfg.targetVal,cfg.e,cfg.parentNode);
-		}else {
-			if(/@/.test(cfg.targetVal)) {
-				curVal = cfg.targetVal.replace(/@.*/,'');
-			}else {
-				curVal = cfg.targetVal;
-			}
-			if(_cache.onlyFlag) {
-				$(cfg.parentNode).append('<input type="hidden" class="hiddenCls"/>');
-				var wrap = '<ul class="auto-tip">';
+    _renderHTML: function(cfg) {
+        var self = this,
+            _config = self.config,
+            _cache = self.cache,
+            curVal;
+        var curIndex = self._keyCode(cfg.keycode);
 
-				for(var i = 0; i < _config.mailArr.length; i++) {
+        $('.auto-tip',cfg.parentNode).hasClass('hidden') && $('.auto-tip',cfg.parentNode).removeClass('hidden');
+        if(curIndex > -1){
+            // é”®ç›˜ä¸Šä¸‹æ“ä½œ
+            self._keyUpAndDown(cfg.targetVal,cfg.e,cfg.parentNode);
+        }else {
+            if(/@/.test(cfg.targetVal)) {
+                curVal = cfg.targetVal.replace(/@.*/,'');
+            }else {
+                curVal = cfg.targetVal;
+            }
+            if(_cache.onlyFlag) {
+                $(cfg.parentNode).append('<input type="hidden" class="hiddenCls"/>');
+                var wrap = '<ul class="auto-tip">';
 
-					wrap += '<li class="p-index'+i+'">'+'<span class="output-num"></span><em class="em" data-html="'+_config.mailArr[i]+'">'+_config.mailArr[i]+'</em></li>';
-				}
-				wrap += '</ul>';
-				_cache.onlyFlag = false;
-				$(cfg.parentNode).append(wrap);
-				$('.auto-tip',cfg.parentNode).css({'position':'absolute','top':cfg.height,'width':cfg.width - 2 + 'px','left':0,
-					'border':'1px solid #ccc','z-index':10000});
-			}
-			
-			// ¸øËùÓĞliÌí¼ÓÊôĞÔ data-html
-			$('.auto-tip li',cfg.parentNode).each(function(index,item){
-				$('.output-num',item).html(curVal);
-				!$('.output-num',item).hasClass(_config.inputValColor) && 
-				$('.output-num',item).addClass(_config.inputValColor);
-				var emVal = $.trim($('.em',item).attr('data-html'));
-				$(item).attr({'data-html':curVal + '' +emVal});
-			});
+                for(var i = 0; i < _config.mailArr.length; i++) {
 
-			// ¾«È·Æ¥ÅäÄÚÈİ
-			self._accurateMate({target:cfg.target,parentNode:cfg.parentNode});
+                    wrap += '<li class="p-index'+i+'">'+'<span class="output-num"></span><em class="em" data-html="'+_config.mailArr[i]+'">'+_config.mailArr[i]+'</em></li>';
+                }
+                wrap += '</ul>';
+                _cache.onlyFlag = false;
+                $(cfg.parentNode).append(wrap);
+                $('.auto-tip',cfg.parentNode).css({'position':'absolute','top':cfg.height,'width':cfg.width - 2 + 'px','left':0,
+                    'border':'1px solid #ccc','z-index':10000});
+            }
 
-			// Êó±êÒÆµ½Ä³Ò»ÏîliÉÏÃæÊ±ºò
-			self._itemHover(cfg.parentNode);
-			
-			// µã»÷¶ÔÓ¦µÄÏîÊ±
-			self._executeClick(cfg.parentNode);
-		}
-		
-	},
-	/**
-	 * ¾«È·Æ¥ÅäÄ³ÏîÄÚÈİ
-	 */
-	_accurateMate: function(cfg) {
-		var self = this,
-			_config = self.config,
-			_cache = self.cache;
-		
-		var curVal = $.trim($(cfg.target,cfg.parentNode).attr('data-html')),
-			newArrs = [];
-		if(/@/.test(curVal)) {
-			
-			// »ñµÃ@ Ç°Ãæ ºóÃæµÄÖµ
-			var prefix = curVal.replace(/@.*/, ""),
-				suffix = curVal.replace(/.*@/, "");
+            // ç»™æ‰€æœ‰liæ·»åŠ å±æ€§ data-html
+            $('.auto-tip li',cfg.parentNode).each(function(index,item){
+                $('.output-num',item).html(curVal);
+                !$('.output-num',item).hasClass(_config.inputValColor) &&
+                $('.output-num',item).addClass(_config.inputValColor);
+                var emVal = $.trim($('.em',item).attr('data-html'));
+                $(item).attr({'data-html':curVal + '' +emVal});
+            });
 
-			$.map(_config.mailArr,function(n){
-				var reg = new RegExp(suffix);
-				if(reg.test(n)) {
-					newArrs.push(n);
-				}
-			});
-			if(newArrs.length > 0) {
-				$('.auto-tip',cfg.parentNode).html('');
-				$(".auto-tip",cfg.parentNode) && $(".auto-tip",cfg.parentNode).hasClass('hidden') && 
-				$(".auto-tip",cfg.parentNode).removeClass('hidden');
+            // ç²¾ç¡®åŒ¹é…å†…å®¹
+            self._accurateMate({target:cfg.target,parentNode:cfg.parentNode});
 
-				var html = '';
-				for(var j = 0, jlen = newArrs.length; j < jlen; j++) {
-					html += '<li class="p-index'+j+'">'+'<span class="output-num"></span><em class="em" data-html="'+newArrs[j]+'">'+newArrs[j]+'</em></li>';
-				}
-				$('.auto-tip',cfg.parentNode).html(html);
-				
-				// ¸øËùÓĞliÌí¼ÓÊôĞÔ data-html
-				$('.auto-tip li',cfg.parentNode).each(function(index,item){
-					$('.output-num',item).html(prefix);
-					!$('.output-num',item).hasClass(_config.inputValColor) && 
-					$('.output-num',item).addClass(_config.inputValColor);
+            // é¼ æ ‡ç§»åˆ°æŸä¸€é¡¹liä¸Šé¢æ—¶å€™
+            self._itemHover(cfg.parentNode);
 
-					var emVal = $.trim($('.em',item).attr('data-html'));
-					
-					$(item).attr('data-html','');
-					$(item).attr({'data-html':prefix + '' +emVal});
-				});
+            // ç‚¹å‡»å¯¹åº”çš„é¡¹æ—¶
+            self._executeClick(cfg.parentNode);
+        }
 
-				// ¾«È·Æ¥Åäµ½Ä³ÏîÊ±ºò ÈÃµ±Ç°µÄË÷ÒıµÈÓÚ³õÊ¼Öµ
-				_cache.currentIndex = -1;
-				_cache.oldIndex = -1;
-				
-				$('.auto-tip .output-num',cfg.parentNode).html(prefix);
-
-				// Êó±êÒÆµ½Ä³Ò»ÏîliÉÏÃæÊ±ºò
-				self._itemHover(cfg.parentNode);
-
-				// µã»÷¶ÔÓ¦µÄÏîÊ±
-				self._executeClick(cfg.parentNode);
-			}else {
-				$(".auto-tip",cfg.parentNode) && !$(".auto-tip",cfg.parentNode).hasClass('hidden') && 
-				$(".auto-tip",cfg.parentNode).addClass('hidden');
-				$('.auto-tip',cfg.parentNode).html('');
-			}
-		}
-	},
-	/*
-	 * Êó±êÒÆµ½Ä³Ò»ÏîliÉÏÊ±
-	 */
-	_itemHover: function(parentNode) {
-		var self = this,
-			_config = self.config,
-			_cache = self.cache;
-		$('.auto-tip li',parentNode).hover(function(index,item) {
-			!$(this).hasClass(_config.hoverBg) && $(this).addClass(_config.hoverBg);
-		},function() {
-			$(this).hasClass(_config.hoverBg) && $(this).removeClass(_config.hoverBg);
-		});
-	},
-	/*
-	 * µ±ÊäÈë¿òÖµÎª¿ÕÊ±ºò liÏî¶¼É¾µôclass hoverBg
-	 */
-	_removeBg: function(parentNode){
-		var self = this,
-			_config = self.config;
-
-		$(".auto-tip li",parentNode).each(function(index,item){
-			$(item).hasClass(_config.hoverBg) && $(item).removeClass(_config.hoverBg);
-		});	
-	},
-	/**
-     * ¼üÅÌÉÏÏÂ¼ü²Ù×÷
+    },
+    /**
+     * ç²¾ç¡®åŒ¹é…æŸé¡¹å†…å®¹
      */
-	 _keyUpAndDown: function(targetVal,e,parentNode) {
-		var self = this,
-			_cache = self.cache,
-			_config = self.config;
+    _accurateMate: function(cfg) {
+        var self = this,
+            _config = self.config,
+            _cache = self.cache;
 
-		// Èç¹ûÇëÇó³É¹¦ºó ·µ»ØÁËÊı¾İ(¸ù¾İÔªËØµÄ³¤¶ÈÀ´ÅĞ¶Ï) Ö´ĞĞÒÔÏÂ²Ù×÷
-		if($('.auto-tip' + ' li',parentNode) && $('.auto-tip' + ' li').length > 0) {
+        var curVal = $.trim($(cfg.target,cfg.parentNode).attr('data-html')),
+            newArrs = [];
+        if(/@/.test(curVal)) {
 
-			var plen = $('.auto-tip' + ' li',parentNode).length,
-				keyCode = e.keyCode;
-				_cache.oldIndex = _cache.currentIndex;
-			
+            // è·å¾—@ å‰é¢ åé¢çš„å€¼
+            var prefix = curVal.replace(/@.*/, ""),
+                suffix = curVal.replace(/.*@/, "");
 
-			// ÉÏÒÆ²Ù×÷
-			if(keyCode == 38) {
-				if(_cache.currentIndex == -1) {
-					_cache.currentIndex = plen - 1;
-				}else {
-					_cache.currentIndex = _cache.currentIndex - 1;
-					if(_cache.currentIndex < 0) {
-						_cache.currentIndex = plen - 1;
-					}
-				}
-				if(_cache.currentIndex !== -1) {
-					
+            $.map(_config.mailArr,function(n){
+                var reg = new RegExp(suffix);
+                if(reg.test(n)) {
+                    newArrs.push(n);
+                }
+            });
+            if(newArrs.length > 0) {
+                $('.auto-tip',cfg.parentNode).html('');
+                $(".auto-tip",cfg.parentNode) && $(".auto-tip",cfg.parentNode).hasClass('hidden') &&
+                $(".auto-tip",cfg.parentNode).removeClass('hidden');
 
-					!$('.auto-tip .p-index'+_cache.currentIndex,parentNode).hasClass(_config.hoverBg) &&
+                var html = '';
+                for(var j = 0, jlen = newArrs.length; j < jlen; j++) {
+                    html += '<li class="p-index'+j+'">'+'<span class="output-num"></span><em class="em" data-html="'+newArrs[j]+'">'+newArrs[j]+'</em></li>';
+                }
+                $('.auto-tip',cfg.parentNode).html(html);
+
+                // ç»™æ‰€æœ‰liæ·»åŠ å±æ€§ data-html
+                $('.auto-tip li',cfg.parentNode).each(function(index,item){
+                    $('.output-num',item).html(prefix);
+                    !$('.output-num',item).hasClass(_config.inputValColor) &&
+                    $('.output-num',item).addClass(_config.inputValColor);
+
+                    var emVal = $.trim($('.em',item).attr('data-html'));
+
+                    $(item).attr('data-html','');
+                    $(item).attr({'data-html':prefix + '' +emVal});
+                });
+
+                // ç²¾ç¡®åŒ¹é…åˆ°æŸé¡¹æ—¶å€™ è®©å½“å‰çš„ç´¢å¼•ç­‰äºåˆå§‹å€¼
+                _cache.currentIndex = -1;
+                _cache.oldIndex = -1;
+
+                $('.auto-tip .output-num',cfg.parentNode).html(prefix);
+
+                // é¼ æ ‡ç§»åˆ°æŸä¸€é¡¹liä¸Šé¢æ—¶å€™
+                self._itemHover(cfg.parentNode);
+
+                // ç‚¹å‡»å¯¹åº”çš„é¡¹æ—¶
+                self._executeClick(cfg.parentNode);
+            }else {
+                $(".auto-tip",cfg.parentNode) && !$(".auto-tip",cfg.parentNode).hasClass('hidden') &&
+                $(".auto-tip",cfg.parentNode).addClass('hidden');
+                $('.auto-tip',cfg.parentNode).html('');
+            }
+        }
+    },
+	/*
+	 * é¼ æ ‡ç§»åˆ°æŸä¸€é¡¹liä¸Šæ—¶
+	 */
+    _itemHover: function(parentNode) {
+        var self = this,
+            _config = self.config,
+            _cache = self.cache;
+        $('.auto-tip li',parentNode).hover(function(index,item) {
+            !$(this).hasClass(_config.hoverBg) && $(this).addClass(_config.hoverBg);
+        },function() {
+            $(this).hasClass(_config.hoverBg) && $(this).removeClass(_config.hoverBg);
+        });
+    },
+	/*
+	 * å½“è¾“å…¥æ¡†å€¼ä¸ºç©ºæ—¶å€™ lié¡¹éƒ½åˆ æ‰class hoverBg
+	 */
+    _removeBg: function(parentNode){
+        var self = this,
+            _config = self.config;
+
+        $(".auto-tip li",parentNode).each(function(index,item){
+            $(item).hasClass(_config.hoverBg) && $(item).removeClass(_config.hoverBg);
+        });
+    },
+    /**
+     * é”®ç›˜ä¸Šä¸‹é”®æ“ä½œ
+     */
+    _keyUpAndDown: function(targetVal,e,parentNode) {
+        var self = this,
+            _cache = self.cache,
+            _config = self.config;
+
+        // å¦‚æœè¯·æ±‚æˆåŠŸå è¿”å›äº†æ•°æ®(æ ¹æ®å…ƒç´ çš„é•¿åº¦æ¥åˆ¤æ–­) æ‰§è¡Œä»¥ä¸‹æ“ä½œ
+        if($('.auto-tip' + ' li',parentNode) && $('.auto-tip' + ' li').length > 0) {
+
+            var plen = $('.auto-tip' + ' li',parentNode).length,
+                keyCode = e.keyCode;
+            _cache.oldIndex = _cache.currentIndex;
+
+
+            // ä¸Šç§»æ“ä½œ
+            if(keyCode == 38) {
+                if(_cache.currentIndex == -1) {
+                    _cache.currentIndex = plen - 1;
+                }else {
+                    _cache.currentIndex = _cache.currentIndex - 1;
+                    if(_cache.currentIndex < 0) {
+                        _cache.currentIndex = plen - 1;
+                    }
+                }
+                if(_cache.currentIndex !== -1) {
+
+
+                    !$('.auto-tip .p-index'+_cache.currentIndex,parentNode).hasClass(_config.hoverBg) &&
                     $('.auto-tip .p-index'+_cache.currentIndex,parentNode).addClass(_config.hoverBg).siblings().removeClass(_config.hoverBg);
 
-					var curAttr = $('.auto-tip' + ' .p-index'+_cache.currentIndex,parentNode).attr('data-html');
-					$(_config.targetCls,parentNode).val(curAttr);
-					
-					// ¸øÒş²ØÓò¸³Öµ
-					$(_config.hiddenCls,parentNode).val(curAttr);
-				}
+                    var curAttr = $('.auto-tip' + ' .p-index'+_cache.currentIndex,parentNode).attr('data-html');
+                    $(_config.targetCls,parentNode).val(curAttr);
 
-			}else if(keyCode == 40) { //ÏÂÒÆ²Ù×÷
-				if(_cache.currentIndex == plen - 1) {
-					_cache.currentIndex = 0;
-				}else {
-					_cache.currentIndex++;
-					if(_cache.currentIndex > plen - 1) {
-						_cache.currentIndex = 0;
-					}
-				}
+                    // ç»™éšè—åŸŸèµ‹å€¼
+                    $(_config.hiddenCls,parentNode).val(curAttr);
+                }
 
-				if(_cache.currentIndex !== -1) {
-					
-					!$('.auto-tip .p-index'+_cache.currentIndex,parentNode).hasClass(_config.hoverBg) &&
+            }else if(keyCode == 40) { //ä¸‹ç§»æ“ä½œ
+                if(_cache.currentIndex == plen - 1) {
+                    _cache.currentIndex = 0;
+                }else {
+                    _cache.currentIndex++;
+                    if(_cache.currentIndex > plen - 1) {
+                        _cache.currentIndex = 0;
+                    }
+                }
+
+                if(_cache.currentIndex !== -1) {
+
+                    !$('.auto-tip .p-index'+_cache.currentIndex,parentNode).hasClass(_config.hoverBg) &&
                     $('.auto-tip .p-index'+_cache.currentIndex,parentNode).addClass(_config.hoverBg).siblings().removeClass(_config.hoverBg);
-					
-					var curAttr = $('.auto-tip' + ' .p-index'+_cache.currentIndex,parentNode).attr('data-html');
-					$(_config.targetCls,parentNode).val(curAttr);
-					// ¸øÒş²ØÓò¸³Öµ
-					$(_config.hiddenCls,parentNode).val(curAttr);
-				}
-				
-			}else if(keyCode == 13) { //»Ø³µ²Ù×÷
-				var curVal = $('.auto-tip' + ' .p-index'+_cache.oldIndex,parentNode).attr('data-html');
-				$(_config.targetCls,parentNode).val(curVal);
-				
-				// ¸øÒş²ØÓò¸³Öµ
-				$(_config.hiddenCls,parentNode).val(curVal);
 
-				if(_config.isSelectHide) {
-					 !$(".auto-tip",parentNode).hasClass('hidden') && $(".auto-tip",parentNode).addClass('hidden');
-				 }
-				 _config.callback && $.isFunction(_config.callback) && _config.callback();
+                    var curAttr = $('.auto-tip' + ' .p-index'+_cache.currentIndex,parentNode).attr('data-html');
+                    $(_config.targetCls,parentNode).val(curAttr);
+                    // ç»™éšè—åŸŸèµ‹å€¼
+                    $(_config.hiddenCls,parentNode).val(curAttr);
+                }
 
-				_cache.currentIndex = -1;
-				_cache.oldIndex = -1;
-				
-			}
-		}
-	 },
-	 _keyCode: function(code) {
-         var arrs = ['17','18','38','40','37','39','33','34','35','46','36','13','45','44','145','19','20','9'];
-         for(var i = 0, ilen = arrs.length; i < ilen; i++) {
-             if(code == arrs[i]) {
-                 return i;
-             }
-         }
-         return -1;
-     },
-	/**
-	  * µ±Êı¾İÏàÍ¬µÄÊ± µã»÷¶ÔÓ¦µÄÏîÊ± ·µ»ØÊı¾İ
-	  */
-	 _executeClick: function(parentNode) {
-		
-		 var _self = this,
-			 _config = _self.config;
+            }else if(keyCode == 13) { //å›è½¦æ“ä½œ
+                var curVal = $('.auto-tip' + ' .p-index'+_cache.oldIndex,parentNode).attr('data-html');
+                $(_config.targetCls,parentNode).val(curVal);
 
-		 $('.auto-tip' + ' li',parentNode).unbind('click');
-		 $('.auto-tip' + ' li',parentNode).bind('click',function(e){
-			  var dataAttr = $(this).attr('data-html');
+                // ç»™éšè—åŸŸèµ‹å€¼
+                $(_config.hiddenCls,parentNode).val(curVal);
 
-			  $(_config.targetCls,parentNode).val(dataAttr);
-			  if(_config.isSelectHide) {
-				  !$(".auto-tip",parentNode).hasClass('hidden') && $(".auto-tip",parentNode).addClass('hidden');
-			  }
-			  // ¸øÒş²ØÓò¸³Öµ
-			  $(_config.hiddenCls,parentNode).val(dataAttr);
-			  _config.callback && $.isFunction(_config.callback) && _config.callback();
-			  
-		 });
-	 }
+                if(_config.isSelectHide) {
+                    !$(".auto-tip",parentNode).hasClass('hidden') && $(".auto-tip",parentNode).addClass('hidden');
+                }
+                _config.callback && $.isFunction(_config.callback) && _config.callback();
+
+                _cache.currentIndex = -1;
+                _cache.oldIndex = -1;
+
+            }
+        }
+    },
+    _keyCode: function(code) {
+        var arrs = ['17','18','38','40','37','39','33','34','35','46','36','13','45','44','145','19','20','9'];
+        for(var i = 0, ilen = arrs.length; i < ilen; i++) {
+            if(code == arrs[i]) {
+                return i;
+            }
+        }
+        return -1;
+    },
+    /**
+     * å½“æ•°æ®ç›¸åŒçš„æ—¶ ç‚¹å‡»å¯¹åº”çš„é¡¹æ—¶ è¿”å›æ•°æ®
+     */
+    _executeClick: function(parentNode) {
+
+        var _self = this,
+            _config = _self.config;
+
+        $('.auto-tip' + ' li',parentNode).unbind('click');
+        $('.auto-tip' + ' li',parentNode).bind('click',function(e){
+            var dataAttr = $(this).attr('data-html');
+
+            $(_config.targetCls,parentNode).val(dataAttr);
+            if(_config.isSelectHide) {
+                !$(".auto-tip",parentNode).hasClass('hidden') && $(".auto-tip",parentNode).addClass('hidden');
+            }
+            // ç»™éšè—åŸŸèµ‹å€¼
+            $(_config.hiddenCls,parentNode).val(dataAttr);
+            _config.callback && $.isFunction(_config.callback) && _config.callback();
+
+        });
+    }
 };
 
-// ³õÊ¼»¯
+// åˆå§‹åŒ–
 $(function() {
-	new EmailAutoComplete({});
+    new EmailAutoComplete({});
 });
 
 
@@ -375,23 +375,3 @@ $(function() {
 
 
 
-
-
-
-
-
-
-
-
-jquery.min.js
-jquery.mobile.custom.min.js
-
-ace-extra.min.js
-bootstrap.min.js
-jquery.dataTables.min.js
-jquery.dataTables.bootstrap.js
-
-	js/mail/jquery.min.js
-	mail/emailAutoComplete.js
-		ace-elements.min.js
-		ace.min.js"></script>

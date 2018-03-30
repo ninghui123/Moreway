@@ -6,6 +6,8 @@ import nh.beans.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
     User login(@Param("username") String username);
@@ -13,6 +15,6 @@ public interface UserMapper {
     void add(User user);
     void update(User user);
     void delete(@Param("id")String id);
-    User list(@Param("page") Page page);
+    List<User> list(@Param("page") Page page);
     Long count();
 }
