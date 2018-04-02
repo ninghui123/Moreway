@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -55,7 +56,7 @@ public class UserController {
 
     @ApiOperation(value = "查询列表")
     @PostMapping("/user/list")
-   public User list(@RequestBody Page page){
+   public List<User> list(@RequestBody Page page){
             return userService.list(page);
     }
 
@@ -90,9 +91,10 @@ public class UserController {
     }
 
     @ApiOperation(value = "删除用户")
-    @DeleteMapping("/user/delete")
-    public String delete(@RequestParam String id){
+    @DeleteMapping("/user/delete/{id}")
+    public String delete(@PathVariable String id){
         try{
+            System.out.println(id);
             userService.delete(id);
             return "200";
         }catch (Exception e){

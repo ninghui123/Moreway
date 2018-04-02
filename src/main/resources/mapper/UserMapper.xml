@@ -41,6 +41,12 @@
             <if test="pswd!=null and pswd!=''">
                 pswd,
             </if>
+            <if test="createTime!=null">
+                create_time,
+            </if>
+            <if test="lastTime!=null">
+                last_login_time,
+            </if>
             <if test="status!=null">
                 status,
             </if>
@@ -64,6 +70,12 @@
             <if test="pswd!=null and pswd!=''">
                 #{pswd},
             </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="lastTime!=null">
+                #{lastTime},
+            </if>
             <if test="status!=null">
                 #{status},
             </if>
@@ -75,7 +87,7 @@
 
 
 <select id="login" resultType="nh.beans.User">
-SELECT * FROM u_user WHERE nickname=#{username}
+SELECT * FROM u_user WHERE nickname=#{username} and is_delete=0
 </select>
     <select id="listOne" resultType="nh.beans.User">
         SELECT * FROM u_user WHERE id=#{id}
@@ -96,7 +108,7 @@ SELECT * FROM u_user WHERE nickname=#{username}
     </insert>
 
     <update id="delete" parameterType="java.lang.String">
-        UPDATE u_user SET isdelete=1 WHERE id=#{id}
+        UPDATE u_user SET is_delete=1 WHERE id=#{id}
     </update>
 
     <select id="count" resultType="java.lang.Long">
