@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.count();
     }
 
+    @Override
+    public List<User> search(String str) {
+        return userMapper.search(str);
+    }
+
 }

@@ -23,4 +23,5 @@ public interface UserMapper {
     List<User> list(@Param("page") Page page);
 
     Long count();
+    List<User> search(@Param("str")String str);
 }
