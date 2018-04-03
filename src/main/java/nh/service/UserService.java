@@ -14,4 +14,5 @@ public interface UserService {
     void update(User user);
     void delete(String id);
     Long count();
+    List<User> search(String str);
 }

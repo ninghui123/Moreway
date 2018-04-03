@@ -114,5 +114,14 @@ SELECT * FROM u_user WHERE nickname=#{username} and is_delete=0
     <select id="count" resultType="java.lang.Long">
         SELECT COUNT(1) FROM u_user WHERE is_delete=0
     </select>
+    
+    <select id="search" resultType="nh.beans.User">
+        SELECT * FROM u_user
+        <where>
+            <if test="str!=null and str!=''">
+                 CONCAT(nickname,pswd) LIKE CONCAT('%',#{str},'%')
+            </if>
+        </where>
 
+    </select>
 </mapper>

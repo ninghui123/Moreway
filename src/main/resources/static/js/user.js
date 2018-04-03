@@ -1,7 +1,6 @@
 
 
 $(function () {
-
         list();
 })
 
@@ -48,9 +47,6 @@ function list() {
                 $("#hs").append(str);
             }
         });
-
-
-
 }
 
 
@@ -96,8 +92,6 @@ function del(){
         }
     });
 }
-
-
 
 
 

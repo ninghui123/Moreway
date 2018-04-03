@@ -94,7 +94,6 @@ public class UserController {
     @DeleteMapping("/user/delete/{id}")
     public String delete(@PathVariable String id){
         try{
-            System.out.println(id);
             userService.delete(id);
             return "200";
         }catch (Exception e){
@@ -110,5 +109,12 @@ public class UserController {
         pageMax.setMax((int) Math.ceil(userService.count()));
         pageMax.setCount(userService.count());
         return  pageMax;
+    }
+
+    @ApiOperation(value = "模糊查询")
+    @GetMapping("/user/search")
+    public List<User> like(String str){
+
+        return userService.search(str);
     }
 }
