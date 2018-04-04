@@ -9,7 +9,7 @@ public class Page {
     }
 
     public void setPageNext(Integer pageNext) {
-        this.pageNext = pageNext-1;
+        this.pageNext =pageNext==1?pageNext-1:pageNext*pageSize-pageSize;
     }
 
 
@@ -20,4 +20,6 @@ public class Page {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
+
+
 }

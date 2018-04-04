@@ -91,9 +91,9 @@ var  page = {
                 itemPageClass = "pageItemActive";
             }
 
-            appendStr+="<li class='"+itemPageClass+"' page-data='"+pageNumber+"' page-rel='itempage'>"+pageNumber+"</li>";
+            appendStr+="<li class='"+itemPageClass+"' page-data='"+pageNumber+"' name='next' onclick=page_next('"+pageNumber+"'); page-rel='itempage' >"+pageNumber+"</li>";
         }
-        appendStr+="<li class='"+nextPageClass+"' page-data='"+nextPage+"' page-rel='nextpage'>下一页&gt;</li>";
+        appendStr+="<li class='"+nextPageClass+"' page-data='"+nextPage+"'  onclick=next('"+nextPage+"'); page-rel='nextpage'>下一页&gt;</li>";
         appendStr+="<li class='"+nextPageClass+"' page-data='"+pageCount+"' page-rel='lastpage'>尾页</li>";
        return appendStr;
 
@@ -108,12 +108,60 @@ var GG = {
     }
 }
 
-$("#page").initPage(71,1,GG.kk);
-$("#page").paging({
-    pageNo:4,
-    totalPage: 10,
-    totalSize: 300,
-    callback: function(num) {
-        alert(num)
-    }
+$(function () {
+    page_max();
+
 })
+
+
+function page_max() {
+    $.ajax({
+        async:false,
+        url:"/user/pagemax",
+        type:"GET",
+        dataType : "json",
+        success:function (data) {
+            $("#page").initPage(data.max,1,GG.kk);
+            $("#page").paging({
+                pageNo:4,
+                totalPage: 10,
+                totalSize: 300,
+                callback: function(num) {
+                    alert(num)
+                }
+            })
+        }
+    })
+}
+
+function page_next(value) {
+   $.ajax({
+       url:"/user/list",
+       type:"GET",
+       dataType : "json",
+       contentType:"application/json",
+       data:{
+           "pageNext":value,
+           "pageSize":10
+       },
+       success:function (data) {
+           $(".table tr").empty();
+           var obj = "";
+           $.each(data,function (i,list) {
+               obj += '<tr>';
+               // obj +='<td>'+list.id+'</td>';
+               obj +='<td>'+list.nickname+'</td>';
+               obj +='<td>'+list.pswd+'</td>';
+               obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
+               obj +='<td><button type="button" class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button"  class="blue"  onclick=update("'+list.id+'"); data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
+                   '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
+               obj	+='</tr>';
+           })
+           $(".table").append(obj);
+       }
+   })
+}
+
+function next(value) {
+    alert(value)
+}

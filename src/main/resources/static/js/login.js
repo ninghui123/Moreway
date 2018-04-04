@@ -143,6 +143,7 @@ function search() {
         dataType : "json",
         data:{"str":str},
         success:function (data) {
+            $(".table tr").empty();
             var obj = "";
             $.each(data,function (i,list) {
                 obj += '<tr>';

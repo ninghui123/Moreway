@@ -57,18 +57,14 @@
 			<!-- #section:basics/content.searchbox -->
 			<div class="nav-search" id="nav-search">
 
-				<form class="form-search">
-
-
 					<span class="input-icon">
 					<input type="text" placeholder="请输入关键字 ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-					<button style="width:30px; height:28px; border-radius:10%;"  href="#" >
+					<button style="width:30px; height:28px; border-radius:10%;" onclick=search(); >
 					<i class="ace-icon fa fa-search nav-search-icon"></i>
 
 						</button>
 
 							</span>
-				</form>
 
 			</div><!-- /.nav-search -->
 		</div>
@@ -104,7 +100,9 @@
 
 									</tr>
 									</thead>
+                               <tbody>
 
+							   </tbody>
 
 								</table>
 
@@ -315,7 +313,7 @@
                             }
                         }
 
-                        $("#page").initPage(71,1,GG.kk);
+                        // $("#page").initPage(71,1,GG.kk);
                         jQuery(function($) {
 
                             $(".tbl-search").click(function(){

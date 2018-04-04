@@ -49,14 +49,16 @@ public class UserController {
 
     @ApiOperation(value = "查询单个")
     @GetMapping("/user/one")
-
     public User listOne(@RequestParam String id){
         return userService.listOne(id);
     }
 
     @ApiOperation(value = "查询列表")
-    @PostMapping("/user/list")
-   public List<User> list(@RequestBody Page page){
+    @GetMapping("/user/list")
+   public List<User> list(@RequestParam Integer pageNext,@RequestParam Integer pageSize ){
+        Page page=new Page();
+        page.setPageSize(pageSize);
+        page.setPageNext(pageNext);
             return userService.list(page);
     }
 

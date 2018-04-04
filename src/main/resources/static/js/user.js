@@ -8,13 +8,13 @@ function list() {
                 $.ajax({
                     async:false,
                     url:"/user/list",
-                    type:"POST",
+                    type:"GET",
                     dataType : "json",
                     contentType:"application/json",
-                    data: JSON.stringify({
-                        pageNext:1,
-                        pageSize:10
-                    }),
+                    data: {
+                        "pageNext":1,
+                        "pageSize":10
+                    },
 
                     success: function(data){
                         console.log(data);
