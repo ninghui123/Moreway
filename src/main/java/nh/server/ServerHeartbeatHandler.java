@@ -33,7 +33,6 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
         ByteBuf result = (ByteBuf) msg;
         byte[] result1 = new byte[result.readableBytes()];
         // msg中存储的是ByteBuf类型的数据，把数据读取到byte[]中
@@ -52,13 +51,19 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+
+        super.channelReadComplete(ctx);
+    }
 
     public void send(ChannelHandlerContext ctx, String string) throws InterruptedException {
         Request901 request901 = new Request901();
         String str = (String) dataPacket.analysis(string,"12345678");//将接收的数据das解密
+        System.out.println(str);
         Map<String, String> map = parseData(str);
         String reqType = map.get("reqType");
-        if (reqType.equals("903")) {
+        if (reqType.equals("901")) {
             Response901 response901 = gson.fromJson(str, Response901.class);
             String pwd = dataPacket.decodePwd(response901.getPwd());
             Boolean b = dataPacket.receivePacket(pwd);
@@ -105,4 +110,5 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
             ctx.flush();
         }
     }
+
 }
