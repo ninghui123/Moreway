@@ -6,15 +6,17 @@
  
 **/
 
-html{ _background-attachment:fixed;}
+html{_background-image:url(about:blank); _background-attachment:fixed;}
 .laydate_body .laydate_box, .laydate_body .laydate_box *{margin:0; padding:0;}
 .laydate-icon,
 .laydate-icon-default,
 .laydate-icon-danlan,
 .laydate-icon-dahong,
 .laydate-icon-molv{height:22px; line-height:22px; padding-right:20px; border:1px solid #C6C6C6; background-repeat:no-repeat; background-position:right center;  background-color:#fff; outline:0;}
-
-
+.laydate-icon-default{ background-image:url(..images/icon.png)}
+.laydate-icon-danlan{border:1px solid #B1D2EC; background-image:url(..images/icon.png)}
+.laydate-icon-dahong{background-image:url(..images/icon.png)}
+.laydate-icon-molv{background-image:url(..images/molv/icon.png)}
 .laydate_body .laydate_box{width:240px; font:12px '\5B8B\4F53'; z-index:99999999; *margin:-2px 0 0 -2px; *overflow:hidden; _margin:0; _position:absolute!important; background-color:#fff;}
 .laydate_body .laydate_box li{list-style:none;}
 .laydate_body .laydate_box .laydate_void{cursor:text!important;}
@@ -78,7 +80,7 @@ html{ _background-attachment:fixed;}
 
 **/
 
-.laydate-icon{border:1px solid #B1D2EC; }
+.laydate-icon{border:1px solid #B1D2EC; background-image:url(icon.png)}
 
 .laydate_body .laydate_box,
 .laydate_body .laydate_ym,
@@ -138,11 +140,15 @@ html{ _background-attachment:fixed;}
 .laydate_body .laydate_bottom .laydte_hsmtex{background-color:#ECF4FB}
 
 
+        .testBtn-a{display: inline-block;height:30px;line-height:30px;padding:0 10px; border:0; border-radius:5px;color:#fff;background:rgb(65,133,244);cursor: pointer;}
+	.testBtn-a.on{background:#c9c9c9;color:#666;cursor: default;}
+	.data-show-box{line-height:30px;}
+	
+	.date-tiem-span,.date-s-span{display: inline-block;font-size:16px; width:45px; height:20px;line-height:20px; text-align: center; color:#fff; border-radius:5px;}
+	.date-tiem-span{ background:#333;}
+	.date-s-span{ background:#f00;}
+	.date-select-a{margin-right:5px;}
 
 
-.date-tiem-span,.date-s-span{display: inline-block;font-size:15px; width:20px; height:20px;line-height:20px; text-align: center; color:#fff; border-radius:5px;}
-.date-tiem-span{ background:#333;}
-.date-s-span{ background:#f00;}
-.date-select-a{margin-right:5px;}
 
 

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
@@ -10,7 +9,6 @@
     <meta name="description" content="Restyling jQuery UI Widgets and Elements" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link href="css/page.css" type="text/css" rel="stylesheet"/>
-
     <link rel="stylesheet" href="css/bootstrap.min.css?v=1" />
 
     <link rel="stylesheet" href="css/font-awesome.min.css?v=1" />
@@ -19,8 +17,6 @@
     <link rel="stylesheet" href="css/left.css?v=1" />
     <link rel="stylesheet" href="css/ace.min.css?v=1" id="main-ace-style" />
     <link rel="stylesheet" href="css/equipment.css?v=1"  />
-
-
     <style type="text/css">
         .CSSearchTbl{ border:1px #008CD4 solid;}
         .CSSearchTbl thead{}
@@ -106,16 +102,20 @@
                                         <td>IYIUYIITUTY</td>
                                         <td>12123123</td>
                                         <td>AAAAAAA</td>
-                                        <td class="colspan-a">
-                                            <span id="dataInfoShow_2"></span>
-                                            <div class="data-show-box" id="dateShow3">
-                                                <span class="date-tiem-span d">00</span>天
-                                                <span class="date-tiem-span h">00</span>时
-                                                <span class="date-tiem-span m">00</span>分
-                                                <span class="date-s-span s">00</span>秒
-                                            </div>
-                                        </td>
-                                        <td><button class="btn btn-xs btn-info"  onclick=update("'+data[i].id+'"); href="#modal_table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button><button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'");  title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
+
+        
+            <td class="colspan-a">
+                
+                <div class="data-show-box" id="dateShow3">
+                    <span class="datein" id="dataInfoShow_2"></span>
+                    <span class="date-tiem-span d">00</span>天
+                    <span class="date-tiem-span h">00</span>时
+                    <span class="date-tiem-span m">00</span>分
+                    <span class="date-s-span s">00</span>秒
+
+                </div>
+            </td>
+                                        <td><button class="btn btn-xs btn-info"  onclick=update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button><button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'");  title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
                                     </tr>
 
                                 </table>
@@ -124,11 +124,12 @@
 
                         </div><!-- ./span -->
 
+
                         <ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page" style="float: right"></ul>
 
                         <!--修改设备-->
                         <div class="hr hr-18 dotted hr-double"></div>
-                        <div id="modal_table" class="modal fade" tabindex="-1">
+                        <div id="modal-table" class="modal fade" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header no-padding">
@@ -164,13 +165,22 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="col-sm-3 control-label no-padding-right" > 结束时间：</label>
-
-                                                                <div class="col-sm-9">
-
-                                                                    <input  type="text" value="2018/05/25 17:00:00" id="getTimeIpt_3" class="col-xs-10 col-sm-5" onClick="laydate({istime: true, format: 'YYYY/MM/DD hh:mm:ss'})">
-                                                                </div>
-                                                            </div>
+                                                                <label class="col-sm-3 control-label no-padding-right" > 设备时间：</label>
+                                     <div class="col-sm-9">
+                                            
+                                            <div class="input-daterange input-group" >
+                                                <input type="text" class=" form-control" name="start" value="2018/04/20 00:00:00" id="modifystart" />
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-exchange"></i>
+                                                </span>
+                                                
+                                                <input type="text" class=" form-control" name="end" value="2018/05/25 00:00:00" id="modifyend"/>
+                                            </div>
+                                        </div>
+                                                                <!-- 当前系统时间：<input type="text" value="" id="getTimeIpt_1"><br /> -->
+                   
+                             
+                            </div>
 
                                                             <div class="modal-footer no-margin-top">
 
@@ -238,19 +248,27 @@
                                                                     <input type="text"  placeholder="输入设备型号..." name="update_password"  class="col-xs-10 col-sm-5" />
                                                                 </div>
                                                             </div>
+                                                            
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 结束时间：</label>
-
                                                                 <div class="col-sm-9">
+                                            
+                                                                 <div class="input-daterange input-group" >
+                                                                  <input type="text" class=" form-control" placeholder="输入设备开始时间..."  id="start" >
+                                                                 <span class="input-group-addon">
+                                                                <i class="fa fa-exchange"></i>
+                                                                   </span>
 
-                                                                    <input  type="text" placeholder="输入设备结束时间..."  id="getTimeIpt_2" class="col-xs-10 col-sm-5" onClick="laydate({istime: true, format: 'YYYY/MM/DD hh:mm:ss'})">
-                                                                </div>
+                                                                   <input type="text" class=" form-control"   id="end" placeholder="输入设备结束时间..." />
+                                                                 </div>
+                                                                      </div>
+                                                                
                                                             </div>
 
                                                             <div class="modal-footer no-margin-top">
 
                                                                 <button type="button" class="btn btn-info"  name="update_submit" style="float: left;" onclick="update_submit();"
-                                                                        id="dateBtn2">
+                                                                       >
                                                                     <i class="ace-icon fa fa-check bigger-110"></i>
                                                                     立即提交
 
@@ -266,7 +284,7 @@
 
 
                                                         </form>
-
+                                                        
 
                                                     </div><!-- /.col -->
                                                 </div><!-- /.row -->
@@ -297,16 +315,23 @@
                     </div><!-- /.main-container --
 					<!-- basic scripts -->
                     <script type="text/javascript">
+
+
+
+</script>
+                    <script type="text/javascript">
                         window.jQuery || document.write("<script src='js/jquery.min.js'>"+"<"+"/script>");
+                        //日期范围限制
+ 
                     </script>
                     <!-- <![endif]-->
                     <script type="text/javascript">
                         if('ontouchstart' in document.documentElement) document.write("<script src='js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
                     </script>
-
+                   
                     <script src="js/jquery-3.3.1.min.js?v=1"></script>
 
-
+                   
 
                     <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
                     <script type="text/javascript" src="js/page.js"></script>
@@ -316,14 +341,14 @@
                     <script src="js/ace-extra.min.js?v=1"></script>
 
                     <script type="text/javascript" src="js/calendar.js"></script>
-                        <script type="text/javascript" src="js/mail/emailAutoComplete.js?v=1"></script>
+                    <script src="js/mail/emailAutoComplete.js?v=1"></script>
                     <!-- ace scripts -->
                     <script src="js/ace-elements.min.js?v=1"></script>
                     <script src="js/ace.min.js?v=1"></script>
                     <script type="text/javascript" src="js/jquery.min.js"></script>
 
-                    <script type="text/javascript" src="js/jsq.js"></script>
-                    <script type="text/javascript" src="js/leftTime.min.js"></script>
+        <script type="text/javascript" src="js/jsq.js"></script>
+<script type="text/javascript" src="js/leftTime.min.js"></script>
 
                 </div></div></div></div></div></div></body>
 </body>
