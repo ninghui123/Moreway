@@ -69,8 +69,8 @@ var  page = {
             nextPageClass="pageItemDisable";
         }
         var appendStr ="";
-        appendStr+="<li class='"+prePageClass+"' page-data='1' page-rel='firstpage'>首页</li>";
-        appendStr+="<li class='"+prePageClass+"' page-data='"+prePage+"' page-rel='prepage'>&lt;上一页</li>";
+        appendStr+="<li class='"+prePageClass+"' page-data='1' onclick=home('"+1+"'); page-rel='firstpage'>首页</li>";
+        appendStr+="<li class='"+prePageClass+"' page-data='"+prePage+"' onclick=previous('"+prePage+"'); page-rel='prepage'>&lt;上一页</li>";
         var miniPageNumber = 1;
         if(currentPage-parseInt(page.maxshowpageitem/2)>0&&currentPage+parseInt(page.maxshowpageitem/2)<=pageCount){
             miniPageNumber = currentPage-parseInt(page.maxshowpageitem/2);
@@ -94,7 +94,7 @@ var  page = {
             appendStr+="<li class='"+itemPageClass+"' page-data='"+pageNumber+"' name='next' onclick=page_next('"+pageNumber+"'); page-rel='itempage' >"+pageNumber+"</li>";
         }
         appendStr+="<li class='"+nextPageClass+"' page-data='"+nextPage+"'  onclick=next('"+nextPage+"'); page-rel='nextpage'>下一页&gt;</li>";
-        appendStr+="<li class='"+nextPageClass+"' page-data='"+pageCount+"' page-rel='lastpage'>尾页</li>";
+        appendStr+="<li class='"+nextPageClass+"' page-data='"+pageCount+"' onclick=shadowe('"+pageCount+"'); page-rel='lastpage'>尾页</li>";
        return appendStr;
 
     }
@@ -145,11 +145,11 @@ function page_next(value) {
            "pageSize":10
        },
        success:function (data) {
-           $(".table tr").empty();
+           $(".table>tbody").empty();
            var obj = "";
            $.each(data,function (i,list) {
                obj += '<tr>';
-               // obj +='<td>'+list.id+'</td>';
+               obj +='<td>'+list.id+'</td>';
                obj +='<td>'+list.nickname+'</td>';
                obj +='<td>'+list.pswd+'</td>';
                obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
@@ -157,11 +157,127 @@ function page_next(value) {
                    '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
                obj	+='</tr>';
            })
-           $(".table").append(obj);
+           $("#hs").append(obj);
        }
    })
 }
-
+//下一页
 function next(value) {
-    alert(value)
+    $.ajax({
+        url:"/user/list",
+        type:"GET",
+        dataType : "json",
+        contentType:"application/json",
+        data:{
+            "pageNext":value,
+            "pageSize":10
+        },
+        success:function (data) {
+            $(".table>tbody").empty();
+            var obj = "";
+            $.each(data,function (i,list) {
+                obj += '<tr>';
+                obj +='<td>'+list.id+'</td>';
+                obj +='<td>'+list.nickname+'</td>';
+                obj +='<td>'+list.pswd+'</td>';
+                obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
+                obj +='<td><button type="button" class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button"  class="blue"  onclick=update("'+list.id+'"); data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
+                    '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
+                obj	+='</tr>';
+            })
+            $("#hs").append(obj);
+        }
+    })
+}
+//尾页
+function shadowe(value) {
+    $.ajax({
+        url:"/user/list",
+        type:"GET",
+        dataType : "json",
+        contentType:"application/json",
+        data:{
+            "pageNext":value,
+            "pageSize":10
+        },
+        success:function (data) {
+            $(".table>tbody").empty();
+            var obj = "";
+            $.each(data,function (i,list) {
+                obj += '<tr>';
+                obj +='<td>'+list.id+'</td>';
+                obj +='<td>'+list.nickname+'</td>';
+                obj +='<td>'+list.pswd+'</td>';
+                obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
+                obj +='<td><button type="button" class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button"  class="blue"  onclick=update("'+list.id+'"); data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
+                    '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
+                obj	+='</tr>';
+            })
+            $("#hs").append(obj);
+        }
+    })
+}
+//首页
+function home(value) {
+
+    $.ajax({
+        async:false,
+        url:"/user/list",
+        type:"GET",
+        dataType : "json",
+        contentType:"application/json",
+        data: {
+            "pageNext":value,
+            "pageSize":10
+        },
+
+        success: function(data){
+            $(".table>tbody").empty();
+            console.log(data);
+            var str = "";
+            for(var i=0; i < data.length; i++) {
+                //data[i]
+                //console.log(data[i]);
+                //alert(data[i].con);
+                str += "<tr>";
+                str += "<td><span>" + data[i].id + "</span></td>";
+                str += "<td>" + data[i].nickname + "</td>";
+                str += "<td>" + data[i].pswd + "</td>";
+                str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+                str += '<td><button class="btn btn-xs btn-info"  onclick=update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                    '<button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                str += "</tr>";
+            }
+
+            $("#hs").append(str);
+        }
+    });
+}
+//上一页
+function previous(value) {
+    $.ajax({
+        url:"/user/list",
+        type:"GET",
+        dataType : "json",
+        contentType:"application/json",
+        data:{
+            "pageNext":value,
+            "pageSize":10
+        },
+        success:function (data) {
+            $(".table>tbody").empty();
+            var obj = "";
+            $.each(data,function (i,list) {
+                obj += '<tr>';
+                obj +='<td>'+list.id+'</td>';
+                obj +='<td>'+list.nickname+'</td>';
+                obj +='<td>'+list.pswd+'</td>';
+                obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
+                obj +='<td><button type="button" class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button"  class="blue"  onclick=update("'+list.id+'"); data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
+                    '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
+                obj	+='</tr>';
+            })
+            $("#hs").append(obj);
+        }
+    })
 }

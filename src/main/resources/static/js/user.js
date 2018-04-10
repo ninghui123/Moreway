@@ -86,6 +86,7 @@ function update(id) {
 
 }
 function update_submit(){
+
     var name = $("input[name = 'update_username']").val();
     var pwd= $("input[name = 'update_password']").val();
     var id=$("button[name = 'update_submit']").val();
