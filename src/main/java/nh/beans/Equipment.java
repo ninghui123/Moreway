@@ -10,6 +10,8 @@ public class Equipment {
     private String billingType;
     private Date updateTime;
     private Integer isDelete;
+    private Integer status;
+
     public String getId() {
         return id;
     }
@@ -64,5 +66,13 @@ public class Equipment {
 
     public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
