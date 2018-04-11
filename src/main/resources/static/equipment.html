@@ -30,7 +30,6 @@
         .table-responsive{ display: none;}
     </style>
 </head>
-
 <body class="no-skin" style="width: 1175px;">
 
 
@@ -103,9 +102,9 @@
                                         <td>12123123</td>
                                         <td>AAAAAAA</td>
 
-        
+
             <td class="colspan-a">
-                
+
                 <div class="data-show-box" id="dateShow3">
                     <span class="datein" id="dataInfoShow_2"></span>
                     <span class="date-tiem-span d">00</span>天
@@ -114,6 +113,8 @@
                     <span class="date-s-span s">00</span>秒
 
                 </div>
+                <!-- 倒计时过度代码 -->
+
             </td>
                                         <td><button class="btn btn-xs btn-info"  onclick=update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button><button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'");  title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
                                     </tr>
@@ -166,17 +167,17 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 设备时间：</label>
-                                     <div class="col-sm-9">
-                                            
-                                            <div class="input-daterange input-group" >
-                                                <input type="text" class=" form-control" name="start" value="2018/04/20 00:00:00" id="modifystart" />
-                                                <span class="input-group-addon">
+                                                                <div class="col-sm-9">
+
+                                                                    <div class="input-daterange input-group" >
+                                                                        <input type="text" class=" form-control" name="start" id="modifystart" />
+                                                                        <span class="input-group-addon">
                                                     <i class="fa fa-exchange"></i>
                                                 </span>
-                                                
-                                                <input type="text" class=" form-control" name="end" value="2018/05/25 00:00:00" id="modifyend"/>
-                                            </div>
-                                        </div>
+
+                                                                        <input type="text" class=" form-control" name="end"  id="modifyend"/>
+                                                                    </div>
+                                                                </div>
                                                                 <!-- 当前系统时间：<input type="text" value="" id="getTimeIpt_1"><br /> -->
                    
                              
@@ -331,7 +332,7 @@
                    
                     <script src="js/jquery-3.3.1.min.js?v=1"></script>
 
-                   
+                    <script src="js/equipment.js?v=1"></script>
 
                     <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
                     <script type="text/javascript" src="js/page.js"></script>
