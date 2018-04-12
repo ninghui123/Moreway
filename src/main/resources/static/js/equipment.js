@@ -26,13 +26,11 @@ function equipment_list() {
                 //console.log(data[i]);
                 //alert(data[i].con);
                 str += "<tr>";
-                str += data[i].status===0?'<td><span class="label label-success arrowed"><i class="fa fa-cog fa-spin"></i>正常运行</span></td>' +
-                    '':data[i].status===1?'<td><span class="label"> <i class="fa fa-exclamation-triangle "></i>余额不足</span></td>'
-                      :'<td><span class="label label-sm label-warning"> <i class="fa fa-ban fa-fw"></i>设备已停用 </span></td>';
+                str += '"<td ><span class="dataInfoShow_2" ></td>"';
                 str += "<td>" + data[i].equipmentName + "</td>";
                 str += "<td>" + data[i].equipmentType + "</td>";
                 str += "<td>" + data[i].id + "</td>";
-                str += '"<td class="colspan-a"><div class="data-show-box" id="dateShow3"><span class="datein" id="dataInfoShow_2"></span><span class="date-tiem-span d">00</span>天 <span class="date-tiem-span h">00</span>时 <span class="date-tiem-span m">00</span>分 <span class="date-s-span s">00</span>秒 <input type="text" value="'+ data[i].createTime+'" id="getTimeIpt_2" /> <input type="text" value="'+ data[i].updateTime+'" id="getTimeIpt_3"/></div></td>';
+                str += '" <td class="colspan-a"><div  class="dateShow3"><span class="datein" ></span><span class="date-tiem-span d">00</span>天<span class="date-tiem-span h">00</span>时<span class="date-tiem-span m">00</span>分<span class="date-s-span s">00</span>秒 </div></td> <input type="text" value="2018/04/1 00:00:00" class="getTimeIpt_2" name="start" id="" /> <input type="text" value="2018/05/25 00:00:00" class="getTimeIpt_3" name="end"  id=""/>';
                 str += '<td><button class="btn btn-xs btn-info"  onclick=update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
                     '<button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
                 str += "</tr>";
