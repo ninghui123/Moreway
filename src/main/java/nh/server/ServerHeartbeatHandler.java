@@ -6,10 +6,14 @@ import io.netty.buffer.Unpooled;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateEvent;
 import nh.dto.*;
 import org.springframework.stereotype.Component;
+
+
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 
 import static nh.Ulit.ParseData.parseData;
@@ -21,9 +25,13 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
     DataPacket dataPacket = new DataPacket();
     Gson gson = new Gson();
 
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        String uuid=ctx.channel().id().asLongText();
+        GatewayService.addGatewayChannel(uuid,(SocketChannel) ctx.channel());
         System.out.println("---客户端连接成功---");
+        System.out.println(uuid);
     }
 
     @Override
@@ -53,7 +61,6 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-
         super.channelReadComplete(ctx);
     }
 
@@ -111,4 +118,21 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
+    public  void   test(){
+        try {
+            Map<String, SocketChannel> map = GatewayService.getChannels();
+            Iterator<String> it = map.keySet().iterator();
+            while (it.hasNext()) {
+                String key = it.next();
+                SocketChannel obj = map.get(key);
+                System.out.println("channel id is: " + key);
+                System.out.println("channel: " + obj.isActive());
+                String base="hello, it is Server test header ping";
+                ByteBuf encoded=Unpooled.copiedBuffer(base.getBytes());
+                obj.writeAndFlush(encoded);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

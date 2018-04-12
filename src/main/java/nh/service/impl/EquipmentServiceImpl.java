@@ -15,11 +15,8 @@ public class EquipmentServiceImpl implements EquipmentService{
 
     @Autowired
     private EquipmentMapper equipmentMapper;
-
     @Override
     public List<Equipment> list(Page page) {
-//        List<Equipment>listone=equipmentMapper.list(page);
-//        System.out.println(listone.get(0).getEquipmentName());
         return equipmentMapper.list(page);
     }
 }
