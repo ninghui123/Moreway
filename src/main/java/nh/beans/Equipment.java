@@ -11,6 +11,8 @@ public class Equipment {
     private Date updateTime;
     private Integer isDelete;
     private Integer status;
+    private String startTime;
+    private String stopTime;
 
     public String getId() {
         return id;
@@ -74,5 +76,21 @@ public class Equipment {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getStopTime() {
+        return stopTime;
+    }
+
+    public void setStopTime(String stopTime) {
+        this.stopTime = stopTime;
     }
 }
