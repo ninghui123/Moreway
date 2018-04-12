@@ -1,4 +1,4 @@
-package nh;
+package nh.druid;
 
 import com.alibaba.druid.support.http.WebStatFilter;
 
