@@ -3,6 +3,7 @@ package nh.controller;
 import io.swagger.annotations.ApiOperation;
 import nh.beans.Equipment;
 import nh.beans.Page;
+import nh.server.ServerHeartbeatHandler;
 import nh.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,5 +25,18 @@ public class EquipmentController {
         page.setPageSize(pageSize);
         page.setPageNext(pageNext);
         return equipmentService.list(page);
+    }
+
+    @ApiOperation(value = "查询列表sd")
+    @PostMapping("/Equipment/listone")
+    public String test(){
+     try {
+         new ServerHeartbeatHandler().test();
+         return "200";
+     }catch (Exception e){
+         e.printStackTrace();
+         return "500";
+     }
+
     }
 }
