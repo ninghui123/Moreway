@@ -19,4 +19,27 @@ public class EquipmentServiceImpl implements EquipmentService{
     public List<Equipment> list(Page page) {
         return equipmentMapper.list(page);
     }
+
+    @Override
+    @Transactional
+    public void equipmentAdd(Equipment equipment) {
+        equipmentMapper.add(equipment);
+    }
+
+    @Override
+    @Transactional
+    public void equipmentUpdate(Equipment equipment) {
+     equipmentMapper.update(equipment);
+    }
+
+    @Override
+    public Equipment listOne(String id) {
+        return equipmentMapper.listOne(id);
+    }
+
+    @Override
+    public Long count() {
+        return equipmentMapper.count();
+    }
+
 }

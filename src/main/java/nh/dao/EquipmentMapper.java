@@ -10,4 +10,8 @@ import java.util.List;
 @Mapper
 public interface EquipmentMapper {
     List<Equipment>list(@Param("page") Page page);
+    void add(Equipment equipment);
+    void update(Equipment equipment);
+    Equipment listOne(@Param("id") String id);
+    long count();
 }
