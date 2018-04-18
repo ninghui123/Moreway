@@ -7,6 +7,8 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +34,10 @@ public class Server {
                              * 四个参数：1.读空闲； 2.写空闲；3.读写空闲； 4.时间单位。
                              * 所谓的空闲是指多长时间没有发生过对应的时间，就触发调用userEventTriggered方法.
                              */
-                            pipeline.addLast(new IdleStateHandler(30,0,0, TimeUnit.SECONDS));
+                            pipeline.addLast(new IdleStateHandler(86400,0,0, TimeUnit.SECONDS));
+
+                            pipeline.addLast(new HttpRequestDecoder());
+                            pipeline.addLast(new HttpResponseEncoder());
                             //把写的ServerHeartbeatHandler类初始化进去
                             pipeline.addLast(new ServerHeartbeatHandler());
                         }

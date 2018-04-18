@@ -17,6 +17,7 @@ public class EquipmentServiceImpl implements EquipmentService{
     private EquipmentMapper equipmentMapper;
     @Override
     public List<Equipment> list(Page page) {
+
         return equipmentMapper.list(page);
     }
 

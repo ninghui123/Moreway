@@ -33,6 +33,9 @@
             <if test="stopTime!=null and stopTime!=''">
                 stop_time=#{stopTime},
             </if>
+            <if test="surplusTime!=null and surplusTime!=''">
+                surplus_time=#{surplusTime},
+            </if>
         </trim>
     </sql>
 
@@ -68,6 +71,9 @@
             <if test="stopTime!=null and stopTime!=''">
                 #{stopTime},
             </if>
+            <if test="surplusTime!=null and surplusTime!=''">
+                #{surplusTime},
+            </if>
         </trim>
     </sql>
 
@@ -102,6 +108,9 @@
             </if>
             <if test="stopTime!=null and stopTime!=''">
                 stop_time,
+            </if>
+            <if test="surplusTime!=null and surplusTime!=''">
+                surplus_time,
             </if>
         </trim>
     </sql>

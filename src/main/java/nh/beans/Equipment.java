@@ -11,8 +11,14 @@ public class Equipment {
     private Date updateTime;
     private Integer isDelete;
     private Integer status;
-    private String startTime;
-    private String stopTime;
+    private Date startTime;//租赁开始时间
+    private Date stopTime;//租赁到期时间
+    private String surplusTime;//租赁剩余时间
+    private String equipmentDid;
+    private String equipmentAttribute;//设备属性
+    private String filterSurplusTime;//滤芯剩余时间
+    private  Date filterStartTime;//滤芯开始使用时间
+    private  Date filterStopTime;//滤芯到期时间
 
     public String getId() {
         return id;
@@ -78,19 +84,67 @@ public class Equipment {
         this.status = status;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public String getStopTime() {
+    public Date getStopTime() {
         return stopTime;
     }
 
-    public void setStopTime(String stopTime) {
+    public void setStopTime(Date stopTime) {
         this.stopTime = stopTime;
+    }
+
+    public String getSurplusTime() {
+        return surplusTime;
+    }
+
+    public void setSurplusTime(String surplusTime) {
+        this.surplusTime = surplusTime;
+    }
+
+    public String getEquipmentDid() {
+        return equipmentDid;
+    }
+
+    public void setEquipmentDid(String equipmentDid) {
+        this.equipmentDid = equipmentDid;
+    }
+
+    public String getEquipmentAttribute() {
+        return equipmentAttribute;
+    }
+
+    public void setEquipmentAttribute(String equipmentAttribute) {
+        this.equipmentAttribute = equipmentAttribute;
+    }
+
+    public String getFilterSurplusTime() {
+        return filterSurplusTime;
+    }
+
+    public void setFilterSurplusTime(String filterSurplusTime) {
+        this.filterSurplusTime = filterSurplusTime;
+    }
+
+    public Date getFilterStartTime() {
+        return filterStartTime;
+    }
+
+    public void setFilterStartTime(Date filterStartTime) {
+        this.filterStartTime = filterStartTime;
+    }
+
+    public Date getFilterStopTime() {
+        return filterStopTime;
+    }
+
+    public void setFilterStopTime(Date filterStopTime) {
+        this.filterStopTime = filterStopTime;
     }
 }

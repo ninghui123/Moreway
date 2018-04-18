@@ -6,6 +6,7 @@ import nh.beans.Page;
 import nh.beans.PageMax;
 import nh.server.ServerHeartbeatHandler;
 import nh.service.EquipmentService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 public class EquipmentController {
+
 
     @Autowired
     private EquipmentService equipmentService;

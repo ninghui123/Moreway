@@ -7,14 +7,15 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.http.*;
 import io.netty.handler.timeout.IdleStateEvent;
 import nh.dto.*;
 import org.springframework.stereotype.Component;
-
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.UUID;
 
 import static nh.Ulit.ParseData.parseData;
 
@@ -24,6 +25,7 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
     private static final String SKEY = "12345678";
     DataPacket dataPacket = new DataPacket();
     Gson gson = new Gson();
+    private String token;
 
 
     @Override
@@ -41,13 +43,132 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf result = (ByteBuf) msg;
-        byte[] result1 = new byte[result.readableBytes()];
-        // msg中存储的是ByteBuf类型的数据，把数据读取到byte[]中
-        result.readBytes(result1);
-        String resultStr = new String(result1, "GBK");
-        result.release();
-        send(ctx, resultStr);
+        if (msg instanceof HttpRequest){
+            HttpRequest httpRequest= (HttpRequest) msg;
+            //判断请求状态为POST
+            if(!HttpMethod.POST.equals(httpRequest.method())){
+                ctx.channel().close().sync();
+            }
+        }
+         if (msg instanceof HttpContent){
+            HttpContent httpContent= (HttpContent) msg;
+             ByteBuf result=httpContent.content();
+             byte[] result1 = new byte[result.readableBytes()];
+             result.readBytes(result1);
+             String resultStr = new String(result1, "UTF-8");
+             System.out.println(resultStr);
+             result.release();
+             Map<String, String> map = parseData(resultStr);
+             String reqType = map.get("req");
+             if (reqType.equals("1")){
+                 HttpResponseStatus status = HttpResponseStatus.valueOf(200);
+               CilentHttpResponse cilentHttpResponse =new CilentHttpResponse();
+               cilentHttpResponse.setRes(1);
+               cilentHttpResponse.setState(0);
+              token=UUID.randomUUID().toString();
+               cilentHttpResponse.setC(token);
+                 String base=gson.toJson(cilentHttpResponse);
+                 FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));
+//             response.headers().set("Content-Length",18);
+                 //设置数据类型
+                 response.headers().set("Content-Type","application/json;charset=utf-8");
+                 ctx.writeAndFlush(response);
+             }if (reqType.equals("2")){
+                 String pwd = map.get("pwd");
+                 if (token.equals(token)){
+                     HttpResponseStatus status = HttpResponseStatus.valueOf(200);
+                       CilentHttpResponse2 cilentHttpResponse2=new CilentHttpResponse2();
+                       cilentHttpResponse2.setRes(2);
+                       cilentHttpResponse2.setState(0);
+                       String tokens=UUID.randomUUID().toString();
+                       CacheMap.addToken(token);
+                       cilentHttpResponse2.setToken(tokens);
+                     String base=gson.toJson(cilentHttpResponse2);
+                     System.out.println(base);
+                     FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));
+                     response.headers().set("Content-Type","application/json;charset=utf-8");
+                     ctx.writeAndFlush(response);
+                 }else {
+                     HttpResponseStatus status = HttpResponseStatus.valueOf(200);
+                     CilentHttpResponse2 cilentHttpResponse2=new CilentHttpResponse2();
+                     cilentHttpResponse2.setRes(2);
+                     cilentHttpResponse2.setState(1);
+                     String tokens=UUID.randomUUID().toString();
+                     cilentHttpResponse2.setToken(tokens);
+                     String base=gson.toJson(cilentHttpResponse2);
+                     FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));
+                     response.headers().set("Content-Type","application/json;charset=utf-8");
+                     ctx.writeAndFlush(response);
+                 }
+             }if(reqType.equals("3")){
+                 String token = map.get("token");
+                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                 Date date=new Date();
+                 String currentTime= format.format(date);
+                 Date beginDate=format.parse(currentTime);
+                 Date endDate= format.parse("2018-05-01");
+                 long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+                 System.out.println("剩余时间是:"+day);
+                 if (day>0){
+                     if(CacheMap.getToken().equals(token)&&CacheMap.getToken()!=null){
+                         HttpResponseStatus status = HttpResponseStatus.valueOf(200);
+                         CilentHttpResponse3 cilentHttpResponse3=new CilentHttpResponse3();
+                         cilentHttpResponse3.setCyc(5000);
+                         cilentHttpResponse3.setDbg(1);
+                         cilentHttpResponse3.setFlow(5000);
+                         cilentHttpResponse3.setFs(0);
+                         cilentHttpResponse3.setMc(0);
+                         cilentHttpResponse3.setPc(1);
+                         cilentHttpResponse3.setRes(3);
+                         cilentHttpResponse3.setState(0);
+                         cilentHttpResponse3.setTl((int) day);
+                         String base=gson.toJson(cilentHttpResponse3);
+                         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));
+                         response.headers().set("Content-Type","application/json;charset=utf-8");
+                         ctx.writeAndFlush(response);
+                     }else {
+                         HttpResponseStatus status = HttpResponseStatus.valueOf(200);
+                         CilentHttpResponse3 cilentHttpResponse3=new CilentHttpResponse3();
+                         cilentHttpResponse3.setCyc(5000);
+                         cilentHttpResponse3.setDbg(1);
+                         cilentHttpResponse3.setFlow(5000);
+                         cilentHttpResponse3.setFs(0);
+                         cilentHttpResponse3.setMc(0);
+                         cilentHttpResponse3.setPc(1);
+                         cilentHttpResponse3.setRes(3);
+                         cilentHttpResponse3.setState(1);
+                         cilentHttpResponse3.setTl((int) day);
+                         String base=gson.toJson(cilentHttpResponse3);
+                         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));
+                         response.headers().set("Content-Type","application/json;charset=utf-8");
+                         ctx.writeAndFlush(response);
+                     }
+                 }else {
+                     HttpResponseStatus status = HttpResponseStatus.valueOf(200);
+                     CilentHttpResponse3 cilentHttpResponse3=new CilentHttpResponse3();
+                     cilentHttpResponse3.setCyc(5000);
+                     cilentHttpResponse3.setDbg(1);
+                     cilentHttpResponse3.setFlow(5000);
+                     cilentHttpResponse3.setFs(0);
+                     cilentHttpResponse3.setMc(0);
+                     cilentHttpResponse3.setPc(0);
+                     cilentHttpResponse3.setRes(3);
+                     cilentHttpResponse3.setState(1);
+                     cilentHttpResponse3.setTl(0);
+                     String base=gson.toJson(cilentHttpResponse3);
+                     FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));
+                     response.headers().set("Content-Type","application/json;charset=utf-8");
+                     ctx.writeAndFlush(response);
+                 }
+             }
+         }
+//        String uuid = ctx.channel().id().asLongText();
+//        GatewayService.addGatewayChannel(uuid, (SocketChannel)ctx.channel());
+//        String body= (String) msg;
+//        System.out.println(body);
+//        ByteBuf result = (ByteBuf) msg;
+//        // msg中存储的是ByteBuf类型的数据，把数据读取到byte[]中
+//        send(ctx, resultStr);
     }
 
     @Override
