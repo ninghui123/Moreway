@@ -24,6 +24,7 @@ public class EquipmentServiceImpl implements EquipmentService{
     @Override
     @Transactional
     public void equipmentAdd(Equipment equipment) {
+
         equipmentMapper.add(equipment);
     }
 
@@ -41,6 +42,11 @@ public class EquipmentServiceImpl implements EquipmentService{
     @Override
     public Long count() {
         return equipmentMapper.count();
+    }
+
+    @Override
+    public Equipment httpResponse(String did) {
+        return equipmentMapper.httpResponse(did);
     }
 
 }

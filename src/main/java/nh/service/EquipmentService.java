@@ -11,4 +11,5 @@ public interface EquipmentService {
   void equipmentUpdate(Equipment equipment);
   Equipment listOne(String id);
   Long count();
+  Equipment httpResponse(String did);
 }

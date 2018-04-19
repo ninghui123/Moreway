@@ -19,6 +19,7 @@ public class Equipment {
     private String filterSurplusTime;//滤芯剩余时间
     private  Date filterStartTime;//滤芯开始使用时间
     private  Date filterStopTime;//滤芯到期时间
+    private String responseId;
 
     public String getId() {
         return id;
@@ -146,5 +147,13 @@ public class Equipment {
 
     public void setFilterStopTime(Date filterStopTime) {
         this.filterStopTime = filterStopTime;
+    }
+
+    public String getResponseId() {
+        return responseId;
+    }
+
+    public void setResponseId(String responseId) {
+        this.responseId = responseId;
     }
 }

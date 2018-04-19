@@ -142,6 +142,9 @@
         SELECT * FROM equipment_manage WHERE id=#{id}
     </select>
 
+    <select id="httpResponse" resultType="nh.beans.Equipment">
+        SELECT * FROM equipment_manage WHERE equipment_did=#{did}
+    </select>
 
 
 </mapper>

@@ -14,4 +14,5 @@ public interface EquipmentMapper {
     void update(Equipment equipment);
     Equipment listOne(@Param("id") String id);
     long count();
+    Equipment httpResponse(@Param("did") String did);
 }
