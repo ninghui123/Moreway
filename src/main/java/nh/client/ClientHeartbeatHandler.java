@@ -7,10 +7,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.*;
-import io.netty.handler.timeout.IdleStateEvent;
-import nh.beans.User;
 import nh.dto.CilentHttpResponse2;
-import nh.dto.ClientHttpRequest1;
 import nh.dto.ClientHttpRequest2;
 import nh.dto.ClientHttpRequest3;
 
@@ -39,37 +36,23 @@ public class ClientHeartbeatHandler extends ChannelInboundHandlerAdapter {
             String resultStr = new String(result1, "UTF-8");
             System.out.println(resultStr);
             result.release();
-            Map<String, String> map = parseData(resultStr);
-            String res = map.get("res");
-            if(res.equals("1")){
-                String token=map.get("c");
+           CilentHttpResponse2 cilentHttpResponse2=gson.fromJson(resultStr,CilentHttpResponse2.class);
+            if(cilentHttpResponse2.getRes()==1){
+                String token=cilentHttpResponse2.getToken();
                 URI uri = new URI("/user/login");
-//                ClientHttpRequest2 clientHttpRequest2=new ClientHttpRequest2();
-//                clientHttpRequest2.setReq(2);
-//                clientHttpRequest2.setDid("100-110-120-119");
-//                clientHttpRequest2.setPwd(token);
-//                clientHttpRequest2.setVer("v1.0");
-//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//            Date date=new Date();
-//            String currentTime= format.format(date);
-//            Date beginDate=format.parse(currentTime);
-//            Date endDate= format.parse("2018-05-01");
-//            long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
-//            System.out.println("剩余时间是:"+day);
-//                String str=gson.toJson(clientHttpRequest2);
-                ClientHttpRequest3 clientHttpRequest3=new ClientHttpRequest3();
-                clientHttpRequest3.setReq(3);
-                clientHttpRequest3.setDid("100-110-120-119");
-                clientHttpRequest3.setFault(1);
-                clientHttpRequest3.setFlow(1000);
-                clientHttpRequest3.setRs(4);
-                clientHttpRequest3.setT(100);
-                clientHttpRequest3.setTdsi(999);
-                clientHttpRequest3.setTdso(999);
-                clientHttpRequest3.setToken(map.get("token"));
-                clientHttpRequest3.setUs(1);
-                clientHttpRequest3.setDbg(1);
-                String str=gson.toJson(clientHttpRequest3);
+                ClientHttpRequest2 clientHttpRequest2=new ClientHttpRequest2();
+                clientHttpRequest2.setReq(2);
+                clientHttpRequest2.setDid("100-110-120-119");
+                clientHttpRequest2.setPwd(token);
+                clientHttpRequest2.setVer("v1.0");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date=new Date();
+            String currentTime= format.format(date);
+            Date beginDate=format.parse(currentTime);
+            Date endDate= format.parse("2018-05-01");
+            long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+            System.out.println("剩余时间是:"+day);
+                String str=gson.toJson(clientHttpRequest2);
                 DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
                         uri.toASCIIString(), Unpooled.wrappedBuffer(str.getBytes("UTF-8")));
 
@@ -81,7 +64,7 @@ public class ClientHeartbeatHandler extends ChannelInboundHandlerAdapter {
                 request.headers().set(HttpHeaders.Names.CONTENT_LENGTH, request.content().readableBytes());
                 // 发送http请求
                 ctx.writeAndFlush(request);
-            }else if(res.equals("2")){
+            }else if(cilentHttpResponse2.getRes()==2){
                 URI uri = new URI("/user/login2");
                 ClientHttpRequest3 clientHttpRequest3=new ClientHttpRequest3();
                 clientHttpRequest3.setReq(3);
@@ -92,7 +75,7 @@ public class ClientHeartbeatHandler extends ChannelInboundHandlerAdapter {
                clientHttpRequest3.setT(100);
                clientHttpRequest3.setTdsi(999);
                clientHttpRequest3.setTdso(999);
-               clientHttpRequest3.setToken(map.get("token"));
+               clientHttpRequest3.setToken(cilentHttpResponse2.getToken());
                clientHttpRequest3.setUs(1);
                clientHttpRequest3.setDbg(1);
                 String str=gson.toJson(clientHttpRequest3);

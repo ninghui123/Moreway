@@ -9,7 +9,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.timeout.IdleStateEvent;
+import nh.beans.Equipment;
 import nh.dto.*;
+import nh.service.EquipmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +29,9 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
     DataPacket dataPacket = new DataPacket();
     Gson gson = new Gson();
     private String token;
+
+    @Autowired
+    EquipmentService equipmentService;
 
 
     @Override
@@ -57,10 +63,10 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
              result.readBytes(result1);
              String resultStr = new String(result1, "UTF-8");
              System.out.println(resultStr);
+             ServerHttpRequest serverHttpRequest=gson.fromJson(resultStr,ServerHttpRequest.class);
+             System.out.println(serverHttpRequest.toString());
              result.release();
-             Map<String, String> map = parseData(resultStr);
-             String reqType = map.get("req");
-             if (reqType.equals("1")){
+             if (serverHttpRequest.getReq()==1){
                  HttpResponseStatus status = HttpResponseStatus.valueOf(200);
                CilentHttpResponse cilentHttpResponse =new CilentHttpResponse();
                cilentHttpResponse.setRes(1);
@@ -73,8 +79,8 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
                  //设置数据类型
                  response.headers().set("Content-Type","application/json;charset=utf-8");
                  ctx.writeAndFlush(response);
-             }if (reqType.equals("2")){
-                 String pwd = map.get("pwd");
+             }if (serverHttpRequest.getReq()==2){
+                 String pwd=serverHttpRequest.getPwd();
                  if (token.equals(token)){
                      HttpResponseStatus status = HttpResponseStatus.valueOf(200);
                        CilentHttpResponse2 cilentHttpResponse2=new CilentHttpResponse2();
@@ -100,44 +106,40 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
                      response.headers().set("Content-Type","application/json;charset=utf-8");
                      ctx.writeAndFlush(response);
                  }
-             }if(reqType.equals("3")){
-                 String token = map.get("token");
+             }if(serverHttpRequest.getReq()==3){
+                 String token = serverHttpRequest.getToken();
+                 Equipment equipment=equipmentService.httpResponse(serverHttpRequest.getDid());
                  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                  Date date=new Date();
                  String currentTime= format.format(date);
+                 String stopTime=format.format(equipment.getStopTime());
                  Date beginDate=format.parse(currentTime);
-                 Date endDate= format.parse("2018-05-01");
-                 long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
-                 System.out.println("剩余时间是:"+day);
-                 if (day>0){
+                 Date endDate= format.parse(stopTime);
+                 long tlDay=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+                 System.out.println("剩余时间是:"+tlDay);
+                 String filterStopTime=format.format(equipment.getFilterStopTime());
+                 Date filterDndDate=format.parse(filterStopTime);
+                 long fsDay=(filterDndDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+                 if (tlDay>0){
                      if(CacheMap.getToken().equals(token)&&CacheMap.getToken()!=null){
                          HttpResponseStatus status = HttpResponseStatus.valueOf(200);
-                         CilentHttpResponse3 cilentHttpResponse3=new CilentHttpResponse3();
-                         cilentHttpResponse3.setCyc(5000);
-                         cilentHttpResponse3.setDbg(1);
-                         cilentHttpResponse3.setFlow(5000);
-                         cilentHttpResponse3.setFs(0);
-                         cilentHttpResponse3.setMc(0);
+                        String responseId =equipment.getResponseId();
+                         CilentHttpResponse3 cilentHttpResponse3=gson.fromJson(responseId,CilentHttpResponse3.class);
                          cilentHttpResponse3.setPc(1);
-                         cilentHttpResponse3.setRes(3);
-                         cilentHttpResponse3.setState(0);
-                         cilentHttpResponse3.setTl((int) day);
+                         cilentHttpResponse3.setTl((int) tlDay);
+                         cilentHttpResponse3.setFs((int) fsDay);
                          String base=gson.toJson(cilentHttpResponse3);
                          FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));
                          response.headers().set("Content-Type","application/json;charset=utf-8");
                          ctx.writeAndFlush(response);
                      }else {
                          HttpResponseStatus status = HttpResponseStatus.valueOf(200);
-                         CilentHttpResponse3 cilentHttpResponse3=new CilentHttpResponse3();
-                         cilentHttpResponse3.setCyc(5000);
-                         cilentHttpResponse3.setDbg(1);
-                         cilentHttpResponse3.setFlow(5000);
-                         cilentHttpResponse3.setFs(0);
-                         cilentHttpResponse3.setMc(0);
+                         String responseId =equipment.getResponseId();
+                         CilentHttpResponse3 cilentHttpResponse3=gson.fromJson(responseId,CilentHttpResponse3.class);
                          cilentHttpResponse3.setPc(1);
-                         cilentHttpResponse3.setRes(3);
                          cilentHttpResponse3.setState(1);
-                         cilentHttpResponse3.setTl((int) day);
+                         cilentHttpResponse3.setTl((int) tlDay);
+                         cilentHttpResponse3.setFs((int) fsDay);
                          String base=gson.toJson(cilentHttpResponse3);
                          FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));
                          response.headers().set("Content-Type","application/json;charset=utf-8");
@@ -145,15 +147,10 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
                      }
                  }else {
                      HttpResponseStatus status = HttpResponseStatus.valueOf(200);
-                     CilentHttpResponse3 cilentHttpResponse3=new CilentHttpResponse3();
-                     cilentHttpResponse3.setCyc(5000);
-                     cilentHttpResponse3.setDbg(1);
-                     cilentHttpResponse3.setFlow(5000);
+                     String responseId =equipment.getResponseId();
+                     CilentHttpResponse3 cilentHttpResponse3=gson.fromJson(responseId,CilentHttpResponse3.class);
                      cilentHttpResponse3.setFs(0);
-                     cilentHttpResponse3.setMc(0);
                      cilentHttpResponse3.setPc(0);
-                     cilentHttpResponse3.setRes(3);
-                     cilentHttpResponse3.setState(1);
                      cilentHttpResponse3.setTl(0);
                      String base=gson.toJson(cilentHttpResponse3);
                      FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,status,Unpooled.copiedBuffer(base.getBytes()));

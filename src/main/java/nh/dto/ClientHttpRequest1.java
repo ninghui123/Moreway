@@ -29,4 +29,13 @@ public class ClientHttpRequest1 {
     public void setVer(String ver) {
         this.ver = ver;
     }
+
+    @Override
+    public String toString() {
+        return "ClientHttpRequest1{" +
+                "req=" + req +
+                ", did='" + did + '\'' +
+                ", ver='" + ver + '\'' +
+                '}';
+    }
 }

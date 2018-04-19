@@ -26,6 +26,7 @@ public class EquipmentController {
         page.setPageSize(pageSize);
         page.setPageNext(pageNext);
         return equipmentService.list(page);
+
     }
 
     @ApiOperation(value = "添加设备")
@@ -68,5 +69,4 @@ public class EquipmentController {
         pageMax.setCount(equipmentService.count());
         return  pageMax;
     }
-
 }

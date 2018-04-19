@@ -19,13 +19,13 @@ public class CacheMap {
         map.remove("tokenId");
     }
 
+
     public static  String getToken(){
        if(map.get("tokenId")!=null&&map.get("tokenId")!=""){
            return map.get("tokenId");
        }else {
            return null;
        }
-
     }
 
 }
