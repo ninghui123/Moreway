@@ -69,4 +69,11 @@ public class EquipmentController {
         pageMax.setCount(equipmentService.count());
         return  pageMax;
     }
+
+    @ApiOperation(value = "测试")
+    @GetMapping("/Equipment/test")
+    private Equipment test(@RequestParam String did){
+       return equipmentService.httpResponse(did);
+    }
+
 }
