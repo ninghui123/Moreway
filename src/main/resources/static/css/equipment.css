@@ -144,7 +144,7 @@ html{_background-image:url(about:blank); _background-attachment:fixed;}
 	.testBtn-a.on{background:#c9c9c9;color:#666;cursor: default;}
 	.data-show-box{line-height:30px;}
 	
-	.date-tiem-span,.date-s-span{display: inline-block;font-size:16px; width:45px; height:20px;line-height:20px; text-align: center; color:#fff; border-radius:5px;}
+	.date-tiem-span,.date-s-span{display: inline-block;font-size:16px; width:30px; height:20px;line-height:20px; text-align: center; color:#fff; border-radius:5px;}
 	.date-tiem-span{ background:#333;}
 	.date-s-span{ background:#f00;}
 	.date-select-a{margin-right:5px;}

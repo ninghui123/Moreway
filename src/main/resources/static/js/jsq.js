@@ -1,7 +1,7 @@
 
 $(function(){
     //距离时间段手动输入
-    $("#getTimeIpt_1").val(new Date().format("yyyy/MM/dd hh:mm:ss"));
+    $("#getTimeIpt_1").val(new Date().format("YYYY-MM-DD hh:mm:ss"));
     var clearTime2=0;
     function setDateImportFn(){
         //清除时间
@@ -63,7 +63,7 @@ $(function(){
 //日期范围限制
 var start = {
     elem: '#start',
-    format: 'YYYY/MM/DD',
+    format: 'YYYY/MM/DD hh:mm:ss',
     min: laydate.now(), //设定最小日期为当前日期
     max: '2099/06/16', //最大日期
     istime: true,
@@ -75,7 +75,7 @@ var start = {
 };
 var end = {
     elem: '#end',
-    format: 'YYYY/MM/DD',
+    format: 'YYYY/MM/DD hh:mm:ss',
     min: laydate.now(),
     max: '2099-06-16',
     istime: true,
@@ -87,7 +87,7 @@ var end = {
 };
 var modifystart = {
     elem: '#modifystart',
-    format: 'YYYY/MM/DD',
+    format: 'YYYY/MM/DD hh:mm:ss',
     min: laydate.now(), //设定最小日期为当前日期
     max: '2099-06-16', //最大日期
     istime: true,
@@ -99,7 +99,7 @@ var modifystart = {
 };
 var modifyend = {
     elem: '#modifyend',
-    format: 'YYYY/MM/DD',
+    format: 'YYYY/MM/DD hh:mm:ss',
     min: laydate.now(),
     max: '2099-06-16',
     istime: true,
@@ -108,9 +108,36 @@ var modifyend = {
         modifystart.max = datas; //结束日选好后，充值开始日的最大日期
     }
 };
+//滤芯开始时间
+var filterStartTime = {
+    elem: '#filterStartTime',
+    format: 'YYYY/MM/DD hh:mm:ss',
+    min: laydate.now(), //设定最小日期为当前日期
+    max: '2099-06-16', //最大日期
+    istime: true,
+    istoday: false,
+    choose: function(datas){
+        modifyend.min = datas; //开始日选好后，重置结束日的最小日期
+        modifyend.filterStartTime = datas //将结束日的初始值设定为开始日
+    }
+};
+//滤芯结束时间
+var filterStopTime = {
+    elem: '#filterStopTime',
+    format: 'YYYY/MM/DD hh:mm:ss',
+    min: laydate.now(),
+    max: '2099-06-16',
+    istime: true,
+    istoday: false,
+    choose: function(datas){
+        filterStartTime.max = datas; //结束日选好后，充值开始日的最大日期
+    }
+};
 laydate(start);
 laydate(end);
 laydate(modifyend);
 laydate(modifystart);
+laydate(filterStartTime);
+laydate(filterStopTime);
 
 

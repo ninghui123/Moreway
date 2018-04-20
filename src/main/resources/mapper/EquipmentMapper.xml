@@ -75,7 +75,7 @@
                #{equipmentDid},
            </if>
             <if test="equipmentAttribute!=null and equipmentAttribute!=''">
-                #{equipmentAttribute}
+                #{equipmentAttribute},
             </if>
             <if test="filterStartTime!=null">
                 #{filterStartTime},

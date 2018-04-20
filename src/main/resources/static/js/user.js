@@ -1,9 +1,9 @@
 
 $(function () {
-        list();
+    user_list();
 })
 
-function list() {
+function user_list() {
 
                 $.ajax({
                     async:false,
@@ -28,8 +28,8 @@ function list() {
                     str += "<td>" + data[i].nickname + "</td>";
                     str += "<td>" + data[i].pswd + "</td>";
                     str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
-                    str += '<td><button class="btn btn-xs btn-info"  onclick=update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
-                        '<button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                    str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                        '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
                     str += "</tr>";
                 }
 
@@ -40,7 +40,7 @@ function list() {
 
 
 //添加
-function add() {
+function user_add() {
     var name = $('#name').val();
     var pwd=$('#password').val();
     var status=$("select[name = 'add_select']").val();
@@ -67,7 +67,7 @@ function add() {
     })
 }
 //修改
-function update(id) {
+function user_update(id) {
     $.ajax({
         url:"/user/one",
         type:"GET",
@@ -133,6 +133,44 @@ function del(id){
 
 
 }
+//模糊查询
+$(document).ready(function(){
+    $("#btn").click(function(){
+        var search = $("#search").val();
+        alert(search);
+        $("#all tr td").remove();
+        if(search==null ||search==""){
+            alert("查询条件不能为空！");//要判断一下，否则的话，要出全部列表，我下面已经有出全部列表的了，
+            parent.document.location.href="";//必须得这一步，否则会空列表
+        }else{
+            $.ajax({
+                type:"GET",
+                url:"/user/search",
+                data:{
+                    "search":search,
+                },
+                DataType:"json",
+                success:function(data){
+                    var dataObj = eval("("+data+")");
+                    //alert(dataObj);
+                    var a=null;//主要是因为json是个数组，有多列结果的时候，得拼接+
+                    $.each(dataObj,function(i,item){
+                        //alert(dataObj.length);
+                        //alert("这是："+item.id+","+item.username);
+                        a += '<tr>'+
+                            +'<td id="id">'+item.id+'</td>'
+                            +'<td id="name">'+item.username+'</td>'
+                            +'<td id="status">'+item.status+'</td>'
+                            +'<td id="isAdmin">'+item.isAdmin +'</td>'
+                            +'<td id="createTime">'+item.createTime+'</td>'
+                            +'</tr>';
+                    })
+                    $("#all").append(a);
 
+                },
+            });
+        }
+    })
+});
 
 

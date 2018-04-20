@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
+    <meta http-equiv="expires" content="no-cache">
     <meta content="no-cache" charset="utf-8" />
-    <title>设备管理</title>
+    <title>用户管理</title>
     <meta name="description" content="Restyling jQuery UI Widgets and Elements" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link href="css/page.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/bootstrap.min.css?v=1" />
-
+    <link rel="stylesheet" href="css/page.css?v=1" />
     <link rel="stylesheet" href="css/font-awesome.min.css?v=1" />
     <link rel="stylesheet" href="css/ace-fonts.css?v=1" />
     <link rel="stylesheet" href="css/zzsc.css?v=1" />
     <link rel="stylesheet" href="css/left.css?v=1" />
     <link rel="stylesheet" href="css/ace.min.css?v=1" id="main-ace-style" />
     <link rel="stylesheet" href="css/equipment.css?v=1"  />
+
+
+
     <style type="text/css">
         .CSSearchTbl{ border:1px #008CD4 solid;}
         .CSSearchTbl thead{}
@@ -30,6 +34,7 @@
         .table-responsive{ display: none;}
     </style>
 </head>
+
 <body class="no-skin" style="width: 1175px;">
 
 
@@ -51,7 +56,6 @@
                 </li>
 
             </ul><!-- /.breadcrumb -->
-
             <!-- #section:basics/content.searchbox -->
             <div class="nav-search" id="nav-search">
 
@@ -80,6 +84,7 @@
 
             <div class="page-content-area">
 
+
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
@@ -88,43 +93,41 @@
                                 <table id="hs" class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>设备状态</th>
+                                        <th>设备号</th>
+                                        <th>运行状态</th>
                                         <th>设备名称</th>
-                                        <th>设备型号</th>
-                                        <th>TDS</th>
-                                        <th>设备余额</th>
+                                        <th>净水流出汇总<span style="font-size:10px;color:#000000" >升</span></th>
+                                        <th>原水TDS<span style="font-size:10px; color:#000000">mg/L(ppm)</span></th>
+                                        <th>净水机TDS<span style="font-size:10px; color:#000000">mg/L(ppm)</span></th>
+                                        <th>净水温度<span style="font-size:10px; color:#000000">℃</span></th>
+                                        <th>设备故障状态</th>
+                                        <th>租赁时间</th>
+                                        <th>滤芯状态</th>
                                         <th>操作</th></tr>
                                     </thead>
-                                    <tr><td>
-								<span class="label label-success arrowed">
-                                <i class="fa fa-cog fa-spin"></i>正常运行</span></td>
-                                        <td>IYIUYIITUTY</td>
-                                        <td>12123123</td>
-                                        <td>AAAAAAA</td>
-
-
-            <td class="colspan-a">
-
-                <div class="data-show-box" id="dateShow3">
-                    <span class="datein" id="dataInfoShow_2"></span>
-                    <span class="date-tiem-span d">00</span>天
-                    <span class="date-tiem-span h">00</span>时
-                    <span class="date-tiem-span m">00</span>分
-                    <span class="date-s-span s">00</span>秒
-
-                </div>
-                <!-- 倒计时过度代码 -->
-
-            </td>
-                                        <td><button class="btn btn-xs btn-info"  onclick=update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button><button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'");  title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
-                                    </tr>
+                                    <!--<tr><td>1</td>-->
+                                        <!--<td>IYIUYIITUTY</td>-->
+                                        <!--<td>IYIUYIITUTY</td>-->
+                                        <!--<td>IYIUYIITUTY</td>-->
+                                        <!--<td>IYIUYIITUTY</td>-->
+                                        <!--<td>12123123</td>-->
+                                        <!--<td>AAAAAAA</td>-->
+                                        <!--<td class="colspan-a">-->
+                                            <!--<span id="dataInfoShow_2"></span>-->
+                                            <!--<div class="data-show-box" id="dateShow3">-->
+                                                <!--<span class="date-tiem-span d">00</span>天-->
+                                                <!--<span class="date-tiem-span h">00</span>时-->
+                                                <!--<span class="date-tiem-span m">00</span>分-->
+                                                <!--<span class="date-s-span s">00</span>秒-->
+                                            <!--</div>-->
+                                        <!--</td>-->
+                                        <!--<td><button class="btn btn-xs btn-info"  onclick=update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button><button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'");  title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>-->
+                                    <!--</tr>-->
 
                                 </table>
 
                             </div><!-- /.row -->
-
                         </div><!-- ./span -->
-
 
                         <ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page" style="float: right"></ul>
 
@@ -155,32 +158,36 @@
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 设备名称：</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" name="update_username"  class="col-xs-10 col-sm-5"  />
+
+                                                                    <input type="text" name="equipmentname" id="update_equipment_name" class="col-xs-10 col-sm-5"  />
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 设备型号：</label>
 
                                                                 <div class="col-sm-9">
-                                                                    <input type="text"  name="update_password"  class="col-xs-10 col-sm-5" />
+                                                                    <input type="text"  name="equipmentype" id="update_equipment_Type" class="col-xs-10 col-sm-5" />
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 设备时间：</label>
+
                                                                 <div class="col-sm-9">
 
                                                                     <div class="input-daterange input-group" >
-                                                                        <input type="text" value="2018/04/1 00:00:00" class="getTimeIpt_2" name="start" id="modifystart" />
+                                                                        <input type="text" class=" form-control" name="updatestart" placeholder="输入设备开始时间..."  id="start" >
                                                                         <span class="input-group-addon">
-                                                    <i class="fa fa-exchange"></i>
-                                                </span>
+                                                                <i class="fa fa-exchange"></i>
+                                                                   </span>
 
-                                                                        <input type="text" value="2018/05/25 00:00:00" class="getTimeIpt_3" name="end"  id="modifyend"/>
+                                                                        <input type="text" class=" form-control"   name="updateend"  id="end" placeholder="输入设备结束时间..." />
                                                                     </div>
                                                                 </div>
-                                                                <!-- 当前系统时间：<input type="text" value="" id="getTimeIpt_1"><br /> -->
 
                                                             </div>
+                                                            <!-- 当前系统时间：<input type="text" value="" id="getTimeIpt_1"><br /> -->
+
+
 
                                                             <div class="modal-footer no-margin-top">
 
@@ -198,7 +205,6 @@
                                                                 </button>
 
                                                             </div>
-
 
                                                         </form>
 
@@ -238,37 +244,58 @@
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 设备名称：</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" placeholder="输入设备名称..." name="update_username"  class="col-xs-10 col-sm-5"  />
+                                                                    <input type="text"  placeholder="输入用户名" class="col-xs-10 col-sm-5" id="equipment_Name"/>
+
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 设备型号：</label>
 
                                                                 <div class="col-sm-9">
-                                                                    <input type="text"  placeholder="输入设备型号..." name="update_password"  class="col-xs-10 col-sm-5" />
+                                                                    <input type="text"  placeholder="输入设备型号..." class="col-xs-10 col-sm-5" id="equipment_Type" />
+
                                                                 </div>
                                                             </div>
-                                                            
+
                                                             <div class="form-group">
-                                                                <label class="col-sm-3 control-label no-padding-right" > 结束时间：</label>
+                                                                <label class="col-sm-3 control-label no-padding-right" > 租赁时间：</label>
+
                                                                 <div class="col-sm-9">
-                                            
-                                                                 <div class="input-daterange input-group" >
-                                                                  <input type="text" class=" form-control" placeholder="输入设备开始时间..."  id="start" >
-                                                                 <span class="input-group-addon">
+
+                                                                    <div class="input-daterange input-group" >
+                                                                        <input type="text" class=" form-control" name="modify_start" placeholder="输入租赁开始时间..."  id="modifystart" >
+                                                                        <span class="input-group-addon">
                                                                 <i class="fa fa-exchange"></i>
                                                                    </span>
 
-                                                                   <input type="text" class=" form-control"   id="end" placeholder="输入设备结束时间..." />
-                                                                 </div>
-                                                                      </div>
-                                                                
+                                                                        <input type="text" class=" form-control"   name="modify_end"  id="modifyend" placeholder="输入租赁结束时间..." />
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label no-padding-right" > 滤芯时间：</label>
+
+                                                                <div class="col-sm-9">
+
+                                                                    <div class="input-daterange input-group" >
+                                                                        <input type="text" class=" form-control" name="filter_StartTime" placeholder="输入滤芯开始时间..."  id="filterStartTime" >
+                                                                        <span class="input-group-addon">
+                                                                <i class="fa fa-exchange"></i>
+                                                                   </span>
+
+                                                                        <input type="text" class=" form-control"   name="filter_StopTime"  id="filterStopTime" placeholder="输入滤芯到期时间..." />
+                                                                    </div>
+                                                                </div>
+
+
                                                             </div>
 
                                                             <div class="modal-footer no-margin-top">
 
-                                                                <button type="button" class="btn btn-info"  name="update_submit" style="float: left;" onclick="update_submit();"
-                                                                       >
+                                                                <button type="button" class="btn btn-info"  name="update_submit" style="float: left;" onclick="equipment_add();"
+                                                                >
                                                                     <i class="ace-icon fa fa-check bigger-110"></i>
                                                                     立即提交
 
@@ -284,7 +311,7 @@
 
 
                                                         </form>
-                                                        
+
 
                                                     </div><!-- /.col -->
                                                 </div><!-- /.row -->
@@ -315,26 +342,28 @@
                     </div><!-- /.main-container --
 					<!-- basic scripts -->
                     <script type="text/javascript">
-
-
-
-</script>
-                    <script type="text/javascript">
                         window.jQuery || document.write("<script src='js/jquery.min.js'>"+"<"+"/script>");
-                        //日期范围限制
- 
                     </script>
                     <!-- <![endif]-->
                     <script type="text/javascript">
                         if('ontouchstart' in document.documentElement) document.write("<script src='js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
                     </script>
-                   
+                    <script type="text/javascript">
+                        window.jQuery || document.write("<script src='js/jquery.min.js'>"+"<"+"/script>");
+                        //日期范围限制
+
+                    </script>
+                    <!-- <![endif]-->
+                    <script type="text/javascript">
+                        if('ontouchstart' in document.documentElement) document.write("<script src='js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+                    </script>
+
                     <script src="js/jquery-3.3.1.min.js?v=1"></script>
 
                     <script src="js/equipment.js?v=1"></script>
-
+                    <script src="js/equipment_page.js?v=1"></script>
                     <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-                    <script type="text/javascript" src="js/page.js"></script>
+                    <script type="text/javascript" src="js/equipment_page.js"></script>
                     <script src="js/bootstrap.min.js?v=1"></script>
                     <script src="js/jquery.dataTables.min.js?v=1"></script>
                     <script src="js/jquery.dataTables.bootstrap.js?v=1"></script>
@@ -345,11 +374,249 @@
                     <!-- ace scripts -->
                     <script src="js/ace-elements.min.js?v=1"></script>
                     <script src="js/ace.min.js?v=1"></script>
-                    <script type="text/javascript" src="js/jquery.min.js"></script>
+                    <!--<script type="text/javascript" src="js/jquery.min.js"></script>-->
 
-        <script type="text/javascript" src="js/jsq.js"></script>
-<script type="text/javascript" src="js/leftTime.min.js"></script>
+                    <script type="text/javascript" src="js/jsq.js"></script>
+                    <script type="text/javascript" src="js/leftTime.min.js"></script>
+                    <script type="text/javascript">
+                        jQuery(function($) {
 
+                            $( "#datepicker" ).datepicker({
+                                showOtherMonths: true,
+                                selectOtherMonths: false,
+                            });
+
+
+                            $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+                                _title: function(title) {
+                                    var $title = this.options.title || '&nbsp;'
+                                    if( ("title_html" in this.options) && this.options.title_html == true )
+                                        title.html($title);
+                                    else title.text($title);
+                                }
+                            }));
+                            $( "#id-btn-dialog2" ).on('click', function(e) {
+                                e.preventDefault();
+
+                                $( "#dialog-confirm" ).removeClass('hide').dialog({
+                                    resizable: false,
+                                    modal: true,
+
+                                    title_html: true,
+                                    buttons: [
+                                        {
+                                            html: "<i class='ace-icon fa fa-trash-o bigger-110' ></i>&nbsp; 删除",
+                                            "class" : "btn btn-danger btn-xs ",
+                                            click: function() {
+                                                $( this ).dialog( "close" );
+                                            }
+                                        }
+                                        ,
+                                        {
+                                            html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; 取消",
+                                            "class" : "btn btn-xs",
+                                            click: function() {
+                                                $( this ).dialog( "close" );
+                                            }
+                                        }
+                                    ]
+                                });
+                            });
+                            //autocomplete
+                            var availableTags = [
+                                "ActionScript",
+                                "AppleScript",
+                                "Asp",
+                                "BASIC",
+                                "C",
+                                "C++",
+                                "Clojure",
+                                "COBOL",
+                                "ColdFusion",
+                                "Erlang",
+                                "Fortran",
+                                "Groovy",
+                                "Haskell",
+                                "Java",
+                                "JavaScript",
+                                "Lisp",
+                                "Perl",
+                                "PHP",
+                                "Python",
+                                "Ruby",
+                                "Scala",
+                                "Scheme"
+                            ];
+                            $( "#tags" ).autocomplete({
+                                source: availableTags
+                            });
+
+                            //custom autocomplete (category selection)
+                            $.widget( "custom.catcomplete", $.ui.autocomplete, {
+                                _renderMenu: function( ul, items ) {
+                                    var that = this,
+                                        currentCategory = "";
+                                    $.each( items, function( index, item ) {
+                                        if ( item.category != currentCategory ) {
+                                            ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                                            currentCategory = item.category;
+                                        }
+                                        that._renderItemData( ul, item );
+                                    });
+                                }
+                            });
+
+                            var data = [
+                                { label: "anders", category: "" },
+                                { label: "andreas", category: "" },
+                                { label: "antal", category: "" },
+                                { label: "annhhx10", category: "Products" },
+                                { label: "annk K12", category: "Products" },
+                                { label: "annttop C13", category: "Products" },
+                                { label: "anders andersson", category: "People" },
+                                { label: "andreas andersson", category: "People" },
+                                { label: "andreas johnson", category: "People" }
+                            ];
+                            $( "#search" ).catcomplete({
+                                delay: 0,
+                                source: data
+                            });
+
+
+                            //tooltips
+                            $( "#show-option" ).tooltip({
+                                show: {
+                                    effect: "slideDown",
+                                    delay: 250
+                                }
+                            });
+
+                            $( "#hide-option" ).tooltip({
+                                hide: {
+                                    effect: "explode",
+                                    delay: 250
+                                }
+                            });
+
+                            $( "#open-event" ).tooltip({
+                                show: null,
+                                position: {
+                                    my: "left top",
+                                    at: "left bottom"
+                                },
+                                open: function( event, ui ) {
+                                    ui.tooltip.animate({ top: ui.tooltip.position().top + 10 }, "fast" );
+                                }
+                            });
+
+
+                            //Menu
+                            $( "#menu" ).menu();
+
+
+                            //slider example
+                            $( "#slider" ).slider({
+                                range: true,
+                                min: 0,
+                                max: 500,
+                                values: [ 75, 300 ]
+                            });
+
+
+
+                            //jquery accordion
+                            $( "#accordion" ).accordion({
+                                collapsible: true ,
+                                heightStyle: "content",
+                                animate: 250,
+                                header: ".accordion-header"
+                            }).sortable({
+                                axis: "y",
+                                handle: ".accordion-header",
+                                stop: function( event, ui ) {
+                                    // IE doesn't register the blur when sorting
+                                    // so trigger focusout handlers to remove .ui-state-focus
+                                    ui.item.children( ".accordion-header" ).triggerHandler( "focusout" );
+                                }
+                            });
+
+
+
+                        });
+
+                        function tt(dd){
+                            //alert(dd);
+                        }
+                        var GG = {
+                            "kk":function(mm){
+                                // alert(mm);
+                            }
+                        }
+
+                        // $("#page").initPage(71,1,GG.kk);
+                        jQuery(function($) {
+
+                            $(".tbl-search").click(function(){
+                                $(".table-responsive").slideDown("fast");
+                            })
+
+                            var oTable1 =
+                                $('#sample-table-2')
+                                    .dataTable( {
+                                        bAutoWidth: false,
+                                        bInfo:flase,
+                                        "aoColumns": [
+                                            { "bSortable": false },
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            { "bSortable": false },
+                                            null,
+                                            { "bSortable": false }
+                                        ],
+                                        "aaSorting": [],
+                                    } );
+
+                            $(document).on('click', 'th input:checkbox' , function(){
+                                var that = this;
+                                $(this).closest('table').find('tr > td:first-child input:checkbox')
+                                    .each(function(){
+                                        this.checked = that.checked;
+                                        $(this).closest('tr').toggleClass('selected');
+                                    });
+                            });
+
+
+
+
+                        })
+
+                    </script>
                 </div></div></div></div></div></div></body>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

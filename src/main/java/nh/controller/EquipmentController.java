@@ -33,6 +33,7 @@ public class EquipmentController {
     @PostMapping("/Equipment/add")
     public String equipmentAdd(@RequestBody Equipment equipment){
      try {
+
          equipmentService.equipmentAdd(equipment);
          return "200";
      }catch (Exception e){
@@ -70,10 +71,6 @@ public class EquipmentController {
         return  pageMax;
     }
 
-    @ApiOperation(value = "测试")
-    @GetMapping("/Equipment/test")
-    private Equipment test(@RequestParam String did){
-       return equipmentService.httpResponse(did);
-    }
+
 
 }
