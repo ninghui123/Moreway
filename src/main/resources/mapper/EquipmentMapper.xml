@@ -65,14 +65,26 @@
             <if test="status!=null">
                 #{status},
             </if>
-            <if test="startTime!=null and startTime!=''">
+            <if test="startTime!=null">
                 #{startTime},
             </if>
-            <if test="stopTime!=null and stopTime!=''">
+            <if test="stopTime!=null">
                 #{stopTime},
             </if>
-            <if test="surplusTime!=null and surplusTime!=''">
-                #{surplusTime},
+           <if test="equipmentDid!=null and equipmentDid!=''">
+               #{equipmentDid},
+           </if>
+            <if test="equipmentAttribute!=null and equipmentAttribute!=''">
+                #{equipmentAttribute}
+            </if>
+            <if test="filterStartTime!=null">
+                #{filterStartTime},
+            </if>
+            <if test="filterStopTime!=null">
+                #{filterStopTime},
+            </if>
+            <if test="responseId!=null and responseId!=''">
+                #{responseId},
             </if>
         </trim>
     </sql>
@@ -103,14 +115,26 @@
             <if test="status!=null">
                 status,
             </if>
-            <if test="startTime!=null and startTime!=''">
+            <if test="startTime!=null">
                 start_time,
             </if>
-            <if test="stopTime!=null and stopTime!=''">
+            <if test="stopTime!=null">
                 stop_time,
             </if>
-            <if test="surplusTime!=null and surplusTime!=''">
-                surplus_time,
+            <if test="equipmentDid!=null and equipmentDid!=''">
+                equipment_did,
+            </if>
+            <if test="equipmentAttribute!=null and equipmentAttribute!=''">
+            equipment_attribute,
+            </if>
+            <if test="filterStartTime!=null">
+                filter_start_time,
+            </if>
+            <if test="filterStopTime!=null">
+                filter_stop_time,
+            </if>
+            <if test="responseId!=null and responseId!=''">
+                response_id,
             </if>
         </trim>
     </sql>

@@ -44,14 +44,14 @@ public class ClientHeartbeatHandler extends ChannelInboundHandlerAdapter {
                 clientHttpRequest2.setReq(2);
                 clientHttpRequest2.setDid("100-110-120-119");
                 clientHttpRequest2.setPwd(token);
-                clientHttpRequest2.setVer("v1.0");
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date date=new Date();
-            String currentTime= format.format(date);
-            Date beginDate=format.parse(currentTime);
-            Date endDate= format.parse("2018-05-01");
-            long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
-            System.out.println("剩余时间是:"+day);
+                         clientHttpRequest2.setVer("v1.0");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date=new Date();
+                String currentTime= format.format(date);
+                Date beginDate=format.parse(currentTime);
+                Date endDate= format.parse("2018-05-01");
+                long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+                System.out.println("剩余时间是:"+day);
                 String str=gson.toJson(clientHttpRequest2);
                 DefaultFullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
                         uri.toASCIIString(), Unpooled.wrappedBuffer(str.getBytes("UTF-8")));
