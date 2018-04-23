@@ -122,6 +122,5 @@ SELECT * FROM u_user WHERE nickname=#{username} and is_delete=0
                  CONCAT(nickname,pswd) LIKE CONCAT('%',#{str},'%')
             </if>
         </where>
-
     </select>
 </mapper>

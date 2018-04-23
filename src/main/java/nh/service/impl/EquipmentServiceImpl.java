@@ -3,6 +3,7 @@ package nh.service.impl;
 import nh.beans.Equipment;
 import nh.beans.Page;
 import nh.dao.EquipmentMapper;
+import nh.dto.ClientHttpRequest3;
 import nh.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,20 +29,16 @@ public class EquipmentServiceImpl implements EquipmentService{
     @Transactional
     public void equipmentAdd(Equipment equipment) {
         equipment.setId(UUID.randomUUID().toString());
-
        equipment.setCreateTime(new Date());
        equipment.setUpdateTime(new Date());
-       equipment.setStartTime(new Date());
-       equipment.setStopTime(new Date());
-       equipment.setFilterStartTime(new Date());
-       equipment.setFilterStopTime(new Date());
         equipmentMapper.add(equipment);
+        equipmentMapper.responseAdd(equipment.getEquipmentDid());
     }
 
     @Override
     @Transactional
     public void equipmentUpdate(Equipment equipment) {
-     equipmentMapper.update(equipment);
+      equipmentMapper.update(equipment);
     }
 
     @Override
@@ -59,4 +56,15 @@ public class EquipmentServiceImpl implements EquipmentService{
         return equipmentMapper.httpResponse(did);
     }
 
+    @Override
+    @Transactional
+    public void responseAdd(String did) {
+        equipmentMapper.responseAdd(did);
+    }
+
+    @Override
+    @Transactional
+    public void requestUpdate(ClientHttpRequest3 clientHttpRequest3) {
+        equipmentMapper.requestUpdate(clientHttpRequest3);
+    }
 }

@@ -1,12 +1,11 @@
 package nh.controller;
 
 import io.swagger.annotations.ApiOperation;
+import nh.ReturnMsg;
 import nh.beans.Equipment;
 import nh.beans.Page;
 import nh.beans.PageMax;
-import nh.server.ServerHeartbeatHandler;
 import nh.service.EquipmentService;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +32,6 @@ public class EquipmentController {
     @PostMapping("/Equipment/add")
     public String equipmentAdd(@RequestBody Equipment equipment){
      try {
-
          equipmentService.equipmentAdd(equipment);
          return "200";
      }catch (Exception e){
@@ -59,7 +57,6 @@ public class EquipmentController {
     public Equipment listOne(@RequestParam String id){
 
            return equipmentService.listOne(id);
-
     }
 
     @ApiOperation(value = "最大页数")
@@ -71,6 +68,9 @@ public class EquipmentController {
         return  pageMax;
     }
 
-
-
+    @ApiOperation(value = "测试")
+    @GetMapping("/Equipment/test")
+    private Equipment test(@RequestParam String did){
+           return equipmentService.httpResponse(did);
+    }
 }

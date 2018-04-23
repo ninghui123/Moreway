@@ -21,6 +21,20 @@ public class Equipment {
     private  Date filterStopTime;//滤芯到期时间
     private String responseId;
 
+    private Integer did;//设备号
+    private Integer flow;//净水流出汇总流量
+    private Integer tdsi;//原水TDS值
+    private Integer tdso;//净水TDS值
+    private Integer t;//净水流出温度
+    private Integer rs;//设备运行状态
+    private Integer dbg;//调试状态标志
+    private Integer us;//用户开关机状态
+    private Integer fault;//设备故障状态
+
+
+
+
+
     public String getId() {
         return id;
     }
@@ -155,5 +169,77 @@ public class Equipment {
 
     public void setResponseId(String responseId) {
         this.responseId = responseId;
+    }
+
+    public Integer getFlow() {
+        return flow;
+    }
+
+    public void setFlow(Integer flow) {
+        this.flow = flow;
+    }
+
+    public Integer getTdsi() {
+        return tdsi;
+    }
+
+    public void setTdsi(Integer tdsi) {
+        this.tdsi = tdsi;
+    }
+
+    public Integer getTdso() {
+        return tdso;
+    }
+
+    public void setTdso(Integer tdso) {
+        this.tdso = tdso;
+    }
+
+    public Integer getT() {
+        return t;
+    }
+
+    public void setT(Integer t) {
+        this.t = t;
+    }
+
+    public Integer getRs() {
+        return rs;
+    }
+
+    public void setRs(Integer rs) {
+        this.rs = rs;
+    }
+
+    public Integer getDbg() {
+        return dbg;
+    }
+
+    public void setDbg(Integer dbg) {
+        this.dbg = dbg;
+    }
+
+    public Integer getUs() {
+        return us;
+    }
+
+    public void setUs(Integer us) {
+        this.us = us;
+    }
+
+    public Integer getFault() {
+        return fault;
+    }
+
+    public void setFault(Integer fault) {
+        this.fault = fault;
+    }
+
+    public Integer getDid() {
+        return did;
+    }
+
+    public void setDid(Integer did) {
+        this.did = did;
     }
 }

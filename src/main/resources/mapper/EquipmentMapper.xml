@@ -39,6 +39,39 @@
         </trim>
     </sql>
 
+    <sql id="requestUpdate_key">
+        <trim suffixOverrides=",">
+            <if test="id!=null and id!=''">
+                id=#{did},
+            </if>
+            <if test="flow!=null">
+                flow=#{flow},
+            </if>
+            <if test="tdsi!=null">
+                tdsi=#{tdsi},
+            </if>
+            <if test="tdso!=null">
+                tdso=#{tdso},
+            </if>
+            <if test="t!=null">
+                t=#{t},
+            </if>
+            <if test="rs!=null">
+                rs=#{rs},
+            </if>
+            <if test="dbg!=null">
+                dbg=#{dbg},
+            </if>
+            <if test="us!=null">
+                us=#{us},
+            </if>
+            <if test="fault!=null">
+                fault=#{fault},
+            </if>
+        </trim>
+    </sql>
+
+
     <sql id="add_value">
         <trim suffixOverrides=",">
             <if test="id!=null and id!=''">
@@ -141,9 +174,10 @@
 
 
     <select id="list" resultType="nh.beans.Equipment">
-        SELECT * FROM equipment_manage WHERE is_delete=0
-         ORDER BY create_time DESC
-         LIMIT #{page.pageNext},#{page.pageSize}
+       SELECT * FROM equipment_manage as em LEFT JOIN equipment_request AS er ON em.equipment_did=er.id
+       WHERE is_delete=0
+        ORDER BY create_time DESC
+        LIMIT #{page.pageNext},#{page.pageSize}
     </select>
 
     <insert id="add" parameterType="nh.beans.Equipment">
@@ -163,12 +197,20 @@
     </select>
 
     <select id="listOne" resultType="nh.beans.Equipment">
-        SELECT * FROM equipment_manage WHERE id=#{id}
+       SELECT * FROM equipment_manage as em LEFT JOIN equipment_response AS er ON em.equipment_did=er.id
+       WHERE em.equipment_did=#{did} AND em.is_delete=0
     </select>
 
     <select id="httpResponse" resultType="nh.beans.Equipment">
         SELECT * FROM equipment_manage WHERE equipment_did=#{did}
     </select>
 
+    <insert id="responseAdd" parameterType="java.lang.String">
+        INSERT  INTO equipment_request(id) VALUES (#{did})
+    </insert>
+
+    <update id="requestUpdate" parameterType="nh.beans.Equipment">
+        UPDATE equipment_request SET <include refid="requestUpdate_key"/> WHERE id=#{did}
+    </update>
 
 </mapper>
