@@ -1,8 +1,6 @@
-
 $(function () {
     user_list();
 })
-
 function user_list() {
 
                 $.ajax({
