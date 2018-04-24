@@ -69,8 +69,8 @@ var  page = {
             nextPageClass="pageItemDisable";
         }
         var appendStr ="";
-        appendStr+="<li class='"+prePageClass+"' page-data='1' onclick=home('"+1+"'); page-rel='firstpage'>首页</li>";
-        appendStr+="<li class='"+prePageClass+"' page-data='"+prePage+"' onclick=previous('"+prePage+"'); page-rel='prepage'>&lt;上一页</li>";
+        appendStr+="<li class='"+prePageClass+"' page-data='1' onclick=home_page('"+1+"'); page-rel='firstpage'>首页</li>";
+        appendStr+="<li class='"+prePageClass+"' page-data='"+prePage+"' onclick=Previous_page('"+prePage+"'); page-rel='prepage'>&lt;上一页</li>";
         var miniPageNumber = 1;
         if(currentPage-parseInt(page.maxshowpageitem/2)>0&&currentPage+parseInt(page.maxshowpageitem/2)<=pageCount){
             miniPageNumber = currentPage-parseInt(page.maxshowpageitem/2);
@@ -93,8 +93,8 @@ var  page = {
 
             appendStr+="<li class='"+itemPageClass+"' page-data='"+pageNumber+"' name='next' onclick=page_next('"+pageNumber+"'); page-rel='itempage' >"+pageNumber+"</li>";
         }
-        appendStr+="<li class='"+nextPageClass+"' page-data='"+nextPage+"'  onclick=next('"+nextPage+"'); page-rel='nextpage'>下一页&gt;</li>";
-        appendStr+="<li class='"+nextPageClass+"' page-data='"+pageCount+"' onclick=shadowe('"+pageCount+"'); page-rel='lastpage'>尾页</li>";
+        appendStr+="<li class='"+nextPageClass+"' page-data='"+nextPage+"'  onclick=next_page('"+nextPage+"'); page-rel='nextpage'>下一页&gt;</li>";
+        appendStr+="<li class='"+nextPageClass+"' page-data='"+pageCount+"' onclick=Tail_page('"+pageCount+"'); page-rel='lastpage'>尾页</li>";
        return appendStr;
 
     }
@@ -122,7 +122,7 @@ function page_max() {
         dataType : "json",
         success:function (data) {
             $("#page").initPage(data.max,1,GG.kk);
-            $("#page").paging({
+            $("#page").data({
                 pageNo:4,
                 totalPage: 10,
                 totalSize: 300,
@@ -162,7 +162,7 @@ function page_next(value) {
    })
 }
 //下一页
-function next(value) {
+function next_page(value) {
     $.ajax({
         url:"/user/list",
         type:"GET",
@@ -190,7 +190,7 @@ function next(value) {
     })
 }
 //尾页
-function shadowe(value) {
+function Tail_page(value) {
     $.ajax({
         url:"/user/list",
         type:"GET",
@@ -218,7 +218,7 @@ function shadowe(value) {
     })
 }
 //首页
-function home(value) {
+function home_page(value) {
 
     $.ajax({
         async:false,
@@ -254,7 +254,7 @@ function home(value) {
     });
 }
 //上一页
-function previous(value) {
+function Previous_page(value) {
     $.ajax({
         url:"/user/list",
         type:"GET",

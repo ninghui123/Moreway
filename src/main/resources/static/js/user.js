@@ -78,15 +78,14 @@ function user_update(id) {
         success:function (data) {
           $("input[name = 'update_username']").val(data.nickname);
           $("input[name = 'update_password']").val(data.pswd);
-            $("button[name = 'update_submit']").val(id)
+            $("button[name = 'update_submit']").val(id);
             $("select[name = 'status_select']").find("option[value="+data.status+"]").attr("selected",true);
         }
 
     })
 
 }
-function update_submit(){
-
+function UpdateSubmit(){
     var name = $("input[name = 'update_username']").val();
     var pwd= $("input[name = 'update_password']").val();
     var id=$("button[name = 'update_submit']").val();
@@ -108,7 +107,7 @@ function update_submit(){
             if(data=="200") {
                 window.location.reload();
             }else {
-                window.location.reload();
+                alert("修改失败");
             }
         }
 
@@ -116,7 +115,7 @@ function update_submit(){
 
 }
 //删除
-function del(id){
+function user_del(id){
     if(confirm('确认删除吗?')){
         $.ajax({
             type:'delete',
