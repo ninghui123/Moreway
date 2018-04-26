@@ -201,8 +201,8 @@
     </select>
 
     <select id="listOne" resultType="nh.beans.Equipment">
-       SELECT * FROM equipment_manage as em LEFT JOIN equipment_response AS er ON em.equipment_did=er.id
-       WHERE em.equipment_did=#{did} AND em.is_delete=0
+       SELECT * FROM equipment_manage
+       WHERE  is_delete=0 AND id=#{id}
     </select>
 
     <select id="httpResponse" resultType="nh.beans.Equipment">
