@@ -201,7 +201,7 @@ function Tail_page(value) {
             "pageSize":10
         },
         success:function (data) {
-            $(".table>tbody").empty();
+            $(".table>tbody").empty();//清除
             var obj = "";
             $.each(data,function (i,list) {
                 obj += '<tr>';

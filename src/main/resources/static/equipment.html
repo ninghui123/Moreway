@@ -83,7 +83,7 @@
                                 </table>
                             </div><!-- /.row -->
                         </div><!-- ./span -->
-                        <ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page" style="float: right"></ul>
+                        <ul class="page" maxshowpageitem="5" pagelistcount="10"  id="epage" style="float: right"></ul>
                         <!--修改设备-->
                         <div class="hr hr-18 dotted hr-double"></div>
                         <div id="modal-table" class="modal fade" tabindex="-1">
@@ -108,28 +108,40 @@
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 设备名称：</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" name="equipmentname" id="update_equipment_name" class="col-xs-10 col-sm-5"  />
+                                                                    <input type="text" name="equipmentName_modify"  class="col-xs-10 col-sm-5"  />
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label no-padding-right" > 设备型号：</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text"  name="equipmentype" id="update_equipment_Type" class="col-xs-10 col-sm-5" />
+                                                                    <input type="text"  name="equipmentType_modify"  class="col-xs-10 col-sm-5" />
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="col-sm-3 control-label no-padding-right" > 设备时间：</label>
+                                                                <label class="col-sm-3 control-label no-padding-right" > 租赁时间：</label>
                                                                 <div class="col-sm-9">
                                                                     <div class="input-daterange input-group" >
-                                                                        <input type="text" class=" form-control" name="updatestart" placeholder="输入设备开始时间..."  id="start" >
+                                                                        <input type="text" class=" form-control" name="startTime_modify"   >
                                                                         <span class="input-group-addon">
                                                                 <i class="fa fa-exchange"></i></span>
-                                                                        <input type="text" class=" form-control"   name="updateend"  id="end" placeholder="输入设备结束时间..." />
+                                                                        <input type="text" class=" form-control"   name="stopTime_modify"  />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label no-padding-right" > 滤芯时间：</label>
+                                                                <div class="col-sm-9">
+                                                                    <div class="input-daterange input-group" >
+                                                                        <input type="text" class=" form-control" name="filterStartTime_modify"   />
+                                                                        <span class="input-group-addon">
+                                                                <i class="fa fa-exchange"></i>
+                                                                   </span>
+                                                                        <input type="text" class=" form-control"   name="filterStopTime_modify"   />
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer no-margin-top">
-                                                                <button type="button" class="btn btn-info"  name="update_submit" style="float: left;" onclick="update_submit();" id="dateBtn3">
+                                                                <button type="button" class="btn btn-info"  name="equipment_modify" style="float: left;" onclick="update_submit();" id="dateBtn3">
                                                                     <i class="ace-icon fa fa-check bigger-110"></i>立即提交
                                                                 </button>&nbsp; &nbsp; &nbsp;
                                                                 <button class="btn" data-dismiss="modal">
@@ -234,7 +246,6 @@
                     <script src="js/jquery-1.9.1.js?v=1"></script>
                     <script src="js/equipment.js?v=1"></script>
                     <script src="js/equipment_page.js?v=1"></script>
-                    <script type="text/javascript" src="js/equipment_page.js"></script>
                     <script src="js/bootstrap.min.js?v=1"></script>
                     <script src="js/jquery.dataTables.min.js?v=1"></script>
                     <script src="js/jquery.dataTables.bootstrap.js?v=1"></script>

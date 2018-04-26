@@ -97,7 +97,7 @@ function equipment_list() {
                 //计算相差天数
                 days = Math.floor(date3/(24*3600*1000));
                 if(days<0){
-                   day=00;
+                    day=00;
                 }else {
                     day=days;
                 }
@@ -115,7 +115,7 @@ function equipment_list() {
                 //计算相差秒数
                 leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
                 seconds=Math.round(leave3/1000);
-               // alert(" 相差 "+days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")
+                // alert(" 相差 "+days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")
                 //data[i]
                 //console.log(data[i]);
                 //alert(data[i].con);
@@ -137,33 +137,33 @@ function equipment_list() {
                 //     str += "</tr>";
                 //
                 // }
-                    str += "<tr>";
-                    str += "<td>" + data[i].equipmentDid + "</td>";
-                    str += data[i].rs === 0 ? '<td><span class="label label-sm label-warning2" ><i class="ace-icon fa fa-power-off  bigger-120"></i>待机</span></td>' : data[i].rs === 1 ? '<td><span class="label label-sm label-warning3" ><i class="ace-icon fa fa-magic   bigger-120"></i>冲洗</span></td>' : data[i].rs === 2 ? '<td><span class="label label-sm label-warning4" ><i class="ace-icon fa fa-plus-square  bigger-120"></i>制水</span></td>' : data[i].rs === 3 ? '<td><span class="label label-sm label-warning5" ><i class="ace-icon fa fa-gavel  bigger-120"></i>检修</span></td>' : data[i].rs === 4 ? '<td><span class="label label-sm label-warning1"><i class="ace-icon fa fa-bars  bigger-120"></i>水满</span></td>' : '<td></td>';
-                    str += "<td>" + data[i].equipmentName + "</td>";
-                    str += "<td>" + data[i].flow + "</td>";
-                    str += "<td>" + data[i].tdsi + "</td>";
-                    str += "<td>" + data[i].tdso + "</td> ";
-                    str += "<td>" + data[i].t + "</td>";
-                    str += data[i].fault === 0 ? '<td><span class="label label-sm label-warning6"></i>缺水</span></td>' :data[i].fault === 1 ? '<td><span class="label label-sm label-warning7" ></i>连续30秒制水无净水流量</span></td>' :data[i].fault === 2 ? '<td><span class="label label-sm label-warning8" ></i>净水TDS温度补偿探头异常</span></td>' : data[i].fault === 3 ? '<td><span class="label label-sm label-warning9" ></i>连续制水6小时不水满</span></td>' : data[i].fault === 4 ? '<td><span class="label label-sm label-warning10" ></i>漏水</span></td>' : '<td></td>';
-                    str += '"<td><span class="date-tiem-span m">' + day + ' </span>天<span class="date-s-span s">' + hour + '</span><span>时</span></td>"';
-                    str += mytowObj.fs === 0 ? '<td><span class="label label-sm label-warning1" ></i>正常</span></td>' : mytowObj.fs === 1 ? '<td><span class="label label-sm label-warning2" ></i>快到期</span></td>' : mytowObj.fs === 2 ? '<td><span class="label label-sm label-warning5" ></i>到期</span></td>' : '<td></td>';
-                    str += '<td><button class="btn btn-xs btn-info"  onclick=equipment_update("' + data[i].id + '"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
-                        '<button class="btn btn-xs btn-danger" onclick=del("' + data[i].id + '"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
-                    str += "</tr>";
-                }
+                str += "<tr>";
+                str += "<td>" + data[i].equipmentDid + "</td>";
+                str += data[i].rs === 0 ? '<td><span class="label label-sm label-warning2" ><i class="ace-icon fa fa-power-off  bigger-120"></i>待机</span></td>' : data[i].rs === 1 ? '<td><span class="label label-sm label-warning3" ><i class="ace-icon fa fa-magic   bigger-120"></i>冲洗</span></td>' : data[i].rs === 2 ? '<td><span class="label label-sm label-warning4" ><i class="ace-icon fa fa-plus-square  bigger-120"></i>制水</span></td>' : data[i].rs === 3 ? '<td><span class="label label-sm label-warning5" ><i class="ace-icon fa fa-gavel  bigger-120"></i>检修</span></td>' : data[i].rs === 4 ? '<td><span class="label label-sm label-warning1"><i class="ace-icon fa fa-bars  bigger-120"></i>水满</span></td>' : '<td></td>';
+                str += "<td>" + data[i].equipmentName + "</td>";
+                str += "<td>" + data[i].flow + "</td>";
+                str += "<td>" + data[i].tdsi + "</td>";
+                str += "<td>" + data[i].tdso + "</td> ";
+                str += "<td>" + data[i].t + "</td>";
+                str += data[i].fault === 0 ? '<td><span class="label label-sm label-warning6"></i>缺水</span></td>' :data[i].fault === 1 ? '<td><span class="label label-sm label-warning7" ></i>连续30秒制水无净水流量</span></td>' :data[i].fault === 2 ? '<td><span class="label label-sm label-warning8" ></i>净水TDS温度补偿探头异常</span></td>' : data[i].fault === 3 ? '<td><span class="label label-sm label-warning9" ></i>连续制水6小时不水满</span></td>' : data[i].fault === 4 ? '<td><span class="label label-sm label-warning10" ></i>漏水</span></td>' : '<td></td>';
+                str += '"<td><span class="date-tiem-span m">' + day + ' </span>天<span class="date-s-span s">' + hour + '</span><span>时</span></td>"';
+                str += mytowObj.fs === 0 ? '<td><span class="label label-sm label-warning1" ></i>正常</span></td>' : mytowObj.fs === 1 ? '<td><span class="label label-sm label-warning2" ></i>快到期</span></td>' : mytowObj.fs === 2 ? '<td><span class="label label-sm label-warning5" ></i>到期</span></td>' : '<td></td>';
+                str += '<td><button class="btn btn-xs btn-info"  onclick=equipment_update("' + data[i].id + '"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
+                    '<button class="btn btn-xs btn-danger" onclick=del("' + data[i].id + '"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                str += "</tr>";
+            }
             $("#hs").append(str);
         }
     });
 }
 //添加
 function equipment_add() {
-     var equipmentName = $('#equipment_Name').val();
-     var equipmentType=$('#equipment_Type').val();
-     var modifystart=$('#modifystart').val();
-     var modifyend=$('#modifyend').val();
-     var filterStartTime=$('#filterStartTime').val();
-     var filterStopTime=$('#filterStopTime').val();
+    var equipmentName = $('#equipment_Name').val();
+    var equipmentType=$('#equipment_Type').val();
+    var modifystart=$('#modifystart').val();
+    var modifyend=$('#modifyend').val();
+    var filterStartTime=$('#filterStartTime').val();
+    var filterStopTime=$('#filterStopTime').val();
 
     $.ajax({
         url: "/Equipment/add", //要处理的页面
@@ -204,48 +204,55 @@ function equipment_add() {
 //修改
 function equipment_update(id) {
     $.ajax({
-        contentType: 'application/json;charset=UTF-8',
-        url:"/Equipment/update",
-        type:"PUT",
+        url:"/Equipment/one",
+        type:"GET",
         dataType:"json",
-        data: JSON.stringify({
-            "id":id
-        }),
+        data:{"id":id,
 
+        },
         success:function (data) {
-            $("input[name = 'equipmentname']").val(data.equipmentName);
-            $("input[name = 'equipmentype']").val(data.equipmentType);
 
-            $("input[name = 'updatestart']").val(data.startTime);
-            $("input[name = 'updateend']").val(data.stopTime);
+            $("input[name = 'equipmentName_modify']").val(data.equipmentName);
+            $("input[name = 'equipmentType_modify']").val(data.equipmentDid);
+            $("input[name = 'startTime_modify']").val(data.startTime);
+            $("input[name = 'stopTime_modify']").val(data.stopTime);
+            $("input[name = 'filterStartTime_modify']").val(data.filterStartTime);
+            $("input[name = 'filterStopTime_modify']").val(data.filterStopTime);
+
         }
 
     })
 
 }
 function update_submit(){
-
-    var ename = $('#update_equipment_name').val();
-    var Type =$('#update_equipment_Type').val();
-    var start = $('#modifystart').val();
-    var stop= $('#modifyend').val();
+    var equipment_Name=$("input[name = 'equipmentName_modify']").val();
+    var equipment_Type =$("input[name = 'equipmentType_modify']").val();
+    var start_Time=$("input[name = 'startTime_modify']").val();
+    var stop_Time=$("input[name = 'stopTime_modify']").val();
+    var filterStart_Time=$("input[name = 'filterStartTime_modify']").val();
+    var filterStop_Time=$("input[name = 'filterStopTime_modify']").val();
+                 var id=$("button[name = 'equipment_modify']").val();
     $.ajax({
-        url:"/Equipment/list",
-        type:"GET",
+        url:"/Equipment/update",
+        type:"PUT",
         dataType:"json",
         contentType: "application/json",
         data: JSON.stringify({
-            equipmentName: ename,
-            equipmentType: Type,
-            startTime: start,
-            stopTime:stop
+            id:id,
+            equipmentName: equipment_Name,
+            equipmentDid: equipment_Type,
+            startTime: start_Time,
+            stopTime: stop_Time,
+            filterStartTime: filterStart_Time,
+            filterStopTime: filterStop_Time,
         }),
         success: function(data){ ///处理页面成功后输出
-            if(data=="200") {
-                window.location.reload();
-            }else {
-                window.location.reload();
-            }
+
+             if(data=="200") {
+                 window.location.reload();
+             }else {
+                 window.location.reload();
+             }
         }
 
     })
