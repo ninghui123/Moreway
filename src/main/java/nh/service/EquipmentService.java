@@ -23,4 +23,6 @@ public interface EquipmentService {
 
     void requestUpdate(ClientHttpRequest3 clientHttpRequest3);
 
+    void delete(String did);
+
 }

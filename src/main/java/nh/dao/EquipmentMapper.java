@@ -26,4 +26,8 @@ public interface EquipmentMapper {
     void responseAdd(@Param("did") String did);
 
     void requestUpdate(ClientHttpRequest3 clientHttpRequest3);
+
+    void deleteDid(@Param("did") String did);
+
+    void delete(@Param("did") String did);
 }

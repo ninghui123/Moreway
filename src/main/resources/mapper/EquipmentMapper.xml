@@ -189,8 +189,12 @@
     </update>
 
     <update id="delete" parameterType="java.lang.String">
-        UPDATE equipment_manage SET is_delete=1 WHERE id=#{id}
+        UPDATE equipment_manage SET is_delete=1 WHERE equipment_did=#{did}
     </update>
+
+    <delete id="deleteDid" parameterType="java.lang.String">
+        DELETE FROM equipment_request WHERE id=#{did}
+    </delete>
 
     <select id="count" resultType="java.lang.Long">
         SELECT COUNT(1) FROM equipment_manage WHERE is_delete=0

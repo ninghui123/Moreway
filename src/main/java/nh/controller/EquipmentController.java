@@ -6,6 +6,7 @@ import nh.beans.Equipment;
 import nh.beans.Page;
 import nh.beans.PageMax;
 import nh.service.EquipmentService;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,6 @@ public class EquipmentController {
         page.setPageSize(pageSize);
         page.setPageNext(pageNext);
         return equipmentService.list(page);
-
     }
 
     @ApiOperation(value = "添加设备")
@@ -68,9 +68,15 @@ public class EquipmentController {
         return  pageMax;
     }
 
-    @ApiOperation(value = "测试")
-    @GetMapping("/Equipment/test")
-    private Equipment test(@RequestParam String did){
-           return equipmentService.httpResponse(did);
+    @ApiOperation(value = "删除设备")
+    @DeleteMapping("/Equipment/delete/{did}")
+    private String delete(@PathVariable String did){
+        try {
+            equipmentService.delete(did);
+            return "200";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "500";
+        }
     }
 }

@@ -118,7 +118,7 @@ public class UserController {
     @ApiOperation(value = "模糊查询")
     @GetMapping("/user/search")
     public List<User> like(String str) {
-
+        System.out.println(str);
         return userService.search(str);
     }
 }

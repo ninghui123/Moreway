@@ -35,7 +35,6 @@ public class Server {
                              * 所谓的空闲是指多长时间没有发生过对应的时间，就触发调用userEventTriggered方法.
                              */
                             pipeline.addLast(new IdleStateHandler(86400,0,0, TimeUnit.SECONDS));
-
                             pipeline.addLast(new HttpRequestDecoder());
                             pipeline.addLast(new HttpResponseEncoder());
                             //把写的ServerHeartbeatHandler类初始化进去

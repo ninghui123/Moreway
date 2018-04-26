@@ -14,9 +14,6 @@ import nh.dto.ClientHttpRequest3;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-
-import static nh.Ulit.ParseData.parseData;
 
 
 public class ClientHeartbeatHandler extends ChannelInboundHandlerAdapter {

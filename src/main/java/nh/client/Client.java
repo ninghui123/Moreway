@@ -67,7 +67,6 @@ public class Client {
     public void connect(String host, int port) throws Exception {
         Gson gson = new Gson();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-
         try {
             Bootstrap b = new Bootstrap();
             b.group(workerGroup);

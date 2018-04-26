@@ -67,4 +67,11 @@ public class EquipmentServiceImpl implements EquipmentService{
     public void requestUpdate(ClientHttpRequest3 clientHttpRequest3) {
         equipmentMapper.requestUpdate(clientHttpRequest3);
     }
+
+    @Override
+    @Transactional
+    public void delete(String did) {
+        equipmentMapper.delete(did);
+        equipmentMapper.deleteDid(did);
+    }
 }

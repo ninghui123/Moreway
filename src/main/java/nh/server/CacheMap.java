@@ -21,7 +21,7 @@ public class CacheMap {
 
 
     public static  String getToken(){
-       if(map.get("tokenId")!=null&&map.get("tokenId")!=""){
+       if(map.get("tokenId")!=null&&!map.get("tokenId").equals("")){
            return map.get("tokenId");
        }else {
            return null;

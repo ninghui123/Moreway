@@ -1,4 +1,4 @@
-package nh.Ulit;
+package nh.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;

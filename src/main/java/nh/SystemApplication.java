@@ -18,9 +18,11 @@ public class SystemApplication implements CommandLineRunner{
 		SpringApplication.run(SystemApplication.class, args);
 	}
 
+
     @Override
     public void run(String... args) throws Exception {
         new Server().run();
     }
+
 
 }
