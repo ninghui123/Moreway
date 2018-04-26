@@ -27,14 +27,20 @@
             <if test="status!=null">
                 status=#{status},
             </if>
-            <if test="startTime!=null and startTime!=''">
+            <if test="startTime!=null">
                 start_time=#{startTime},
             </if>
-            <if test="stopTime!=null and stopTime!=''">
+            <if test="stopTime!=null">
                 stop_time=#{stopTime},
             </if>
-            <if test="surplusTime!=null and surplusTime!=''">
-                surplus_time=#{surplusTime},
+            <!--<if test="surplusTime!=null">-->
+                <!--surplus_time=#{surplusTime},-->
+            <!--</if>-->
+            <if test="filterStartTime!=null">
+                filter_start_time=#{filterStartTime},
+            </if>
+            <if test="filterStopTime!=null">
+                filter_stop_time=#{filterStopTime},
             </if>
         </trim>
     </sql>
