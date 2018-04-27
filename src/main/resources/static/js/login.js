@@ -10,7 +10,7 @@ function login() {
         data:{"username":name,"password":pwd},
         success:function (data) {
             if (data.code==="500"){
-                alert("用户名密码错误")
+                location.href ="#new"
             }
             if (data.code==="200"){
                 location.href ="index.html"

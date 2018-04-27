@@ -149,7 +149,7 @@ function equipment_list() {
                 str += '"<td><span class="date-tiem-span m">' + day + ' </span>天<span class="date-s-span s">' + hour + '</span><span>时</span></td>"';
                 str += mytowObj.fs === 0 ? '<td><span class="label label-sm label-warning1" ></i>正常</span></td>' : mytowObj.fs === 1 ? '<td><span class="label label-sm label-warning2" ></i>快到期</span></td>' : mytowObj.fs === 2 ? '<td><span class="label label-sm label-warning5" ></i>到期</span></td>' : '<td></td>';
                 str += '<td><button class="btn btn-xs btn-info"  onclick=equipment_update("' + data[i].id + '"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
-                    '<button class="btn btn-xs btn-danger" onclick=del("' + data[i].id + '"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                    '<button class="btn btn-xs btn-danger" onclick=equipment_del("' + data[i].id + '"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
                 str += "</tr>";
             }
             $("#hs").append(str);
@@ -218,7 +218,7 @@ function equipment_update(id) {
             $("input[name = 'stopTime_modify']").val(data.stopTime);
             $("input[name = 'filterStartTime_modify']").val(data.filterStartTime);
             $("input[name = 'filterStopTime_modify']").val(data.filterStopTime);
-
+            $("button[name = 'equip_modify']").val(data.id);
         }
 
     })
@@ -231,14 +231,14 @@ function update_submit(){
     var stop_Time=$("input[name = 'stopTime_modify']").val();
     var filterStart_Time=$("input[name = 'filterStartTime_modify']").val();
     var filterStop_Time=$("input[name = 'filterStopTime_modify']").val();
-                 var id=$("button[name = 'equipment_modify']").val();
+    var eid=$("button[name = 'equip_modify']").val();
     $.ajax({
         url:"/Equipment/update",
         type:"PUT",
         dataType:"json",
         contentType: "application/json",
         data: JSON.stringify({
-            id:id,
+            id:eid,
             equipmentName: equipment_Name,
             equipmentDid: equipment_Type,
             startTime: start_Time,
@@ -247,7 +247,6 @@ function update_submit(){
             filterStopTime: filterStop_Time,
         }),
         success: function(data){ ///处理页面成功后输出
-
              if(data=="200") {
                  window.location.reload();
              }else {
@@ -258,24 +257,24 @@ function update_submit(){
     })
 
 }
-// //删除
-// function del(id){
-//     if(confirm('确认删除吗?')){
-//         $.ajax({
-//             type:'delete',
-//             url: "/user/delete/"+id,
-//             success: function(data){
-//                 if(data=="200"){ //删除成功
-//                     window.location.reload();
-//                 }else{
-//                     alert("删除失败");
-//                 }
-//             }
-//         });
-//     }
-//
-//
-// }
+//删除
+function equipment_del(did){
+    if(confirm('确认删除吗?')){
+        $.ajax({
+            type:'delete',
+            url: "/Equipment/delete/{did}"+did,
+            success: function(data){
+                if(data=="200"){ //删除成功
+                    window.location.reload();
+                }else{
+                    alert("删除失败");
+                }
+            }
+        });
+    }
+
+
+}
 
 
 
