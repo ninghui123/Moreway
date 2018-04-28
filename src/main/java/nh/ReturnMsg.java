@@ -1,14 +1,15 @@
 package nh;
 
-public class ReturnMsg{
+public class ReturnMsg {
     private Integer code;
     private Object data;
     private String msg;
 
-    public ReturnMsg(Integer code, Object data, String msg) {
-        this.code = code;
-        this.data = data;
-        this.msg = msg;
+    public  ReturnMsg(Integer code, Object data, String msg) {
+
+            this.code = code;
+            this.data = data;
+            this.msg = msg;
     }
 
     public Integer getCode() {

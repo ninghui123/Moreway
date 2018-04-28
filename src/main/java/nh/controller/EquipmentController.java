@@ -1,10 +1,12 @@
 package nh.controller;
 
 import io.swagger.annotations.ApiOperation;
+import nh.ExceptionHandle;
 import nh.ReturnMsg;
 import nh.beans.Equipment;
 import nh.beans.Page;
 import nh.beans.PageMax;
+import nh.beans.User;
 import nh.service.EquipmentService;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +80,15 @@ public class EquipmentController {
             e.printStackTrace();
             return "500";
         }
+    }
+
+    @ApiOperation(value = "测试")
+    @GetMapping("/Equipment/test")
+    public ReturnMsg test(){
+                User user=new User();
+                user.setId("1");
+                user.setNickname("ninghui");
+                user.setPswd("123");
+                return new  ReturnMsg(200,user,"成功");
     }
 }
