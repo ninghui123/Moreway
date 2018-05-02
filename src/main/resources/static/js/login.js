@@ -10,7 +10,9 @@ function login() {
         data:{"username":name,"password":pwd},
         success:function (data) {
             if (data.code==="500"){
-                alert("用户名密码错误")
+                $(function () {
+                    prompt("密码有误！");
+                })
             }
             if (data.code==="200"){
                 location.href ="index.html"
@@ -49,6 +51,67 @@ function list() {
             }
     })
 }
+
+function prompt(){
+
+    var msgw,msgh,bordercolor;
+    msgw=400;//提示窗口的宽度
+    msgh=60;//提示窗口的高度
+
+    var sWidth,sHeight;
+    sWidth=document.body.offsetWidth;
+    sHeight=document.body.offsetHeight;
+    var bgObj=document.createElement("div");
+    bgObj.setAttribute('id','bgDiv');
+    bgObj.style.position="absolute";
+    bgObj.style.top="0";
+    bgObj.style.background="#777";//背景颜色
+   // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
+    bgObj.style.opacity="0.6";
+    bgObj.style.left="0";
+    bgObj.style.width="100px";
+    bgObj.style.height="100px";
+    document.body.appendChild(bgObj);
+    var msgObj=document.createElement("div")
+    msgObj.setAttribute("id","msgDiv");
+    msgObj.setAttribute("align","center");
+    msgObj.style.position="absolute";
+    msgObj.style.background="white";
+    msgObj.style.font="12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
+    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/2) + "px";
+    msgObj.style.left=(sWidth-msgw)/1.75 + "px";
+    var title=document.createElement("h4");
+    title.setAttribute("id","msgTitle");
+    title.setAttribute("align","right");
+    setTimeout(title.onclick=function(){
+        document.body.removeChild(bgObj);
+        document.getElementById("msgDiv").removeChild(title);
+        document.body.removeChild(msgObj);
+    },2000);
+    document.body.appendChild(msgObj);
+    document.getElementById("msgDiv").appendChild(title);
+    var txt=document.createElement("p");
+    txt.style.margin="1em 0"
+    txt.setAttribute("id","msgTxt");
+    txt.innerHTML=' <div class="alert alert-danger"> <strong> <i class="ace-icon fa fa-times"></i>用户名称或密码输入有误，请从新输入！ </strong></div>';
+    document.getElementById("msgDiv").appendChild(txt);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function delete_button(id) {
     $.ajax({
