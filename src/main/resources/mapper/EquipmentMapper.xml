@@ -230,6 +230,7 @@
             <if test="str!=null and str!=''">
                 equipment_name LIKE CONCAT('%',#{str},'%')
             </if>
+
         </where>
         LIMIT #{page.pageNext},#{page.pageSize}
     </select>
