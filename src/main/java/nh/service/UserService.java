@@ -3,6 +3,7 @@ package nh.service;
 
 import nh.beans.Page;
 import nh.beans.User;
+import nh.beans.UserDto;
 
 import java.util.List;
 
@@ -21,6 +22,6 @@ public interface UserService {
 
     Long count();
 
-    List<User> search(String str);
+    List<UserDto> search(String str,Page page);
 
 }

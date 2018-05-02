@@ -115,12 +115,13 @@ SELECT * FROM u_user WHERE nickname=#{username} and is_delete=0
         SELECT COUNT(1) FROM u_user WHERE is_delete=0
     </select>
     
-    <select id="search" resultType="nh.beans.User">
-        SELECT * FROM u_user
+    <select id="search" resultType="nh.beans.UserDto">
+        SELECT *,(SELECT COUNT(*) FROM u_user WHERE CONCAT(nickname,pswd) LIKE CONCAT('%',#{str},'%')) AS count FROM u_user
         <where>
             <if test="str!=null and str!=''">
                  CONCAT(nickname,pswd) LIKE CONCAT('%',#{str},'%')
             </if>
         </where>
+        LIMIT #{page.pageNext},#{page.pageSize}
     </select>
 </mapper>

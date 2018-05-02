@@ -1,6 +1,7 @@
 package nh.service;
 
 import nh.beans.Equipment;
+import nh.beans.EquipmentDto;
 import nh.beans.Page;
 import nh.dto.ClientHttpRequest3;
 
@@ -24,5 +25,7 @@ public interface EquipmentService {
     void requestUpdate(ClientHttpRequest3 clientHttpRequest3);
 
     void delete(String did);
+
+    List<EquipmentDto> like(String str,Page page);
 
 }

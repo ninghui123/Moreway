@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import nh.beans.Page;
 import nh.beans.PageMax;
 import nh.beans.User;
+import nh.beans.UserDto;
 import nh.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -117,8 +119,11 @@ public class UserController {
 
     @ApiOperation(value = "模糊查询")
     @GetMapping("/user/search")
-    public List<User> like(String str) {
+    public List<UserDto> like(@RequestParam String str,@RequestParam Integer pageNext) {
+        Page page=new Page();
+        page.setPageNext(pageNext);
+        page.setPageSize(10);
         System.out.println(str);
-        return userService.search(str);
+        return userService.search(str,page);
     }
 }

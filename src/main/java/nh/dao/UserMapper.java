@@ -3,6 +3,7 @@ package nh.dao;
 
 import nh.beans.Page;
 import nh.beans.User;
+import nh.beans.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,5 +25,5 @@ public interface UserMapper {
 
     Long count();
 
-    List<User> search(@Param("str") String str);
+    List<UserDto> search(@Param("str") String str,@Param("page") Page page);
 }

@@ -223,4 +223,15 @@
         UPDATE equipment_request SET <include refid="requestUpdate_key"/> WHERE id=#{did}
     </update>
 
+    <select id="like" resultType="nh.beans.EquipmentDto">
+        SELECT *,(SELECT COUNT(*) FROM equipment_manage WHERE equipment_name LIKE CONCAT('%',#{str},'%')) AS count
+        FROM equipment_manage
+        <where>
+            <if test="str!=null and str!=''">
+                equipment_name LIKE CONCAT('%',#{str},'%')
+            </if>
+        </where>
+        LIMIT #{page.pageNext},#{page.pageSize}
+    </select>
+
 </mapper>

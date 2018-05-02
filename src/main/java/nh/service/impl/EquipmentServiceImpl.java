@@ -1,6 +1,7 @@
 package nh.service.impl;
 
 import nh.beans.Equipment;
+import nh.beans.EquipmentDto;
 import nh.beans.Page;
 import nh.dao.EquipmentMapper;
 import nh.dto.ClientHttpRequest3;
@@ -73,5 +74,10 @@ public class EquipmentServiceImpl implements EquipmentService{
     public void delete(String did) {
         equipmentMapper.delete(did);
         equipmentMapper.deleteDid(did);
+    }
+
+    @Override
+    public List<EquipmentDto> like(String str,Page page) {
+        return equipmentMapper.like(str,page);
     }
 }

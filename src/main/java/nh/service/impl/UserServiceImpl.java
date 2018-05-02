@@ -3,6 +3,7 @@ package nh.service.impl;
 
 import nh.beans.Page;
 import nh.beans.User;
+import nh.beans.UserDto;
 import nh.dao.UserMapper;
 import nh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +62,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> search(String str) {
-        return userMapper.search(str);
+    public List<UserDto> search(String str,Page page) {
+        return userMapper.search(str,page);
     }
 
 }

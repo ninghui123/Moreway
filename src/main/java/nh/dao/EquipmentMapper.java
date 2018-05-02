@@ -1,6 +1,7 @@
 package nh.dao;
 
 import nh.beans.Equipment;
+import nh.beans.EquipmentDto;
 import nh.beans.Page;
 import nh.dto.CilentHttpResponse3;
 import nh.dto.ClientHttpRequest3;
@@ -30,4 +31,6 @@ public interface EquipmentMapper {
     void deleteDid(@Param("did") String did);
 
     void delete(@Param("did") String did);
+
+    List<EquipmentDto> like(@Param("str")String str,@Param("page")Page page);
 }

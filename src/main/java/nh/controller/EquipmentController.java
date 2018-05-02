@@ -1,14 +1,9 @@
 package nh.controller;
 
 import io.swagger.annotations.ApiOperation;
-import nh.ExceptionHandle;
 import nh.ReturnMsg;
-import nh.beans.Equipment;
-import nh.beans.Page;
-import nh.beans.PageMax;
-import nh.beans.User;
+import nh.beans.*;
 import nh.service.EquipmentService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,5 +85,14 @@ public class EquipmentController {
                 user.setNickname("ninghui");
                 user.setPswd("123");
                 return new  ReturnMsg(200,user,"成功");
+    }
+
+    @ApiOperation(value = "模糊查询")
+    @GetMapping("/Equipment/search")
+    public List<EquipmentDto> like(@RequestParam String str,@RequestParam Integer pageNext){
+        Page page=new Page();
+        page.setPageNext(pageNext);
+        page.setPageSize(10);
+        return equipmentService.like(str,page);
     }
 }
