@@ -1,9 +1,9 @@
 package nh.druid;
 
-        import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.StatViewServlet;
 
-        import javax.servlet.annotation.WebInitParam;
-        import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/druid/*",

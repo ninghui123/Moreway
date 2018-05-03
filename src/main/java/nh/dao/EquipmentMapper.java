@@ -3,7 +3,6 @@ package nh.dao;
 import nh.beans.Equipment;
 import nh.beans.EquipmentDto;
 import nh.beans.Page;
-import nh.dto.CilentHttpResponse3;
 import nh.dto.ClientHttpRequest3;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

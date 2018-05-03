@@ -6,21 +6,16 @@ import nh.ReturnMsg;
 import nh.beans.Page;
 import nh.beans.PageMax;
 import nh.beans.User;
-import nh.beans.UserDto;
 import nh.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 public class UserController {
@@ -75,7 +70,6 @@ public class UserController {
             return "200";
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return "500";
     }
@@ -112,5 +106,4 @@ public class UserController {
         pageMax.setCount(userService.count());
         return pageMax;
     }
-
 }
