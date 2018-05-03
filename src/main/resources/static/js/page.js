@@ -58,7 +58,7 @@ var  page = {
         });
     },
     "getPageListModel":function(pageCount,currentPage){
-        var prePage = currentPage-1;
+        var prePage = (currentPage)-1;
         var nextPage = currentPage+1;
         var prePageClass ="pageItem";
         var nextPageClass = "pageItem";
@@ -128,6 +128,7 @@ function page_max() {
                 totalSize: 300,
                 callback: function(num) {
                     alert(num)
+
                 }
             })
         }
@@ -161,6 +162,7 @@ function page_next(value) {
        }
    })
 }
+
 //下一页
 function next_page(value) {
     $.ajax({
@@ -173,6 +175,17 @@ function next_page(value) {
             "pageSize":10
         },
         success:function (data) {
+            $.ajax({
+                async:false,
+                url:"/user/pagemax",
+                type:"GET",
+                dataType : "json",
+                success:function (data) {
+                    $("#page").initPage(data.max,1,GG.kk);
+                   alert(data.max);
+                }
+            })
+            if(value<5){
             $(".table>tbody").empty();
             var obj = "";
             $.each(data,function (i,list) {
@@ -186,7 +199,7 @@ function next_page(value) {
                 obj	+='</tr>';
             })
             $("#hs").append(obj);
-        }
+        }}
     })
 }
 //尾页
@@ -201,6 +214,7 @@ function Tail_page(value) {
             "pageSize":10
         },
         success:function (data) {
+
             $(".table>tbody").empty();//清除
             var obj = "";
             $.each(data,function (i,list) {
@@ -261,10 +275,12 @@ function Previous_page(value) {
         dataType : "json",
         contentType:"application/json",
         data:{
+
             "pageNext":value,
             "pageSize":10
         },
         success:function (data) {
+            if(value>0){
             $(".table>tbody").empty();
             var obj = "";
             $.each(data,function (i,list) {
@@ -278,6 +294,6 @@ function Previous_page(value) {
                 obj	+='</tr>';
             })
             $("#hs").append(obj);
-        }
+        }}
     })
 }

@@ -2,7 +2,7 @@
 $(function () {
     todate();
 })
-function todate(inputstr, showsplit, showweek) {
+function todate(inputstr, showsplit) {
     //Wed Mar 22 13:38:37 CST 2017
     inputstr = inputstr + ""; //末尾加一个空格
     var date = "";
@@ -15,7 +15,7 @@ function todate(inputstr, showsplit, showweek) {
     date = str[3];
     date += showsplit + month[str[1]] + showsplit + str[2];
     date += "    "+str[4];
-    // if(showweek){
+    //  if(showweek){
     // date += "    " + " 星期" + week[str[0]];
     // }
     return date;
@@ -28,7 +28,7 @@ $(function () {
 function checkTime(i){  //补位处理
     if(i<10){
         i="0"+i;
-        //return i;
+       // return i;
     }
     else{
         i=i;
@@ -40,8 +40,9 @@ function checkTime(i){  //补位处理
 }
 function showTime(){
     var now=new Date();
+
     var year=now.getFullYear() ;
-    var month= now.getMonth()+1 ;
+    var month= now.getMonth() ;
     var day=now.getDate() ;
     var h=now.getHours();
     var m=now.getMinutes() ;
@@ -80,10 +81,19 @@ function equipment_list() {
                 // myObj = JSON.parse(data[i].equipmentAttribute);
 
                 mytowObj = JSON.parse(data[i].responseId);
-
                 stopTimea=(data[i].stopTime);
                 stopTimeb=new Date(stopTimea);
-                stopTimec=todate(stopTimeb, "-",":", true);
+
+                var year=stopTimeb.getFullYear() ;
+                var month= stopTimeb.getMonth() ;
+                var day=stopTimeb.getDate() ;
+                var h=stopTimeb.getHours();
+                var m=stopTimeb.getMinutes() ;
+                var s=stopTimeb.getSeconds() ;
+
+                stopTimec=""+year+"-"+month+"-"+day+"";
+
+
 
                 // alert(stopTimec); //2017-3-22
 
@@ -101,6 +111,7 @@ function equipment_list() {
                 }else {
                     day=days;
                 }
+
                 //计算相差小时数
                 leave1=date3%(24*3600*1000);    //计算天数后剩余的毫秒数
                 hours=Math.floor(leave1/(3600*1000));
@@ -164,7 +175,6 @@ function equipment_add() {
     var modifyend=$('#modifyend').val();
     var filterStartTime=$('#filterStartTime').val();
     var filterStopTime=$('#filterStopTime').val();
-
     $.ajax({
         url: "/Equipment/add", //要处理的页面
         //要传过去的数据
@@ -199,7 +209,9 @@ function equipment_add() {
                     add_promptb();
                 })
             }else {
-                alert(JSON.stringify(data));
+                $(function () {
+                    add_prompta();
+                })
             }
         }
     })
@@ -274,11 +286,11 @@ function equipment_del(did){
             success: function(data){
                 if(data=="200"){ //删除成功
                     $(function () {
-                        del_promptb();
+                        edel_promptb();
                     })
                 }else{
                     $(function () {
-                        del_prompta();
+                        edel_prompta();
                     })
                 }
             }
@@ -288,7 +300,7 @@ function equipment_del(did){
 
 }
 //删除错误提示
-function del_prompta(){
+function edel_prompta(){
 
     var msgw,msgh,bordercolor;
     msgw=400;//提示窗口的宽度
@@ -332,7 +344,7 @@ function del_prompta(){
     txt.innerHTML=' <div class="alert alert-danger"> <strong> <i class="ace-icon fa fa-times"></i>删除失败！ </strong></div>';
     document.getElementById("msgDiv").appendChild(txt);
 }
-function del_promptb(){
+function edel_promptb(){
 
     var msgw,msgh,bordercolor;
     msgw=400;//提示窗口的宽度

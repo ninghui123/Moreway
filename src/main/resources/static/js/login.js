@@ -2,24 +2,58 @@
 function login() {
     var name = $("input[name = 'username']").val();
     var pwd=$("input[name = 'password']").val();
+
     $.ajax({
         async : false,
         url:"/user/login",
         type:"POST",
         dataType : "json",
         data:{"username":name,"password":pwd},
-        success:function (data) {
-            if (data.code==="500"){
+
+        success:function (ReturnMsg) {
+
+            setCookie(ReturnMsg.data);
+            if (ReturnMsg.code===500){
                 $(function () {
                     prompt("密码有误！");
                 })
             }
-            if (data.code==="200"){
-                location.href ="index.html"
+            if (ReturnMsg.code===200){
+
+
+                window.location.href ="index.html"
             }
         }
     })
 }
+//设置cookie
+function setCookie(name){
+
+    var Days = 30;   //cookie 将被保存30天
+
+    var exp  = new Date();  //获得当前时间
+
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);  //换成毫秒
+
+    document.cookie = name;
+
+}
+// //获取cookie的值
+// var name = getCookie("username");
+// var values = "username=" + name ;
+//
+// // 写入值到label标签
+// var document = $("span[ulul = 'username']").innerHTML = values;
+//
+// // 从cookie中获取值的方法
+// function getCookie(name) {
+//     alert(name);
+//     var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+//     if(arr=document.cookie.match(reg))
+//         return unescape(arr[2]);
+//     else
+//         return null;
+// }
 
 $(function (){
    list();
@@ -69,25 +103,24 @@ function prompt(){
    // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
     bgObj.style.opacity="0.6";
     bgObj.style.left="0";
-    bgObj.style.width="100px";
-    bgObj.style.height="100px";
     document.body.appendChild(bgObj);
     var msgObj=document.createElement("div")
     msgObj.setAttribute("id","msgDiv");
     msgObj.setAttribute("align","center");
     msgObj.style.position="absolute";
     msgObj.style.background="white";
-    msgObj.style.font="12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/2) + "px";
-    msgObj.style.left=(sWidth-msgw)/1.75 + "px";
+    msgObj.style.font="1px/.06em Verdana, Geneva, Arial, Helvetica, sans-serif";
+    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/20) + "px";
+    msgObj.style.left=(sWidth-msgw)/1.8 + "px";
     var title=document.createElement("h4");
     title.setAttribute("id","msgTitle");
     title.setAttribute("align","right");
     setTimeout(title.onclick=function(){
+
         document.body.removeChild(bgObj);
         document.getElementById("msgDiv").removeChild(title);
         document.body.removeChild(msgObj);
-    },2000);
+    },1000);
     document.body.appendChild(msgObj);
     document.getElementById("msgDiv").appendChild(title);
     var txt=document.createElement("p");
@@ -222,4 +255,43 @@ function search() {
             $(".table").append(obj);
         }
     })
+}
+
+$(function () {
+    user_list();
+})
+function user_list() {
+
+    $.ajax({
+        async:false,
+        url:"/user/list",
+        type:"GET",
+        dataType : "json",
+        contentType:"application/json",
+        data: {
+            "pageNext":1,
+            "pageSize":10
+        },
+
+        success: function(data){
+            $(".table>tbody").empty();//清除
+            console.log(data);
+            var str = "";
+            for(var i=0; i < data.length; i++) {
+                //data[i]
+                //console.log(data[i]);
+                //alert(data[i].con);
+                str += "<tr>";
+                str += "<td>" + data[i].id + "</td>";
+                str += "<td>" + data[i].nickname + "</td>";
+                str += "<td>" + data[i].pswd + "</td>";
+                str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+                str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                    '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                str += "</tr>";
+            }
+
+            $("#hs").append(str);
+        }
+    });
 }
