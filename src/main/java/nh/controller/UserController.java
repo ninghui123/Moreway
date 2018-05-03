@@ -2,6 +2,7 @@ package nh.controller;
 
 import io.swagger.annotations.ApiOperation;
 
+import nh.ReturnMsg;
 import nh.beans.Page;
 import nh.beans.PageMax;
 import nh.beans.User;
@@ -26,25 +27,19 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     @ApiOperation(value = "登录")
     @PostMapping("/user/login")
-    public Map<String, Object> login(@RequestParam(required = false) String username, @RequestParam(required = false) String password) {
-        System.out.println(username + password);
+    public ReturnMsg login(@RequestParam String username, @RequestParam String password) {
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
-        Map<String, Object> map = new HashMap<>();
         try {
             subject.login(usernamePasswordToken);
-//            //使用shiro后，session交由shiro管理，获取shiro管理的session
-//          Session session=subject.getSession();
-            map.put("code", "200");
-            return map;
+            String user= (String) subject.getPrincipal();
+            return new ReturnMsg(200,user,"成功");
         } catch (Exception e) {
             e.printStackTrace();
-            map.put("code", "500");
-//    Session session=subject.getSession();
-            //获取session id
-            return map;
+            return new ReturnMsg(500,null,"用户名或者密码错误");
         }
     }
 
@@ -80,8 +75,9 @@ public class UserController {
             return "200";
         } catch (Exception e) {
             e.printStackTrace();
-            return "500";
+
         }
+        return "500";
     }
 
     @ApiOperation(value = "修改用户")
@@ -117,13 +113,4 @@ public class UserController {
         return pageMax;
     }
 
-    @ApiOperation(value = "模糊查询")
-    @GetMapping("/user/search")
-    public List<UserDto> like(@RequestParam String str,@RequestParam Integer pageNext) {
-        Page page=new Page();
-        page.setPageNext(pageNext);
-        page.setPageSize(10);
-        System.out.println(str);
-        return userService.search(str,page);
-    }
 }
