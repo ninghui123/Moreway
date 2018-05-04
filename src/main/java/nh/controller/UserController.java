@@ -6,6 +6,7 @@ import nh.ReturnMsg;
 import nh.beans.Page;
 import nh.beans.PageMax;
 import nh.beans.User;
+import nh.beans.UserDto;
 import nh.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -106,4 +107,20 @@ public class UserController {
         pageMax.setCount(userService.count());
         return pageMax;
     }
+
+    @ApiOperation(value = "模糊查询")
+    @GetMapping("/user/search")
+    public ReturnMsg like(@RequestParam String str,@RequestParam Integer pageNext){
+        try{
+            Page page=new Page();
+            page.setPageSize(10);
+            page.setPageNext(pageNext);
+            List<UserDto>user=userService.search(str,page);
+            return new ReturnMsg(200,user,"成功");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ReturnMsg(500,null,"查询错误");
+    }
+
 }
