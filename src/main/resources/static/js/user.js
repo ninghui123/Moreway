@@ -1,6 +1,9 @@
+
+
 $(function () {
     user_list();
 })
+
 function user_list() {
 
     $.ajax({
@@ -40,6 +43,7 @@ function user_list() {
 
 //添加
 function user_add() {
+    var but=$('.btn').val();
     var name = $('#name').val();
     var pwd=$('#password').val();
     var status=$("select[name = 'add_select']").val();
@@ -57,14 +61,10 @@ function user_add() {
         dataType: "JSON", //返回的数据类型，TEXT字符串 JSON返回JSON XML返回XML；dataType中T要大写！！
         contentType: "application/json",
         success: function(data){ ///处理页面成功后输出
-            if(data=="200") {
-                // window.location.reload();
-                $(function () {
-                    add_promptb();
-
-                })
-
-            }else {
+            if(data=="200") $(function () {
+                user_list();
+                add_promptb();
+            }) else {
                 $(function () {
                     add_prompta();
                 })
@@ -72,8 +72,10 @@ function user_add() {
         }
     })
 }
+
 //修改
 function user_update(id) {
+
     $.ajax({
         url:"/user/one",
         type:"GET",
@@ -111,11 +113,11 @@ function UpdateSubmit(){
         }),
         success: function(data){ ///处理页面成功后输出
             if(data=="200") {
-                window.location.reload();
                 $(function () {
+                    user_list();
                     modify_promptb();
-
                 })
+
 
             }else {
                 $(function () {
@@ -167,11 +169,14 @@ $(document).ready(function(){
                     pageNext:1,
                 },
                 contentType: "application/json",
-                success:function(data){
+                success:function(ReturnMsg){
+                    mytowObj = ReturnMsg.data(JSON.parse(data));
+                    alert(mytowObj);
                     $(".table>tbody").empty();//清除
-                    console.log(data);
+
                     var str = "";
                     for(var i=0; i < data.length; i++) {
+
                         //data[i]
                         //console.log(data[i]);
                         //alert(data[i].con);
@@ -196,9 +201,9 @@ $(document).ready(function(){
 //退出
 function loginout(){
 
-if (confirm("您确定要退出系统吗？"))
+    if (confirm("您确定要退出系统吗？"))
         top.location = "/logout";
-        return false;
+    return false;
 
 
 }
@@ -355,8 +360,8 @@ function add_promptb(){
     // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
     bgObj.style.opacity="0.6";
     bgObj.style.left="0";
-    bgObj.style.width="100%";
-    bgObj.style.height="100%";
+    // bgObj.style.width="100%";
+    // bgObj.style.height="100%";
     document.body.appendChild(bgObj);
     var msgObj=document.createElement("div")
     msgObj.setAttribute("id","msgDiv");
@@ -373,7 +378,7 @@ function add_promptb(){
         document.body.removeChild(bgObj);
         document.getElementById("msgDiv").removeChild(title);
         document.body.removeChild(msgObj);
-    },2000);
+    },10000);
     document.body.appendChild(msgObj);
     document.getElementById("msgDiv").appendChild(title);
     var txt=document.createElement("p");

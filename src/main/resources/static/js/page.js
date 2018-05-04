@@ -1,6 +1,6 @@
-/**
- * Created by zxm on 2017/3/31.
- */
+
+var maxPage='';//总条数
+
 $.fn.extend({
     "initPage":function(listCount,currentPage,fun){
         var maxshowpageitem = $(this).attr("maxshowpageitem");
@@ -121,6 +121,7 @@ function page_max() {
         type:"GET",
         dataType : "json",
         success:function (data) {
+            maxPage=data.max
             $("#page").initPage(data.max,1,GG.kk);
             $("#page").data({
                 pageNo:4,
@@ -175,17 +176,9 @@ function next_page(value) {
             "pageSize":10
         },
         success:function (data) {
-            $.ajax({
-                async:false,
-                url:"/user/pagemax",
-                type:"GET",
-                dataType : "json",
-                success:function (data) {
-                    $("#page").initPage(data.max,1,GG.kk);
-                   alert(data.max);
-                }
-            })
-            if(value<5){
+            // console.log(maxPage)
+            PageCount=Math.ceil(maxPage/10) ;//总页数
+            if(value<=PageCount){
             $(".table>tbody").empty();
             var obj = "";
             $.each(data,function (i,list) {

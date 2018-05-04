@@ -1,5 +1,6 @@
 
 function login() {
+
     var name = $("input[name = 'username']").val();
     var pwd=$("input[name = 'password']").val();
 
@@ -12,48 +13,24 @@ function login() {
 
         success:function (ReturnMsg) {
 
-            setCookie(ReturnMsg.data);
+
             if (ReturnMsg.code===500){
                 $(function () {
                     prompt("密码有误！");
                 })
             }
             if (ReturnMsg.code===200){
+                $.cookie("user",ReturnMsg.data,"｛expires：7｝");　//expires  cookie生存时间为7天
 
+
+                  console.log($.cookie("user"))
 
                 window.location.href ="index.html"
+
             }
         }
     })
 }
-//设置cookie
-function setCookie(name){
-
-    var Days = 30;   //cookie 将被保存30天
-
-    var exp  = new Date();  //获得当前时间
-
-    exp.setTime(exp.getTime() + Days*24*60*60*1000);  //换成毫秒
-
-    document.cookie = name;
-
-}
-// //获取cookie的值
-// var name = getCookie("username");
-// var values = "username=" + name ;
-//
-// // 写入值到label标签
-// var document = $("span[ulul = 'username']").innerHTML = values;
-//
-// // 从cookie中获取值的方法
-// function getCookie(name) {
-//     alert(name);
-//     var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-//     if(arr=document.cookie.match(reg))
-//         return unescape(arr[2]);
-//     else
-//         return null;
-// }
 
 $(function (){
    list();
@@ -120,7 +97,7 @@ function prompt(){
         document.body.removeChild(bgObj);
         document.getElementById("msgDiv").removeChild(title);
         document.body.removeChild(msgObj);
-    },1000);
+    },500);
     document.body.appendChild(msgObj);
     document.getElementById("msgDiv").appendChild(title);
     var txt=document.createElement("p");
@@ -129,23 +106,6 @@ function prompt(){
     txt.innerHTML=' <div class="alert alert-danger"> <strong> <i class="ace-icon fa fa-times"></i>用户名称或密码输入有误，请从新输入！ </strong></div>';
     document.getElementById("msgDiv").appendChild(txt);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function delete_button(id) {
     $.ajax({
         url:"/user/delete/"+id,
@@ -162,7 +122,6 @@ function delete_button(id) {
         }
     })
 }
-
 function update_button(id) {
     $.ajax({
         url:"/user/one",
@@ -178,7 +137,6 @@ function update_button(id) {
         }
     })
 }
-
 function submit_button() {
     var name=$("input[name = 'update_username']").val();
     var pswd=$("input[name = 'update_password']").val();
@@ -205,7 +163,6 @@ function submit_button() {
         }
     })
 }
-
 function add_button() {
     var name=$("input[name = 'add_username']").val();
     var pswd=$("input[name = 'add_password']").val();
@@ -230,7 +187,6 @@ function add_button() {
         }
     })
 }
-
 function search() {
     var str=$("input[name = 'search']").val();
     $.ajax({
@@ -295,3 +251,7 @@ function user_list() {
         }
     });
 }
+$.cookie("user",ReturnMsg.data,"｛expires：7｝");　//expires  cookie生存时间为7天
+
+
+console.log($.cookie("user"))

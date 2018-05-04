@@ -49,14 +49,6 @@ function showTime(){
     var s=now.getSeconds() ;
     m=checkTime(m)
     s=checkTime(s)
-    // var weekday=new Array(7)
-    // weekday[0]="星期日"
-    // weekday[1]="星期一"
-    // weekday[2]="星期二"
-    // weekday[3]="星期三"
-    // weekday[4]="星期四"
-    // weekday[5]="星期五"
-    // weekday[6]="星期六"
     innerHTML=""+year+"-"+month+"-"+day+" "+h+":"+m+":"+s;
 
 }
@@ -79,27 +71,16 @@ function equipment_list() {
             var str = "";
             for(var i=0; i < data.length;  i++) {
                 // myObj = JSON.parse(data[i].equipmentAttribute);
-
                 mytowObj = JSON.parse(data[i].responseId);
                 stopTimea=(data[i].stopTime);
                 stopTimeb=new Date(stopTimea);
-
                 var year=stopTimeb.getFullYear() ;
                 var month= stopTimeb.getMonth() ;
                 var day=stopTimeb.getDate() ;
                 var h=stopTimeb.getHours();
                 var m=stopTimeb.getMinutes() ;
                 var s=stopTimeb.getSeconds() ;
-
                 stopTimec=""+year+"-"+month+"-"+day+"";
-
-
-
-                // alert(stopTimec); //2017-3-22
-
-                // date1 = Date.parse(data[i].equipmentType.replace(/-/g, "/")); //begintime 为开始时间
-                //
-                // date2 = Date.parse(data[i].billingType.replace(/-/g, "/"));   // endtime 为结束时间
                 date1=new Date(innerHTML.replace(/-/g, "/"));  //开始时间
                 date2=new Date(stopTimec.replace(/-/g, "/"));    //结束时间
                 //时间差的毫秒
@@ -126,28 +107,6 @@ function equipment_list() {
                 //计算相差秒数
                 leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
                 seconds=Math.round(leave3/1000);
-                // alert(" 相差 "+days+"天 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")
-                //data[i]
-                //console.log(data[i]);
-                //alert(data[i].con);
-                // if (data[i].equipmentAttribute = '""') {
-                //
-                //     str += "<tr>";
-                //     str += "<td>" + data[i].equipmentDid + "</td>";
-                //     str += "<td>0</td>";
-                //     str += "<td>" + data[i].equipmentName + "</td>";
-                //     str += "<td> 0 </td>";
-                //     str += "<td>0</td>";
-                //     str += "<td>0</td>";
-                //     str += "<td>0</td>";
-                //     str += "<td>0</td>";
-                //     str += '"<td><span class="date-tiem-span m">' + day + ' </span>天<span class="date-s-span s">' + hour + '</span><span>时</span></td>"';
-                //     str += "<td>0</td>";
-                //     str += '<td><button class="btn btn-xs btn-info"  onclick=equipment_update("' + data[i].id + '"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
-                //         '<button class="btn btn-xs btn-danger" onclick=del("' + data[i].id + '"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
-                //     str += "</tr>";
-                //
-                // }
                 str += "<tr>";
                 str += "<td>" + data[i].equipmentDid + "</td>";
                 str += data[i].rs === 0 ? '<td><span class="label label-sm label-warning2" ><i class="ace-icon fa fa-power-off  bigger-120"></i>待机</span></td>' : data[i].rs === 1 ? '<td><span class="label label-sm label-warning3" ><i class="ace-icon fa fa-magic   bigger-120"></i>冲洗</span></td>' : data[i].rs === 2 ? '<td><span class="label label-sm label-warning4" ><i class="ace-icon fa fa-plus-square  bigger-120"></i>制水</span></td>' : data[i].rs === 3 ? '<td><span class="label label-sm label-warning5" ><i class="ace-icon fa fa-gavel  bigger-120"></i>检修</span></td>' : data[i].rs === 4 ? '<td><span class="label label-sm label-warning1"><i class="ace-icon fa fa-bars  bigger-120"></i>水满</span></td>' : '<td></td>';
@@ -299,6 +258,86 @@ function equipment_del(did){
 
 
 }
+
+
+//模糊查询
+$(document).ready(function(){
+    $("#btn").click(function(){
+        var search = $("#search").val();
+        if(search==null ||search==""){
+            alert("查询条件不能为空！");//要判断一下，否则的话，要出全部列表，我下面已经有出全部列表的了，
+            // parent.document.location.href="";//必须得这一步，否则会空列表
+        }else{
+            $.ajax({
+                type:"GET",
+                url:"/Equipment/search",
+                data:{
+                    str: search,
+                    pageNext:1,
+                },
+                contentType: "application/json",
+                success: function(data){
+                    console.log(data);
+                    var str = "";
+                    for(var i=0; i < data.length;  i++) {
+                        // myObj = JSON.parse(data[i].equipmentAttribute);
+                        mytowObj = JSON.parse(data[i].responseId);
+                        stopTimea=(data[i].stopTime);
+                        stopTimeb=new Date(stopTimea);
+                        var year=stopTimeb.getFullYear() ;
+                        var month= stopTimeb.getMonth() ;
+                        var day=stopTimeb.getDate() ;
+                        var h=stopTimeb.getHours();
+                        var m=stopTimeb.getMinutes() ;
+                        var s=stopTimeb.getSeconds() ;
+                        stopTimec=""+year+"-"+month+"-"+day+"";
+                        date1=new Date(innerHTML.replace(/-/g, "/"));  //开始时间
+                        date2=new Date(stopTimec.replace(/-/g, "/"));    //结束时间
+                        //时间差的毫秒
+                        date3 = date2.getTime()-date1.getTime();
+                        //计算相差天数
+                        days = Math.floor(date3/(24*3600*1000));
+                        if(days<0){
+                            day=00;
+                        }else {
+                            day=days;
+                        }
+
+                        //计算相差小时数
+                        leave1=date3%(24*3600*1000);    //计算天数后剩余的毫秒数
+                        hours=Math.floor(leave1/(3600*1000));
+                        if(hours<0){
+                            hour=00;
+                        }else {
+                            hour=hours;
+                        }
+                        //计算相差分钟数
+                        leave2=leave1%(3600*1000);        //计算小时数后剩余的毫秒数
+                        minutes=Math.floor(leave2/(60*1000));
+                        //计算相差秒数
+                        leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
+                        seconds=Math.round(leave3/1000);
+                        str += "<tr>";
+                        str += "<td>" + data[i].equipmentDid + "</td>";
+                        str += data[i].rs === 0 ? '<td><span class="label label-sm label-warning2" ><i class="ace-icon fa fa-power-off  bigger-120"></i>待机</span></td>' : data[i].rs === 1 ? '<td><span class="label label-sm label-warning3" ><i class="ace-icon fa fa-magic   bigger-120"></i>冲洗</span></td>' : data[i].rs === 2 ? '<td><span class="label label-sm label-warning4" ><i class="ace-icon fa fa-plus-square  bigger-120"></i>制水</span></td>' : data[i].rs === 3 ? '<td><span class="label label-sm label-warning5" ><i class="ace-icon fa fa-gavel  bigger-120"></i>检修</span></td>' : data[i].rs === 4 ? '<td><span class="label label-sm label-warning1"><i class="ace-icon fa fa-bars  bigger-120"></i>水满</span></td>' : '<td></td>';
+                        str += "<td>" + data[i].equipmentName + "</td>";
+                        str += "<td>" + data[i].flow + "</td>";
+                        str += "<td>" + data[i].tdsi + "</td>";
+                        str += "<td>" + data[i].tdso + "</td> ";
+                        str += "<td>" + data[i].t + "</td>";
+                        str += data[i].fault === 0 ? '<td><span class="label label-sm label-warning6"></i>缺水</span></td>' :data[i].fault === 1 ? '<td><span class="label label-sm label-warning7" ></i>连续30秒制水无净水流量</span></td>' :data[i].fault === 2 ? '<td><span class="label label-sm label-warning8" ></i>净水TDS温度补偿探头异常</span></td>' : data[i].fault === 3 ? '<td><span class="label label-sm label-warning9" ></i>连续制水6小时不水满</span></td>' : data[i].fault === 4 ? '<td><span class="label label-sm label-warning10" ></i>漏水</span></td>' : '<td></td>';
+                        str += '"<td><span class="date-tiem-span m">' + day + ' </span>天<span class="date-s-span s">' + hour + '</span><span>时</span></td>"';
+                        str += mytowObj.fs === 0 ? '<td><span class="label label-sm label-warning1" ></i>正常</span></td>' : mytowObj.fs === 1 ? '<td><span class="label label-sm label-warning2" ></i>快到期</span></td>' : mytowObj.fs === 2 ? '<td><span class="label label-sm label-warning5" ></i>到期</span></td>' : '<td></td>';
+                        str += '<td><button class="btn btn-xs btn-info"  onclick=equipment_update("' + data[i].id + '"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
+                            '<button class="btn btn-xs btn-danger" onclick=equipment_del("' + data[i].id + '"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                        str += "</tr>";
+                    }
+                    $("#hs").append(str);
+                }
+            });
+        }
+    })
+});
 //删除错误提示
 function edel_prompta(){
 
