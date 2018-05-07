@@ -173,6 +173,7 @@ function page_next(value) {
 
 //下一页
 function next_page(value) {
+
     $.ajax({
         async:false,
         url:"/user/list",
@@ -280,37 +281,40 @@ function home_page(value) {
 }
 //上一页
 function Previous_page(value) {
-    $.ajax({
-        async:false,
-        url:"/user/list",
-        type:"GET",
-        dataType : "json",
-        contentType:"application/json",
-        data: {
-            "pageNext":value,
-            "pageSize":10
-        },
-        success:function (data) {
-            if(value>0){
-            $(".table>tbody").empty();
-                var str = "";
-                for(var i=0; i < data.length; i++) {
-                    //data[i]
-                    //console.log(data[i]);
-                    //alert(data[i].con);
-                    str += "<tr>";
-                    str += "<td>" + data[i].id + "</td>";
-                    str += "<td>" + data[i].nickname + "</td>";
-                    str += "<td>" + data[i].pswd + "</td>";
-                    str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
-                    str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
-                        '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
-                    str += "</tr>";
-                }
+    if(value>0){
+        $.ajax({
+            async:false,
+            url:"/user/list",
+            type:"GET",
+            dataType : "json",
+            contentType:"application/json",
+            data: {
+                "pageNext":value,
+                "pageSize":10
+            },
+            success:function (data) {
+                if(value>0){
+                    $(".table>tbody").empty();
+                    var str = "";
+                    for(var i=0; i < data.length; i++) {
+                        //data[i]
+                        //console.log(data[i]);
+                        //alert(data[i].con);
+                        str += "<tr>";
+                        str += "<td>" + data[i].id + "</td>";
+                        str += "<td>" + data[i].nickname + "</td>";
+                        str += "<td>" + data[i].pswd + "</td>";
+                        str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+                        str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                            '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                        str += "</tr>";
+                    }
 
-                $("#hs").append(str);
-        }}
-    })
+                    $("#hs").append(str);
+                }}
+        })
+    }
+
 }
 //删除
 function user_del(id){
