@@ -43,36 +43,38 @@ function user_list() {
 
 //添加
 function user_add() {
-    var but=$('.btn').val();
-    var name = $('#name').val();
-    var pwd=$('#password').val();
-    var status=$("select[name = 'add_select']").val();
+    var name=$("input[name = 'add_username']").val();
+    var pswd=$("input[name = 'add_password']").val();
+    var status=$("select[name = 'add_select']").find("option:selected").val();
 
     // var px = $("#px").val();
     $.ajax({
-        url: "/user/add", //要处理的页面
-        //要传过去的数据
-        data: JSON.stringify({
-            nickname: name,
-            pswd: pwd,
+        url:"/user/add",
+        type:"POST",
+        dataType : "json",
+        contentType : "application/json",
+        data:JSON.stringify({
+            nickname:name,
+            pswd:pswd,
             status:status
         }),
-        type: "POST",  //提交方式
-        dataType: "JSON", //返回的数据类型，TEXT字符串 JSON返回JSON XML返回XML；dataType中T要大写！！
-        contentType: "application/json",
         success: function(data){ ///处理页面成功后输出
-            if(data=="200") $(function () {
-                user_list();
-                add_promptb();
-            }) else {
+            if(data=="200") {
+
                 $(function () {
-                    add_prompta();
+                    add_promptb();
+
+                })
+            }else {
+                $(function () {
+                 add_prompta();
                 })
             }
         }
-    })
-}
 
+    })
+
+}
 //修改
 function user_update(id) {
 
@@ -104,7 +106,6 @@ function UpdateSubmit(){
         dataType:"json",
         contentType: "application/json",
         data: JSON.stringify({
-
             nickname: name,
             pswd: pwd,
             id:id,
@@ -150,8 +151,6 @@ function user_del(id){
             }
         });
     }
-
-
 }
 //模糊查询
 $(document).ready(function(){
@@ -159,7 +158,7 @@ $(document).ready(function(){
         var search = $("#search").val();
         if(search==null ||search==""){
             alert("查询条件不能为空！");//要判断一下，否则的话，要出全部列表，我下面已经有出全部列表的了，
-            // parent.document.location.href="";//必须得这一步，否则会空列表
+            // parent.document.location.href="user.html";//必须得这一步，否则会空列表
         }else{
             $.ajax({
                 type:"GET",
@@ -167,27 +166,28 @@ $(document).ready(function(){
                 data:{
                     str: search,
                     pageNext:1,
+
+
                 },
                 contentType: "application/json",
-                success:function(ReturnMsg){
-                    mytowObj = ReturnMsg.data(JSON.parse(data));
-                    alert(mytowObj);
+                success: function(ReturnMsg){
                     $(".table>tbody").empty();//清除
-
                     var str = "";
-                    for(var i=0; i < data.length; i++) {
-
-                        //data[i]
-                        //console.log(data[i]);
-                        //alert(data[i].con);
+                    for(var i=0; i < ReturnMsg.data.length; i++) {
                         str += "<tr>";
-                        str += "<td>" + data[i].id + "</td>";
-                        str += "<td>" + data[i].nickname + "</td>";
-                        str += "<td>" + data[i].pswd + "</td>";
-                        str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
-                        str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
-                            '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                        str += "<tr>";
+                        str += "<td>" + ReturnMsg.data[i].id + "</td>";
+
+                        str += "<td>" + ReturnMsg.data[i].nickname + "</td>";
+
+                        str += "<td>" + ReturnMsg.data[i].pswd + "</td>";
+
+                        str += ReturnMsg.data[i].status===0?'<td>超级管理员</td>':ReturnMsg.data[i].status===1?'<td>管理员</td>':ReturnMsg.data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+
+                        str += '<td><button class="btn btn-xs btn-info"   href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                            '<button class="btn btn-xs btn-danger"  title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
                         str += "</tr>";
+
                     }
 
                     $("#hs").append(str);

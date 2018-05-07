@@ -137,29 +137,36 @@ function page_max() {
 }
 
 function page_next(value) {
-   $.ajax({
-       url:"/user/list",
-       type:"GET",
-       dataType : "json",
-       contentType:"application/json",
-       data:{
-           "pageNext":value,
-           "pageSize":10
-       },
-       success:function (data) {
-           $(".table>tbody").empty();
-           var obj = "";
-           $.each(data,function (i,list) {
-               obj += '<tr>';
-               obj +='<td>'+list.id+'</td>';
-               obj +='<td>'+list.nickname+'</td>';
-               obj +='<td>'+list.pswd+'</td>';
-               obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
-               obj +='<td><button type="button" class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button"  class="blue"  onclick=user_update("'+list.id+'"); data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
-                   '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
-               obj	+='</tr>';
-           })
-           $("#hs").append(obj);
+    $.ajax({
+        async:false,
+        url:"/user/list",
+        type:"GET",
+        dataType : "json",
+        contentType:"application/json",
+        data: {
+            "pageNext":value,
+            "pageSize":10
+        },
+
+        success: function(data){
+            $(".table>tbody").empty();//清除
+            console.log(data);
+            var str = "";
+            for(var i=0; i < data.length; i++) {
+                //data[i]
+                //console.log(data[i]);
+                //alert(data[i].con);
+                str += "<tr>";
+                str += "<td>" + data[i].id + "</td>";
+                str += "<td>" + data[i].nickname + "</td>";
+                str += "<td>" + data[i].pswd + "</td>";
+                str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+                str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                    '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                str += "</tr>";
+            }
+
+            $("#hs").append(str);
        }
    })
 }
@@ -167,11 +174,12 @@ function page_next(value) {
 //下一页
 function next_page(value) {
     $.ajax({
+        async:false,
         url:"/user/list",
         type:"GET",
         dataType : "json",
         contentType:"application/json",
-        data:{
+        data: {
             "pageNext":value,
             "pageSize":10
         },
@@ -180,47 +188,57 @@ function next_page(value) {
             PageCount=Math.ceil(maxPage/10) ;//总页数
             if(value<=PageCount){
             $(".table>tbody").empty();
-            var obj = "";
-            $.each(data,function (i,list) {
-                obj += '<tr>';
-                obj +='<td>'+list.id+'</td>';
-                obj +='<td>'+list.nickname+'</td>';
-                obj +='<td>'+list.pswd+'</td>';
-                obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
-                obj +='<td><button type="button" class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button"  class="blue"  onclick=user_update("'+list.id+'"); data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
-                    '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
-                obj	+='</tr>';
-            })
-            $("#hs").append(obj);
+                var str = "";
+                for(var i=0; i < data.length; i++) {
+                    //data[i]
+                    //console.log(data[i]);
+                    //alert(data[i].con);
+                    str += "<tr>";
+                    str += "<td>" + data[i].id + "</td>";
+                    str += "<td>" + data[i].nickname + "</td>";
+                    str += "<td>" + data[i].pswd + "</td>";
+                    str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+                    str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                        '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                    str += "</tr>";
+                }
+
+                $("#hs").append(str);
         }}
     })
 }
 //尾页
 function Tail_page(value) {
     $.ajax({
+        async:false,
         url:"/user/list",
         type:"GET",
         dataType : "json",
         contentType:"application/json",
-        data:{
+        data: {
             "pageNext":value,
             "pageSize":10
         },
-        success:function (data) {
 
+        success: function(data){
             $(".table>tbody").empty();//清除
-            var obj = "";
-            $.each(data,function (i,list) {
-                obj += '<tr>';
-                obj +='<td>'+list.id+'</td>';
-                obj +='<td>'+list.nickname+'</td>';
-                obj +='<td>'+list.pswd+'</td>';
-                obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
-                obj +='<td><button type="button" class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button"  class="blue"  onclick=user_update("'+list.id+'"); data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
-                    '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
-                obj	+='</tr>';
-            })
-            $("#hs").append(obj);
+            console.log(data);
+            var str = "";
+            for(var i=0; i < data.length; i++) {
+                //data[i]
+                //console.log(data[i]);
+                //alert(data[i].con);
+                str += "<tr>";
+                str += "<td>" + data[i].id + "</td>";
+                str += "<td>" + data[i].nickname + "</td>";
+                str += "<td>" + data[i].pswd + "</td>";
+                str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+                str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                    '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                str += "</tr>";
+            }
+
+            $("#hs").append(str);
         }
     })
 }
@@ -239,7 +257,7 @@ function home_page(value) {
         },
 
         success: function(data){
-            $(".table>tbody").empty();
+            $(".table>tbody").empty();//清除
             console.log(data);
             var str = "";
             for(var i=0; i < data.length; i++) {
@@ -247,12 +265,12 @@ function home_page(value) {
                 //console.log(data[i]);
                 //alert(data[i].con);
                 str += "<tr>";
-                str += "<td><span>" + data[i].id + "</span></td>";
+                str += "<td>" + data[i].id + "</td>";
                 str += "<td>" + data[i].nickname + "</td>";
                 str += "<td>" + data[i].pswd + "</td>";
                 str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
                 str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
-                    '<button class="btn btn-xs btn-danger" onclick=del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                    '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
                 str += "</tr>";
             }
 
@@ -263,30 +281,58 @@ function home_page(value) {
 //上一页
 function Previous_page(value) {
     $.ajax({
+        async:false,
         url:"/user/list",
         type:"GET",
         dataType : "json",
         contentType:"application/json",
-        data:{
-
+        data: {
             "pageNext":value,
             "pageSize":10
         },
         success:function (data) {
             if(value>0){
             $(".table>tbody").empty();
-            var obj = "";
-            $.each(data,function (i,list) {
-                obj += '<tr>';
-                obj +='<td>'+list.id+'</td>';
-                obj +='<td>'+list.nickname+'</td>';
-                obj +='<td>'+list.pswd+'</td>';
-                obj +=list.status===0?'<td>超级管理员</td>':list.status===1?'<td>管理员</td>':list.status===2?'<td>经销商</td>':'<td>人员</td>';
-                obj +='<td><button type="button" class="btn btn-xs btn-info" href="#modal-table" title="编辑" role="button"  class="blue"  onclick=user_update("'+list.id+'"); data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
-                    '<button type="button" class="btn btn-xs btn-danger" name="delbutt" onclick=del("'+list.id+'"); title="删除"><i class="ace-icon fa fa-trash-o bigger-120"></i></button></td>'
-                obj	+='</tr>';
-            })
-            $("#hs").append(obj);
+                var str = "";
+                for(var i=0; i < data.length; i++) {
+                    //data[i]
+                    //console.log(data[i]);
+                    //alert(data[i].con);
+                    str += "<tr>";
+                    str += "<td>" + data[i].id + "</td>";
+                    str += "<td>" + data[i].nickname + "</td>";
+                    str += "<td>" + data[i].pswd + "</td>";
+                    str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+                    str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                        '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                    str += "</tr>";
+                }
+
+                $("#hs").append(str);
         }}
     })
+}
+//删除
+function user_del(id){
+    if(confirm('确认删除吗?')){
+        $.ajax({
+            type:'delete',
+            url: "/user/delete/"+id,
+            success: function(data){
+                if(data=="200"){ //删除成功
+                    $(function () {
+                        del_promptb();
+                        window.location.reload();
+                    })
+
+                }else{
+                    $(function () {
+                        del_prompta();
+                    })
+                }
+            }
+        });
+    }
+
+
 }
