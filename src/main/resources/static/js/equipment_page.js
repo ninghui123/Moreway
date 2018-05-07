@@ -207,6 +207,9 @@ function page_next(value) {
     }
 //下一页
 function next_page(value) {
+    PageCount=Math.ceil(maxPage/10) ;//总页数
+
+    if(value<=PageCount){
     $.ajax({
         async:false,
         url:"/Equipment/list",
@@ -218,9 +221,7 @@ function next_page(value) {
             "pageSize":10,
         },
         success: function(data){
-            PageCount=Math.ceil(maxPage/10) ;//总页数
 
-            if(value<=PageCount){
                 $(".table>tbody").empty();
             var str = "";
             for(var i=0; i < data.length;  i++) {
@@ -277,9 +278,9 @@ function next_page(value) {
                 str += "</tr>";
             }
             $("#hs").append(str);
-        }}
+        }
     });
-    }
+    }}
 //尾页
 function Tail_page(value) {
         $.ajax({
@@ -427,6 +428,7 @@ function home_page(value) {
     }
 //上一页
 function Previous_page(value) {
+    if(value>0){
     $.ajax({
         async:false,
         url:"/Equipment/list",
@@ -438,7 +440,7 @@ function Previous_page(value) {
             "pageSize":10,
         },
         success: function(data){
-            if(value>0){
+
                 $(".table>tbody").empty();
             var str = "";
             for(var i=0; i < data.length;  i++) {
@@ -495,6 +497,6 @@ function Previous_page(value) {
                 str += "</tr>";
             }
             $("#hs").append(str);
-        }}
+        }
     });
-    }
+    }}

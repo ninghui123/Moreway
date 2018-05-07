@@ -173,7 +173,8 @@ function page_next(value) {
 
 //下一页
 function next_page(value) {
-
+    PageCount=Math.ceil(maxPage/10) ;//总页数
+    if(value<=PageCount){
     $.ajax({
         async:false,
         url:"/user/list",
@@ -186,8 +187,8 @@ function next_page(value) {
         },
         success:function (data) {
             // console.log(maxPage)
-            PageCount=Math.ceil(maxPage/10) ;//总页数
-            if(value<=PageCount){
+
+
             $(".table>tbody").empty();
                 var str = "";
                 for(var i=0; i < data.length; i++) {
@@ -205,9 +206,9 @@ function next_page(value) {
                 }
 
                 $("#hs").append(str);
-        }}
+        }
     })
-}
+}}
 //尾页
 function Tail_page(value) {
     $.ajax({
@@ -293,7 +294,7 @@ function Previous_page(value) {
                 "pageSize":10
             },
             success:function (data) {
-                if(value>0){
+
                     $(".table>tbody").empty();
                     var str = "";
                     for(var i=0; i < data.length; i++) {
@@ -311,7 +312,7 @@ function Previous_page(value) {
                     }
 
                     $("#hs").append(str);
-                }}
+                }
         })
     }
 

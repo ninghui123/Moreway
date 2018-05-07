@@ -244,9 +244,7 @@ function equipment_del(did){
             url: "/Equipment/delete/{did}"+did,
             success: function(data){
                 if(data=="200"){ //删除成功
-                    $(function () {
-                        edel_promptb();
-                    })
+                    alert(删除成功);
                 }else{
                     $(function () {
                         edel_prompta();
@@ -277,6 +275,7 @@ $(document).ready(function(){
                 },
                 contentType: "application/json",
                 success: function(data){
+                    $(".table>tbody").empty();//清除
                     console.log(data);
                     var str = "";
                     for(var i=0; i < data.length;  i++) {
@@ -384,6 +383,7 @@ function edel_prompta(){
     document.getElementById("msgDiv").appendChild(txt);
 }
 function edel_promptb(){
+
 
     var msgw,msgh,bordercolor;
     msgw=400;//提示窗口的宽度
