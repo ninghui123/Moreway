@@ -162,15 +162,11 @@ function equipment_add() {
         dataType: "JSON", //返回的数据类型，TEXT字符串 JSON返回JSON XML返回XML；dataType中T要大写！！
         contentType: "application/json",
         success: function(data){ ///处理页面成功后输出
+            $('#new').modal('hide')
             if(data=="200") {
-                window.location.reload();
-                $(function () {
-                    add_promptb();
-                })
+                toastr.success("添加成功!");
             }else {
-                $(function () {
-                    add_prompta();
-                })
+                toastr.error("添加失败!");
             }
         }
     })
@@ -221,15 +217,14 @@ function update_submit(){
             filterStopTime: filterStop_Time,
         }),
         success: function(data){ ///处理页面成功后输出
+            $('#modal-table').modal('hide')
              if(data=="200") {
-                 window.location.reload();
-                 $(function () {
-                     modify_promptb();
-                 })
+
+                 toastr.success("修改成功!");
              }else {
-                 $(function () {
-                     modify_prompta();
-                 })
+
+                     toastr.error("修改失败!");
+
              }
         }
 
@@ -244,11 +239,9 @@ function equipment_del(did){
             url: "/Equipment/delete/{did}"+did,
             success: function(data){
                 if(data=="200"){ //删除成功
-                    alert(删除成功);
+                    toastr.success("删除成功!");
                 }else{
-                    $(function () {
-                        edel_prompta();
-                    })
+                    toastr.error("删除失败!");
                 }
             }
         });
@@ -263,7 +256,7 @@ $(document).ready(function(){
     $("#btn").click(function(){
         var search = $("#search").val();
         if(search==null ||search==""){
-            alert("查询条件不能为空！");//要判断一下，否则的话，要出全部列表，我下面已经有出全部列表的了，
+            toastr.warning("查询条件不能为空！");//要判断一下，否则的话，要出全部列表，我下面已经有出全部列表的了，
             // parent.document.location.href="";//必须得这一步，否则会空列表
         }else{
             $.ajax({
@@ -337,275 +330,7 @@ $(document).ready(function(){
         }
     })
 });
-//删除错误提示
-function edel_prompta(){
 
-    var msgw,msgh,bordercolor;
-    msgw=400;//提示窗口的宽度
-    msgh=600;//提示窗口的高度
-
-    var sWidth,sHeight;
-    sWidth=document.body.offsetWidth;
-    sHeight=document.body.offsetHeight;
-    var bgObj=document.createElement("div");
-    bgObj.setAttribute('id','bgDiv');
-    bgObj.style.position="absolute";
-    bgObj.style.top="0";
-    bgObj.style.background="#777";//背景颜色
-    // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
-    bgObj.style.opacity="0.6";
-    bgObj.style.left="0";
-    bgObj.style.width="100%";
-    bgObj.style.height="100%";
-    document.body.appendChild(bgObj);
-    var msgObj=document.createElement("div")
-    msgObj.setAttribute("id","msgDiv");
-    msgObj.setAttribute("align","center");
-    msgObj.style.position="absolute";
-    msgObj.style.background="white";
-    msgObj.style.font="12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/2) + "px";
-    msgObj.style.left=(sWidth-msgw)/1.75 + "px";
-    var title=document.createElement("h4");
-    title.setAttribute("id","msgTitle");
-    title.setAttribute("align","right");
-    setTimeout(title.onclick=function(){
-        document.body.removeChild(bgObj);
-        document.getElementById("msgDiv").removeChild(title);
-        document.body.removeChild(msgObj);
-    },2000);
-    document.body.appendChild(msgObj);
-    document.getElementById("msgDiv").appendChild(title);
-    var txt=document.createElement("p");
-    txt.style.margin="1em 0"
-    txt.setAttribute("id","msgTxt");
-    txt.innerHTML=' <div class="alert alert-danger"> <strong> <i class="ace-icon fa fa-times"></i>删除失败！ </strong></div>';
-    document.getElementById("msgDiv").appendChild(txt);
-}
-function edel_promptb(){
-
-
-    var msgw,msgh,bordercolor;
-    msgw=400;//提示窗口的宽度
-    msgh=600;//提示窗口的高度
-
-    var sWidth,sHeight;
-    sWidth=document.body.offsetWidth;
-    sHeight=document.body.offsetHeight;
-    var bgObj=document.createElement("div");
-    bgObj.setAttribute('id','bgDiv');
-    bgObj.style.position="absolute";
-    bgObj.style.top="0";
-    bgObj.style.background="#777";//背景颜色
-    // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
-    bgObj.style.opacity="0.6";
-    bgObj.style.left="0";
-    bgObj.style.width="100%";
-    bgObj.style.height="100%";
-    document.body.appendChild(bgObj);
-    var msgObj=document.createElement("div")
-    msgObj.setAttribute("id","msgDiv");
-    msgObj.setAttribute("align","center");
-    msgObj.style.position="absolute";
-    msgObj.style.background="white";
-    msgObj.style.font="12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/2) + "px";
-    msgObj.style.left=(sWidth-msgw)/1.75 + "px";
-    var title=document.createElement("h4");
-    title.setAttribute("id","msgTitle");
-    title.setAttribute("align","right");
-    setTimeout(title.onclick=function(){
-        document.body.removeChild(bgObj);
-        document.getElementById("msgDiv").removeChild(title);
-        document.body.removeChild(msgObj);
-    },2000);
-    document.body.appendChild(msgObj);
-    document.getElementById("msgDiv").appendChild(title);
-    var txt=document.createElement("p");
-    txt.style.margin="1em 0"
-    txt.setAttribute("id","msgTxt");
-    txt.innerHTML='<div class="alert alert-block alert-success"><strong><i class="ace-icon fa fa-check"></i>删除成功！ </strong> </div>';
-    document.getElementById("msgDiv").appendChild(txt);
-}
-
-//添加错误提示
-function add_prompta(){
-
-    var msgw,msgh,bordercolor;
-    msgw=400;//提示窗口的宽度
-    msgh=600;//提示窗口的高度
-
-    var sWidth,sHeight;
-    sWidth=document.body.offsetWidth;
-    sHeight=document.body.offsetHeight;
-    var bgObj=document.createElement("div");
-    bgObj.setAttribute('id','bgDiv');
-    bgObj.style.position="absolute";
-    bgObj.style.top="0";
-    bgObj.style.background="#777";//背景颜色
-    // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
-    bgObj.style.opacity="0.6";
-    bgObj.style.left="0";
-    bgObj.style.width="100%";
-    bgObj.style.height="100%";
-    document.body.appendChild(bgObj);
-    var msgObj=document.createElement("div")
-    msgObj.setAttribute("id","msgDiv");
-    msgObj.setAttribute("align","center");
-    msgObj.style.position="absolute";
-    msgObj.style.background="white";
-    msgObj.style.font="12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/2) + "px";
-    msgObj.style.left=(sWidth-msgw)/1.75 + "px";
-    var title=document.createElement("h4");
-    title.setAttribute("id","msgTitle");
-    title.setAttribute("align","right");
-    setTimeout(title.onclick=function(){
-        document.body.removeChild(bgObj);
-        document.getElementById("msgDiv").removeChild(title);
-        document.body.removeChild(msgObj);
-    },2000);
-    document.body.appendChild(msgObj);
-    document.getElementById("msgDiv").appendChild(title);
-    var txt=document.createElement("p");
-    txt.style.margin="1em 0"
-    txt.setAttribute("id","msgTxt");
-    txt.innerHTML=' <div class="alert alert-danger"> <strong> <i class="ace-icon fa fa-times"></i>添加失败！ </strong></div>';
-    document.getElementById("msgDiv").appendChild(txt);
-}
-function add_promptb(){
-
-    var msgw,msgh,bordercolor;
-    msgw=400;//提示窗口的宽度
-    msgh=600;//提示窗口的高度
-
-    var sWidth,sHeight;
-    sWidth=document.body.offsetWidth;
-    sHeight=document.body.offsetHeight;
-    var bgObj=document.createElement("div");
-    bgObj.setAttribute('id','bgDiv');
-    bgObj.style.position="absolute";
-    bgObj.style.top="0";
-    bgObj.style.background="#777";//背景颜色
-    // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
-    bgObj.style.opacity="0.6";
-    bgObj.style.left="0";
-    bgObj.style.width="100%";
-    bgObj.style.height="100%";
-    document.body.appendChild(bgObj);
-    var msgObj=document.createElement("div")
-    msgObj.setAttribute("id","msgDiv");
-    msgObj.setAttribute("align","center");
-    msgObj.style.position="absolute";
-    msgObj.style.background="white";
-    msgObj.style.font="12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/2) + "px";
-    msgObj.style.left=(sWidth-msgw)/1.75 + "px";
-    var title=document.createElement("h4");
-    title.setAttribute("id","msgTitle");
-    title.setAttribute("align","right");
-    setTimeout(title.onclick=function(){
-        document.body.removeChild(bgObj);
-        document.getElementById("msgDiv").removeChild(title);
-        document.body.removeChild(msgObj);
-    },2000);
-    document.body.appendChild(msgObj);
-    document.getElementById("msgDiv").appendChild(title);
-    var txt=document.createElement("p");
-    txt.style.margin="1em 0"
-    txt.setAttribute("id","msgTxt");
-    txt.innerHTML='<div class="alert alert-block alert-success"><strong><i class="ace-icon fa fa-check"></i>添加成功！ </strong> </div>';
-    document.getElementById("msgDiv").appendChild(txt);
-}
-//修改错误提示
-function modify_prompta(){
-
-    var msgw,msgh,bordercolor;
-    msgw=400;//提示窗口的宽度
-    msgh=600;//提示窗口的高度
-
-    var sWidth,sHeight;
-    sWidth=document.body.offsetWidth;
-    sHeight=document.body.offsetHeight;
-    var bgObj=document.createElement("div");
-    bgObj.setAttribute('id','bgDiv');
-    bgObj.style.position="absolute";
-    bgObj.style.top="0";
-    bgObj.style.background="#777";//背景颜色
-    // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
-    bgObj.style.opacity="0.6";
-    bgObj.style.left="0";
-    bgObj.style.width="100%";
-    bgObj.style.height="100%";
-    document.body.appendChild(bgObj);
-    var msgObj=document.createElement("div")
-    msgObj.setAttribute("id","msgDiv");
-    msgObj.setAttribute("align","center");
-    msgObj.style.position="absolute";
-    msgObj.style.background="white";
-    msgObj.style.font="12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/2) + "px";
-    msgObj.style.left=(sWidth-msgw)/1.75 + "px";
-    var title=document.createElement("h4");
-    title.setAttribute("id","msgTitle");
-    title.setAttribute("align","right");
-    setTimeout(title.onclick=function(){
-        document.body.removeChild(bgObj);
-        document.getElementById("msgDiv").removeChild(title);
-        document.body.removeChild(msgObj);
-    },2000);
-    document.body.appendChild(msgObj);
-    document.getElementById("msgDiv").appendChild(title);
-    var txt=document.createElement("p");
-    txt.style.margin="1em 0"
-    txt.setAttribute("id","msgTxt");
-    txt.innerHTML=' <div class="alert alert-danger"> <strong> <i class="ace-icon fa fa-times"></i>修改失败！ </strong></div>';
-    document.getElementById("msgDiv").appendChild(txt);
-}
-function modify_promptb(){
-
-    var msgw,msgh,bordercolor;
-    msgw=400;//提示窗口的宽度
-    msgh=600;//提示窗口的高度
-
-    var sWidth,sHeight;
-    sWidth=document.body.offsetWidth;
-    sHeight=document.body.offsetHeight;
-    var bgObj=document.createElement("div");
-    bgObj.setAttribute('id','bgDiv');
-    bgObj.style.position="absolute";
-    bgObj.style.top="0";
-    bgObj.style.background="#777";//背景颜色
-    // bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
-    bgObj.style.opacity="0.6";
-    bgObj.style.left="0";
-    bgObj.style.width="100%";
-    bgObj.style.height="100%";
-    document.body.appendChild(bgObj);
-    var msgObj=document.createElement("div")
-    msgObj.setAttribute("id","msgDiv");
-    msgObj.setAttribute("align","center");
-    msgObj.style.position="absolute";
-    msgObj.style.background="white";
-    msgObj.style.font="12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-    msgObj.style.top=(document.documentElement.scrollTop + (sHeight-msgh)/2) + "px";
-    msgObj.style.left=(sWidth-msgw)/1.75 + "px";
-    var title=document.createElement("h4");
-    title.setAttribute("id","msgTitle");
-    title.setAttribute("align","right");
-    setTimeout(title.onclick=function(){
-        document.body.removeChild(bgObj);
-        document.getElementById("msgDiv").removeChild(title);
-        document.body.removeChild(msgObj);
-    },2000);
-    document.body.appendChild(msgObj);
-    document.getElementById("msgDiv").appendChild(title);
-    var txt=document.createElement("p");
-    txt.style.margin="1em 0"
-    txt.setAttribute("id","msgTxt");
-    txt.innerHTML='<div class="alert alert-block alert-success"><strong><i class="ace-icon fa fa-check"></i>修改成功！ </strong> </div>';
-    document.getElementById("msgDiv").appendChild(txt);
-}
 
 
 

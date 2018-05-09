@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css?v=1"/>
     <link rel="stylesheet" href="css/ace-fonts.css?v=1?"/>
     <link rel="stylesheet" href="css/ace.min.css?v=1" />
+    <link rel="stylesheet" href="css/toastr.css?v=1" type="text/css" />
 </head>
 <body class="login-layout blur-login">
 <div class="main-container">
@@ -48,7 +49,7 @@
                                             </label>
                                             <div class="space"></div>
                                             <div >
-                                                <button type="button" class="width-35 pull-right btn btn-sm btn-primary" onclick="login();">
+                                                <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="error" onclick="login();">
                                                     <i class="ace-icon fa fa-key"></i>
                                                     <span class="bigger-110">登录</span>
                                                 </button>
@@ -86,4 +87,5 @@
 <script src="js/jquery-1.9.1.js?v=1"></script>
 <script src="js/login.js?v=1"></script>
 <script src="js/jquery.cookie.js"></script>
+<script src="js/toastr.js"></script>
 </html>
