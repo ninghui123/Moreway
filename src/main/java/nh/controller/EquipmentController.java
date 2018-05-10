@@ -4,13 +4,20 @@ import io.swagger.annotations.ApiOperation;
 import nh.ReturnMsg;
 import nh.beans.*;
 import nh.service.EquipmentService;
+import nh.util.PageUtil;
+import nh.util.UpLoad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 public class EquipmentController {
+    @Value("${uploadPath}")
+    String uploadPath;
 
 
     @Autowired
@@ -78,21 +85,30 @@ public class EquipmentController {
     }
 
     @ApiOperation(value = "测试")
-    @GetMapping("/Equipment/test")
-    public ReturnMsg test(){
-                User user=new User();
-                user.setId("1");
-                user.setNickname("ninghui");
-                user.setPswd("123");
-                return new  ReturnMsg(200,user,"成功");
+    @PostMapping("/Equipment/test")
+    public ReturnMsg test(@RequestParam("file")MultipartFile file) throws IOException {
+        try {
+            String path="images"+UpLoad.upLoadFile(file,uploadPath);
+            return new ReturnMsg(200,path,"成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ReturnMsg(500,null,"失败");
+        }
     }
 
     @ApiOperation(value = "模糊查询")
     @GetMapping("/Equipment/search")
-    public List<EquipmentDto> like(@RequestParam String str,@RequestParam Integer pageNext){
-        Page page=new Page();
-        page.setPageNext(pageNext);
-        page.setPageSize(10);
-        return equipmentService.like(str,page);
+    public ReturnMsg like(@RequestParam String str, @RequestParam Integer pageNext){
+        try{
+            Page page=new Page();
+            page.setPageNext(pageNext);
+            page.setPageSize(10);
+            List<EquipmentDto>list=equipmentService.like(str,page);
+            PageUtil pageUtil=new PageUtil(list,10);
+            return new ReturnMsg(200,pageUtil,"成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ReturnMsg(500,null,"失败");
+        }
     }
 }

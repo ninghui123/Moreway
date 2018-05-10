@@ -32,6 +32,7 @@ public class UserController {
         try {
             subject.login(usernamePasswordToken);
             String user= (String) subject.getPrincipal();
+//          subject.getSession().setTimeout(10);
             return new ReturnMsg(200,user,"成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,8 +120,8 @@ public class UserController {
             return new ReturnMsg(200,user,"成功");
         }catch (Exception e){
             e.printStackTrace();
+            return new ReturnMsg(500,null,"查询错误");
         }
-        return new ReturnMsg(500,null,"查询错误");
     }
 
 }
