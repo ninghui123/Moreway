@@ -317,27 +317,22 @@ function Previous_page(value) {
     }
 
 }
-//删除
-function user_del(id){
-    if(confirm('确认删除吗?')){
-        $.ajax({
-            type:'delete',
-            url: "/user/delete/"+id,
-            success: function(data){
-                if(data=="200"){ //删除成功
-                    $(function () {
-                        del_promptb();
-                        window.location.reload();
-                    })
-
-                }else{
-                    $(function () {
-                        del_prompta();
-                    })
-                }
-            }
-        });
-    }
-
-
-}
+// //删除
+// function user_del(id){
+//     if(confirm('确认删除吗?')){
+//         $.ajax({
+//             type:'delete',
+//             url: "/user/delete/"+id,
+//             success: function(data){
+//                 if(data=="200"){ //删除成功
+//                     toastr.success("删除成功!");
+//                 }else{
+//                     toastr.error("删除失败!");
+//
+//                 }
+//             }
+//         });
+//     }
+//
+//
+// }

@@ -131,9 +131,10 @@ function user_del(id){
             type:'delete',
             url: "/user/delete/"+id,
             success: function(data){
+
                 if(data=="200"){ //删除成功
                     toastr.success("删除成功!");
-                    window.location.reload();
+
                 }else{
                     toastr.error("删除失败!");
                 }
@@ -155,8 +156,6 @@ $(document).ready(function(){
                 data:{
                     str: search,
                     pageNext:1,
-
-
                 },
                 contentType: "application/json",
                 success: function(ReturnMsg){
@@ -166,27 +165,19 @@ $(document).ready(function(){
                         str += "<tr>";
                         str += "<tr>";
                         str += "<td>" + ReturnMsg.data[i].id + "</td>";
-
                         str += "<td>" + ReturnMsg.data[i].nickname + "</td>";
-
                         str += "<td>" + ReturnMsg.data[i].pswd + "</td>";
-
                         str += ReturnMsg.data[i].status===0?'<td>超级管理员</td>':ReturnMsg.data[i].status===1?'<td>管理员</td>':ReturnMsg.data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
-
                         str += '<td><button class="btn btn-xs btn-info"   href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
                             '<button class="btn btn-xs btn-danger"  title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
                         str += "</tr>";
-
                     }
-
                     $("#hs").append(str);
-
                 },
             });
         }
     })
 });
-
 //退出
 function loginout(){
 
