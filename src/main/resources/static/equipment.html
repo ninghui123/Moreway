@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link href="css/page.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/bootstrap.min.css?v=1" />
+    <link rel="stylesheet" href="css/fileinput.css?v=1" />
     <link rel="stylesheet" href="css/page.css?v=1" />
     <link rel="stylesheet" href="css/font-awesome.min.css?v=1" />
     <link rel="stylesheet" href="css/ace-fonts.css?v=1" />
@@ -33,7 +34,15 @@
     </style>
 </head>
 <body class="no-skin" style="width: 1175px;">
+
 <div class="main-container" id="main-container">
+
+
+
+
+
+
+
     <div class="main-content">
         <div class="breadcrumbs" id="breadcrumbs">
             <ul class="breadcrumb">
@@ -45,6 +54,7 @@
                     <a href="javascript:void(0)">设备管理</a>
                 </li>
             </ul><!-- /.breadcrumb -->
+
             <div class="nav-search" id="nav-search">
 				<span class="input-icon">
 					<input type="text" placeholder="请输入关键字 ..." class="nav-search-input" name="search" id="search" autocomplete="off" />
@@ -53,24 +63,27 @@
             </div><!-- /.nav-search -->
         </div>
         <div class="page-content">
+
             <p>
-                <button class="btn btn-white btn-info btn-bold"  href="#new" role="button" data-toggle="modal" >
+                <button class="btn btn-white btn-info btn-bold"  href="#new" role="button" data-toggle="modal" style=" float:right">
                     <i class="ace-icon fa fa-plus  bigger-120 blue"></i>设备添加
                 </button>
 
-
-
-
-
-                            <button action="../dummy.html" class="btn btn-white btn-info btn-bold"  id="dropzone">
-                                <div class="fallback">
-                                    <input name="file" type="file" multiple="" />
-                                </div>
-                            </button>
-
-
-
             </p>
+
+            <form enctype="multipart/form-data" >
+
+
+
+                <div class="form-group" >
+                    <div class="btn btn-white btn-info btn-bold">
+
+                        <input id="file-3" type="file" multiple>
+                        <a class="btn btn-white btn-info btn-bold" onclick="upload()" >上传文件</a>
+                    </div>
+                </div>
+
+            </form>
 
             <div class="page-content-area">
                 <div class="row">
@@ -259,6 +272,7 @@
                     <script src="js/equipment.js?v=1"></script>
                     <script src="js/equipment_page.js?v=1"></script>
                     <script src="js/bootstrap.min.js?v=1"></script>
+                    <script src="js/fileinput.js?v=1"></script>
                     <script src="js/jquery.dataTables.min.js?v=1"></script>
                     <script src="js/jquery.dataTables.bootstrap.js?v=1"></script>
                     <script src="js/ace-extra.min.js?v=1"></script>
@@ -270,6 +284,21 @@
                     <script src="js/toastr.js"></script>
                     <script type="text/javascript">
                         window.jQuery || document.write("<script src='assets/js/jquery.min.js'>"+"<"+"/script>");
+                    </script>
+                    <script>
+
+                        $("#file-3").fileinput({
+                            theme: 'fa',
+                            showUpload: false,
+                            showCaption: false,
+                            browseClass: "btn btn-primary btn-lg",
+                            fileType: "any",
+                            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                            overwriteInitial: false,
+                            initialPreviewAsData: true,
+
+                        });
+
                     </script>
                     <script src="js/bootstrap-datepicker.min.js"></script>
                     <script type="text/javascript">
