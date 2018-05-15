@@ -66,13 +66,14 @@ function equipment_list() {
             "pageNext":1,
             "pageSize":10,
         },
-        success: function(data){
-            console.log(data);
+        success: function(success){
+            console.log(success.data);
             var str = "";
-            for(var i=0; i < data.length;  i++) {
+            for(var i=0; i < success.data.length;  i++) {
+
                 // myObj = JSON.parse(data[i].equipmentAttribute);
-                mytowObj = JSON.parse(data[i].responseId);
-                stopTimea=(data[i].stopTime);
+                mytowObj = JSON.parse(success.data[i].responseId);
+                stopTimea=(success.data[i].stopTime);
                 stopTimeb=new Date(stopTimea);
                 var year=stopTimeb.getFullYear() ;
                 var month= stopTimeb.getMonth() ;
@@ -108,18 +109,18 @@ function equipment_list() {
                 leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
                 seconds=Math.round(leave3/1000);
                 str += "<tr>";
-                str += "<td>" + data[i].equipmentDid + "</td>";
-                str += data[i].rs === 0 ? '<td><span class="label label-sm label-warning2" ><i class="ace-icon fa fa-power-off  bigger-120"></i>待机</span></td>' : data[i].rs === 1 ? '<td><span class="label label-sm label-warning3" ><i class="ace-icon fa fa-magic   bigger-120"></i>冲洗</span></td>' : data[i].rs === 2 ? '<td><span class="label label-sm label-warning4" ><i class="ace-icon fa fa-plus-square  bigger-120"></i>制水</span></td>' : data[i].rs === 3 ? '<td><span class="label label-sm label-warning5" ><i class="ace-icon fa fa-gavel  bigger-120"></i>检修</span></td>' : data[i].rs === 4 ? '<td><span class="label label-sm label-warning1"><i class="ace-icon fa fa-bars  bigger-120"></i>水满</span></td>' : '<td></td>';
-                str += "<td>" + data[i].equipmentName + "</td>";
-                str += "<td>" + data[i].flow + "</td>";
-                str += "<td>" + data[i].tdsi + "</td>";
-                str += "<td>" + data[i].tdso + "</td> ";
-                str += "<td>" + data[i].t + "</td>";
-                str += data[i].fault === 0 ? '<td><span class="label label-sm label-warning6"></i>缺水</span></td>' :data[i].fault === 1 ? '<td><span class="label label-sm label-warning7" ></i>连续30秒制水无净水流量</span></td>' :data[i].fault === 2 ? '<td><span class="label label-sm label-warning8" ></i>净水TDS温度补偿探头异常</span></td>' : data[i].fault === 3 ? '<td><span class="label label-sm label-warning9" ></i>连续制水6小时不水满</span></td>' : data[i].fault === 4 ? '<td><span class="label label-sm label-warning10" ></i>漏水</span></td>' : '<td></td>';
+                str += "<td>" + success.data[i].equipmentDid + "</td>";
+                str += success.data[i].rs === 0 ? '<td><span class="label label-sm label-warning2" ><i class="ace-icon fa fa-power-off  bigger-120"></i>待机</span></td>' : success.data[i].rs === 1 ? '<td><span class="label label-sm label-warning3" ><i class="ace-icon fa fa-magic   bigger-120"></i>冲洗</span></td>' : success.data[i].rs === 2 ? '<td><span class="label label-sm label-warning4" ><i class="ace-icon fa fa-plus-square  bigger-120"></i>制水</span></td>' : success.data[i].rs === 3 ? '<td><span class="label label-sm label-warning5" ><i class="ace-icon fa fa-gavel  bigger-120"></i>检修</span></td>' : success.data[i].rs === 4 ? '<td><span class="label label-sm label-warning1"><i class="ace-icon fa fa-bars  bigger-120"></i>水满</span></td>' : '<td></td>';
+                str += "<td>" + success.data[i].equipmentName + "</td>";
+                str += "<td>" + success.data[i].flow + "</td>";
+                str += "<td>" + success.data[i].tdsi + "</td>";
+                str += "<td>" + success.data[i].tdso + "</td> ";
+                str += "<td>" + success.data[i].t + "</td>";
+                str += success.data[i].fault === 0 ? '<td><span class="label label-sm label-warning6"></i>缺水</span></td>' :success.data[i].fault === 1 ? '<td><span class="label label-sm label-warning7" ></i>连续30秒制水无净水流量</span></td>' :success.data[i].fault === 2 ? '<td><span class="label label-sm label-warning8" ></i>净水TDS温度补偿探头异常</span></td>' : success.data[i].fault === 3 ? '<td><span class="label label-sm label-warning9" ></i>连续制水6小时不水满</span></td>' : success.data[i].fault === 4 ? '<td><span class="label label-sm label-warning10" ></i>漏水</span></td>' : '<td></td>';
                 str += '"<td><span class="date-tiem-span m">' + day + ' </span>天<span class="date-s-span s">' + hour + '</span><span>时</span></td>"';
                 str += mytowObj.fs === 0 ? '<td><span class="label label-sm label-warning1" ></i>正常</span></td>' : mytowObj.fs === 1 ? '<td><span class="label label-sm label-warning2" ></i>快到期</span></td>' : mytowObj.fs === 2 ? '<td><span class="label label-sm label-warning5" ></i>到期</span></td>' : '<td></td>';
-                str += '<td><button class="btn btn-xs btn-info"  onclick=equipment_update("' + data[i].id + '"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
-                    '<button class="btn btn-xs btn-danger" onclick=equipment_del("' + data[i].equipmentDid + '"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                str += '<td><button class="btn btn-xs btn-info"  onclick=equipment_update("' + success.data[i].id + '"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>' +
+                    '<button class="btn btn-xs btn-danger" onclick=equipment_del("' + success.data[i].equipmentDid + '"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
                 str += "</tr>";
             }
             $("#hs").append(str);
@@ -161,9 +162,9 @@ function equipment_add() {
         type: "POST",  //提交方式
         dataType: "JSON", //返回的数据类型，TEXT字符串 JSON返回JSON XML返回XML；dataType中T要大写！！
         contentType: "application/json",
-        success: function(data){ ///处理页面成功后输出
+        success: function(success){ ///处理页面成功后输出
             $('#new').modal('hide')
-            if(data=="200") {
+            if(success.code=="200") {
                 toastr.success("添加成功!");
             }else {
                 toastr.error("添加失败!");
@@ -180,15 +181,15 @@ function equipment_update(id) {
         data:{"id":id,
 
         },
-        success:function (data) {
+        success:function (success) {
 
-            $("input[name = 'equipmentName_modify']").val(data.equipmentName);
-            $("input[name = 'equipmentType_modify']").val(data.equipmentDid);
-            $("input[name = 'startTime_modify']").val(data.startTime);
-            $("input[name = 'stopTime_modify']").val(data.stopTime);
-            $("input[name = 'filterStartTime_modify']").val(data.filterStartTime);
-            $("input[name = 'filterStopTime_modify']").val(data.filterStopTime);
-            $("button[name = 'equip_modify']").val(data.id);
+            $("input[name = 'equipmentName_modify']").val(success.data.equipmentName);
+            $("input[name = 'equipmentType_modify']").val(success.data.equipmentDid);
+            $("input[name = 'startTime_modify']").val(success.data.startTime);
+            $("input[name = 'stopTime_modify']").val(success.data.stopTime);
+            $("input[name = 'filterStartTime_modify']").val(success.data.filterStartTime);
+            $("input[name = 'filterStopTime_modify']").val(success.data.filterStopTime);
+            $("button[name = 'equip_modify']").val(success.data.id);
         }
 
     })
@@ -216,9 +217,9 @@ function update_submit(){
             filterStartTime: filterStart_Time,
             filterStopTime: filterStop_Time,
         }),
-        success: function(data){ ///处理页面成功后输出
+        success: function(success){ ///处理页面成功后输出
             $('#modal-table').modal('hide')
-             if(data=="200") {
+             if(success.data=="200") {
 
                  toastr.success("修改成功!");
              }else {
@@ -240,9 +241,9 @@ function equipment_del(equipmentDid){
             url: "/Equipment/delete/"+equipmentDid,
             dataType:"json",
             contentType: "application/json",
-            success: function(data){
+            success: function(success){
                 alert(equipmentDid)
-                if(data=="200"){ //删除成功
+                if(success.code=="200"){ //删除成功
                     toastr.success("删除成功!");
                 }else{
                     toastr.error("删除失败!");
@@ -275,9 +276,10 @@ $(document).ready(function(){
                 },
                 contentType: "application/json",
                 success: function(ReturnMsg){
-                    var a=ReturnMsg.rows;
 
-                    alert(a);
+                    var a=ReturnMsg.data();
+
+                    // alert(a);
 
                     $(".table>tbody").empty();//清除
                     console.log(data);
@@ -341,43 +343,7 @@ $(document).ready(function(){
         }
     })
 });
-// //文件上传
-// $(function () {
-//     $("#btn_uploadimg").click(function () {
-//         var fileObj = document.getElementById("file-5").files[0]; // js 获取文件对象
-//         if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
-//             alert("请选择图片");
-//             return;
-//         }
-//         var formFile = new FormData();
-//         formFile.append("action", "UploadVMKImagePath");
-//         formFile.append("file", fileObj); //加入文件对象
-//
-//         //第一种  XMLHttpRequest 对象
-//         //var xhr = new XMLHttpRequest();
-//         //xhr.open("post", "/Admin/Ajax/VMKHandler.ashx", true);
-//         //xhr.onload = function () {
-//         //    alert("上传完成!");
-//         //};
-//         //xhr.send(formFile);
-//
-//         //第二种 ajax 提交
-//
-//         var data = formFile;
-//         $.ajax({
-//             url:"/Equipment/test",
-//             data: data,
-//             type: "Post",
-//             dataType: "json",
-//             cache: false,//上传文件无需缓存
-//             processData: false,//用于对data参数进行序列化处理 这里必须false
-//             contentType: false, //必须
-//             success: function (result) {
-//                 alert("上传完成!");
-//             },
-//         })
-//     })
-// })
+
 
 
 

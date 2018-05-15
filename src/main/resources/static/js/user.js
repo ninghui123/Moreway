@@ -16,23 +16,24 @@ function user_list() {
             "pageSize":10
         },
 
-        success: function(data){
+        success: function(success){
+
             $(".table>tbody").empty();//清除
 
-            console.log(data);
+            console.log(success.data);
             var str = "";
-            for(var i=0; i < data.length; i++) {
+            for(var i=0; i < success.data.length; i++) {
 
                 //data[i]
                 //console.log(data[i]);
                 //alert(data[i].con);
                 str += "<tr>";
-                str += "<td>" + data[i].id + "</td>";
-                str += "<td>" + data[i].nickname + "</td>";
-                str += "<td>" + data[i].pswd + "</td>";
-                str += data[i].status===0?'<td>超级管理员</td>':data[i].status===1?'<td>管理员</td>':data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
-                str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
-                    '<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
+                str += "<td>" + success.data[i].id + "</td>";
+                str += "<td>" + success.data[i].nickname + "</td>";
+                str += "<td>" + success.data[i].pswd + "</td>";
+                str += success.data[i].status===0?'<td>超级管理员</td>':success.data[i].status===1?'<td>管理员</td>':success.data[i].status===2?'<td>经销商</td>':'<td>下级人员</td>';
+                str += '<td><button class="btn btn-xs btn-info"  onclick=user_update("'+success.data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>'+
+                    '<button class="btn btn-xs btn-danger" onclick=user_del("'+success.data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>';
                 str += "</tr>";
             }
 
@@ -59,10 +60,10 @@ function user_add() {
             pswd: pswd,
             status:status
         }),
-        success: function(data){ ///处理页面成功后输出
+        success: function(success){ ///处理页面成功后输出
             $('#new').modal('hide')
 
-            if(data=="200") {
+            if(success.code=="200") {
 
             toastr.success("添加成功!");
                 // window.location.href ="user.html"
@@ -87,7 +88,7 @@ function user_update(id) {
         success:function (data) {
             $("input[name = 'update_username']").val(data.nickname);
             $("input[name = 'update_password']").val(data.pswd);
-            $("button[name = 'update_submit']").val(id);
+            $("button[name = 'update_submit']").val(data.id);
             $("select[name = 'status_select']").find("option[value="+data.status+"]").attr("selected",true);
         }
 
@@ -111,9 +112,9 @@ function UpdateSubmit(){
             status:status
 
         }),
-        success: function(data){ ///处理页面成功后输出
+        success: function(success){ ///处理页面成功后输出
             $('#modal-table').modal('hide')
-            if(data=="200") {
+            if(success.code=="200") {
                 toastr.success("修改成功!");
 
             }else {
@@ -130,9 +131,9 @@ function user_del(id){
         $.ajax({
             type:'delete',
             url: "/user/delete/"+id,
-            success: function(data){
+            success: function(success){
 
-                if(data=="200"){ //删除成功
+                if(success.code=="200"){ //删除成功
                     toastr.success("删除成功!");
 
                 }else{
