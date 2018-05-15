@@ -12,6 +12,8 @@ import io.netty.handler.timeout.IdleStateEvent;
 import nh.beans.Equipment;
 import nh.dto.*;
 import nh.service.EquipmentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
@@ -25,6 +27,9 @@ import static nh.util.ParseData.parseData;
 
 @Component
 public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
+
+    private static final Logger log = LoggerFactory.getLogger(Server.class);
+
     private static final String SKEY = "12345678";
     DataPacket dataPacket = new DataPacket();
     Gson gson = new Gson();
@@ -38,13 +43,12 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         String uuid=ctx.channel().id().asLongText();
         GatewayService.addGatewayChannel(uuid,(SocketChannel) ctx.channel());
-        System.out.println("---客户端连接成功---");
-        System.out.println(uuid);
+        log.error("---客户端连接成功---");
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("---退出连接---");
+        log.error("---退出连接---");
     }
 
     @Override
@@ -116,7 +120,6 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
                  Date beginDate=format.parse(currentTime);
                  Date endDate= format.parse(stopTime);
                  long tlDay=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
-                 System.out.println("剩余时间是:"+tlDay);
                  String filterStopTime=format.format(equipment.getFilterStopTime());
                  Date filterDndDate=format.parse(filterStopTime);
                  long fsDay=(filterDndDate.getTime()-beginDate.getTime())/(24*60*60*1000);

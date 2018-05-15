@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static nh.ReturnMsg.err;
+import static nh.ReturnMsg.success;
+
 
 @RestController
 public class UserController {
@@ -33,10 +36,10 @@ public class UserController {
             subject.login(usernamePasswordToken);
             String user= (String) subject.getPrincipal();
 //          subject.getSession().setTimeout(10);
-            return new ReturnMsg(200,user,"成功");
+            return success(200,user,"成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new ReturnMsg(500,null,"用户名或者密码错误");
+            return err(500,"用户名或者密码错误");
         }
     }
 
@@ -50,11 +53,17 @@ public class UserController {
 
     @ApiOperation(value = "查询列表")
     @GetMapping("/user/list")
-    public List<User> list(@RequestParam Integer pageNext, @RequestParam Integer pageSize) {
-        Page page = new Page();
-        page.setPageSize(pageSize);
-        page.setPageNext(pageNext);
-        return userService.list(page);
+    public ReturnMsg list(@RequestParam Integer pageNext, @RequestParam Integer pageSize) {
+        try{ Page page = new Page();
+            page.setPageSize(pageSize);
+            page.setPageNext(pageNext);
+            List<User>list=userService.list(page);
+            return success(200,list,"成功");
+        }catch (Exception e){
+            e.printStackTrace();
+           return err(500,"查询失败");
+        }
+
     }
 
 
@@ -66,37 +75,37 @@ public class UserController {
 
     @ApiOperation(value = "添加用户")
     @PostMapping("/user/add")
-    public String add(@RequestBody User user) {
+    public ReturnMsg add(@RequestBody User user) {
         try {
             userService.add(user);
-            return "200";
+            return success(200,null,"成功");
         } catch (Exception e) {
             e.printStackTrace();
+            return err(500,"失败");
         }
-        return "500";
     }
 
     @ApiOperation(value = "修改用户")
     @PutMapping("/user/update")
-    public String update(@RequestBody User user) {
+    public ReturnMsg update(@RequestBody User user) {
         try {
             userService.update(user);
-            return "200";
+            return success(200,null,"成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return "500";
+            return err(500,"错误");
         }
     }
 
     @ApiOperation(value = "删除用户")
     @DeleteMapping("/user/delete/{id}")
-    public String delete(@PathVariable String id) {
+    public ReturnMsg delete(@PathVariable String id) {
         try {
             userService.delete(id);
-            return "200";
+            return success(200,null,"成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return "500";
+            return err(500,"失败");
         }
     }
 
@@ -117,10 +126,10 @@ public class UserController {
             page.setPageSize(10);
             page.setPageNext(pageNext);
             List<UserDto>user=userService.search(str,page);
-            return new ReturnMsg(200,user,"成功");
+            return success(200,user,"成功");
         }catch (Exception e){
             e.printStackTrace();
-            return new ReturnMsg(500,null,"查询错误");
+            return err(500,"查询错误");
         }
     }
 

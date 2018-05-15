@@ -10,26 +10,26 @@ public class Des {
 
     public static byte[] encrypt(byte[] data, String sKey) {
         try {
-            byte[] key = sKey.getBytes();
-            // 初始化向量
+        byte[] key = sKey.getBytes();
+        // 初始化向量
 //            IvParameterSpec iv = new IvParameterSpec(key);
-            DESKeySpec desKey = new DESKeySpec(key);
-            // 创建一个密匙工厂，然后用它把DESKeySpec转换成securekey
-            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-            SecretKey securekey = keyFactory.generateSecret(desKey);
-            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-            // Cipher对象实际完成加密操作
-            Cipher cipher = Cipher.getInstance("DES/ECB/pkcs7padding");
-            // 用密匙初始化Cipher对象
-            cipher.init(Cipher.ENCRYPT_MODE, securekey);
-            // 现在，获取数据并加密
-            // 正式执行加密操作
-            return cipher.doFinal(data);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
+        DESKeySpec desKey = new DESKeySpec(key);
+        // 创建一个密匙工厂，然后用它把DESKeySpec转换成securekey
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+        SecretKey securekey = keyFactory.generateSecret(desKey);
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        // Cipher对象实际完成加密操作
+        Cipher cipher = Cipher.getInstance("DES/ECB/pkcs7padding");
+        // 用密匙初始化Cipher对象
+        cipher.init(Cipher.ENCRYPT_MODE, securekey);
+        // 现在，获取数据并加密
+        // 正式执行加密操作
+        return cipher.doFinal(data);
+    } catch (Throwable e) {
+        e.printStackTrace();
     }
+        return null;
+}
 
     /**
      * 解密

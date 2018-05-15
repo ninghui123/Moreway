@@ -7,9 +7,18 @@ public class ReturnMsg {
 
     public  ReturnMsg(Integer code, Object data, String msg) {
 
-            this.code = code;
-            this.data = data;
-            this.msg = msg;
+        this.code = code;
+        this.data = data;
+        this.msg = msg;
+    }
+
+    public static ReturnMsg success(Integer code, Object data, String msg){
+
+       return new ReturnMsg(code,data,msg);
+    }
+
+    public static ReturnMsg err(Integer code,String msg){
+        return new ReturnMsg(code,null,msg);
     }
 
     public Integer getCode() {

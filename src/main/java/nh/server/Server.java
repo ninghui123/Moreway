@@ -10,12 +10,16 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
 @Component
 public class Server {
+
+    private static final Logger log = LoggerFactory.getLogger(Server.class);
 
     public void run(){
         NioEventLoopGroup acceptorGroup = new NioEventLoopGroup();
@@ -42,9 +46,11 @@ public class Server {
                         }
                     });
             Channel ch = bootstrap.bind(12345).sync().channel();
-            System.out.println("服务器已经启动...");
+//            System.out.println("服务器已经启动...");
+            log.info("服务器已经启动...");
             ch.closeFuture().sync();
         } catch (InterruptedException e) {
+            log.error(e.getMessage());
             e.printStackTrace();
         } finally {
             acceptorGroup.shutdownGracefully();
