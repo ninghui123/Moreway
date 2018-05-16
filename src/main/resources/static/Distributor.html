@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="no-cache" charset="utf-8" />
+	<title>经销商管理</title>
+	<meta name="description" content="Restyling jQuery UI Widgets and Elements" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<link href="css/page.css" type="text/css" rel="stylesheet"/>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css?v=1">
+	<link rel="stylesheet" href="css/font-awesome.min.css?v=1" />
+	<link rel="stylesheet" href="css/ace-fonts.css?v=1" />
+	<link rel="stylesheet" href="css/zzsc.css?v=1" />
+	<link rel="stylesheet" href="css/ace.min.css?v=1" id="main-ace-style" />
+
+	<style type="text/css">
+		.CSSearchTbl{ border:1px #008CD4 solid;}
+		.CSSearchTbl thead{}
+		.CSSearchTbl thead tr{}
+		.CSSearchTbl thead tr th{  text-align:left; padding-left:10px;}
+		.CSSearchTbl tbody{}
+		.CSSearchTbl tbody tr{}
+		.CSSearchTbl tbody tr td{  padding: 10px;}
+		.CSSearchTbl tbody tr td.right{ text-align: left;}
+		.CSSearchTbl tbody tr td.left{ text-align: right;}
+		.table-responsive{ display: none;}
+	</style>
+</head>
+<body class="no-skin" style="width: 1175px;">
+<div class="main-container" id="main-container">
+	<div class="main-content">
+		<div class="breadcrumbs" id="breadcrumbs">
+			<ul class="breadcrumb">
+				<li>
+					<i class="ace-icon fa fa-home home-icon"></i>
+					<a href="index.html">首页</a>
+
+				</li>
+				<li>
+					<a href="javascript:void(0)">经销商管理</a>
+				</li>
+			</ul><!-- /.breadcrumb -->
+			<div class="nav-search" id="nav-search">
+				<span class="input-icon">
+					<input type="text" placeholder="请输入关键字 ..." class="nav-search-input" name="search" id="search" autocomplete="off" />
+					    <input type="button" name="btn" id="btn" value="搜索"/>
+				</span>
+			</div><!-- /.nav-search -->
+		</div>
+
+		<div class="page-content">
+			<p>
+				<button class="btn btn-white btn-info btn-bold"  href="#new" role="button" data-toggle="modal" >
+					<i class="ace-icon fa fa-plus  bigger-120 blue"></i>经销商添加
+				</button>
+			</p>
+			<div class="page-content-area">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="col-xs-12">
+								<table id="hs" class="table table-striped table-bordered table-hover">
+									<thead>
+									<tr>
+										<th>编号</th>
+										<th>经销商名称</th>
+										<th>联系电话</th>
+										<th>联系地址</th>
+										<th>操作</th>
+									</tr>
+									</thead>
+									<tr>
+									<td>1</td>
+									<td>茂葳科技</td>
+									<td>12365485456</td>
+									<td>杭州经济开发区</td>
+									<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>
+										<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>茂葳科技</td>
+										<td>12365485456</td>
+										<td>杭州经济开发区</td>
+										<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>
+											<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>茂葳科技</td>
+										<td>12365485456</td>
+										<td>杭州经济开发区</td>
+										<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>
+											<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>茂葳科技</td>
+										<td>12365485456</td>
+										<td>杭州经济开发区</td>
+										<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>
+											<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>茂葳科技</td>
+										<td>12365485456</td>
+										<td>杭州经济开发区</td>
+										<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>
+											<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>茂葳科技</td>
+										<td>12365485456</td>
+										<td>杭州经济开发区</td>
+										<td><button class="btn btn-xs btn-info"  onclick=user_update("'+data[i].id+'"); href="#modal-table" title="编辑" role="button" class="blue" data-toggle="modal"><i class="ace-icon fa fa-pencil bigger-120"></i></button>
+											<button class="btn btn-xs btn-danger" onclick=user_del("'+data[i].id+'"); title="删除" role="button" data-toggle="modal"><i class="ace-icon fa fa-trash-o bigger-120"></i> </button></td>
+									</tr>
+									<tbody></tbody>
+								</table>
+							</div><!-- /.row -->
+						</div><!-- ./span -->
+						<ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page" style="float: right"></ul>
+						<!--修改经销商-->
+						<div class="hr hr-18 dotted hr-double"></div>
+						<div id="modal-table" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header no-padding">
+										<div class="table-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+												<span class="white">&times;</span>
+											</button>
+											修改经销商
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" ></label></div>
+									<div class="main-content">
+										<div class="page-content">
+											<div class="page-content-area">
+												<div class="row">
+													<div class="col-xs-12" id="xg">
+														<form class="form-horizontal" role="form">
+															<div class="form-group">
+																<label class="col-sm-3 control-label no-padding-right" > 经销商名称：</label>
+																<div class="col-sm-9">
+																	<input type="text" name="update_username"  class="col-xs-10 col-sm-5"  />
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-3 control-label no-padding-right" > 联系电话：</label>
+																<div class="col-sm-9">
+																	<input type="text"  name="update_password"  class="col-xs-10 col-sm-5" />
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-3 control-label no-padding-right" > 联系地址：</label>
+																<div class="col-sm-9">
+																	<input type="text"  name="update_password"  class="col-xs-10 col-sm-5" />
+																</div>
+															</div>
+															<div class="modal-footer no-margin-top">
+																<button class="btn btn-info" type="reset" name="update_submit" style="float: left;" onclick="UpdateSubmit();"  >
+																	<i class="ace-icon fa fa-check bigger-110"></i>立即提交
+																</button>&nbsp; &nbsp; &nbsp;
+																<button class="btn" data-dismiss="modal">
+																	<i class="ace-icon fa fa-times"></i>关闭
+																</button>
+															</div>
+														</form>
+													</div><!-- /.col -->
+												</div><!-- /.row -->
+											</div><!-- /.page-content-area -->
+										</div><!-- /.page-content -->
+									</div><!-- /.main-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- PAGE CONTENT ENDS -->
+						</div>
+						<!--添加经销商-->
+						<div id="new" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header no-padding">
+										<div class="table-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+												<span class="white">&times;</span>
+											</button>
+											添加经销商
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" ></label></div>
+									<div class="main-content">
+										<!-- /section:basics/content.breadcrumbs -->
+										<div class="page-content">
+											<div class="page-content-area">
+												<div class="row">
+													<div class="col-xs-12">
+														<form class="form-horizontal" role="form">
+															<div class="form-group">
+																<label class="col-sm-3 control-label no-padding-right" > 经销商名称：</label>
+																<div class="col-sm-9">
+																	<input type="text"  placeholder="输入经销商名称" class="col-xs-10 col-sm-5" id="name"/>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-3 control-label no-padding-right" > 联系电话：</label>
+																<div class="col-sm-9">
+																	<input type="text"  placeholder="输入联系电话" class="col-xs-10 col-sm-5" id="Telephone" />
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-3 control-label no-padding-right" > 联系地址：</label>
+																<div class="col-sm-9">
+																	<input type="text"  placeholder="输入联系地址" class="col-xs-10 col-sm-5" id="password" />
+																</div>
+															</div>
+															<div class="modal-footer no-margin-top">
+																<button class="btn btn-info" type="reset" style="float: left;" onclick="user_add();">
+																	<i class="ace-icon fa fa-check bigger-110"></i>立即提交
+																</button>
+																&nbsp; &nbsp; &nbsp;
+																<button class="btn" data-dismiss="modal">
+																	<i class="ace-icon fa fa-times"></i>关闭
+																</button>
+															</div>
+														</form>
+													</div><!-- /.col -->
+												</div><!-- /.row -->
+											</div><!-- /.page-content-area -->
+										</div><!-- /.page-content -->
+									</div><!-- /.main-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- PAGE CONTENT ENDS -->
+						</div>
+						<div id="dialog-confirm" class="hide">
+							<div class="space-6"></div>
+							<p class="bigger-110 bolder center grey">
+								<i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+								你确定要删除吗？
+							</p>
+						</div><!-- #dialog-confirm -->
+						<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+							<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+						</a>
+					</div>
+
+					<script src="js/jquery-1.9.1.js?v=1"></script>
+					<!--<script src="js/user.js?v=1"></script>-->
+					<!--<script type="text/javascript" src="js/page.js"></script>-->
+					<script src="js/bootstrap.min.js?v=1"></script>
+					<script src="js/jquery.dataTables.min.js?v=1"></script>
+					<script src="js/jquery.dataTables.bootstrap.js?v=1"></script>
+					<script src="js/ace-extra.min.js?v=1"></script>
+					<script src="js/ace-elements.min.js?v=1"></script>
+					<script src="js/ace.min.js?v=1"></script>
+
+				</div></div></div></div></div></div></body>
+</body>
+</html>
