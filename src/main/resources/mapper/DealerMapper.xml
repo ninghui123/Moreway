@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nh.dao.DealerMapper">
+<sql id="update_key">
+    <trim suffixOverrides=",">
+        <if test="id!=null and id=''">
+            id=#{id},
+        </if>
+        <if test="dealerName!=null and dealerName!=null">
+            dealer_name=#{dealerName},
+        </if>
+        <if test="dealerPhone!=null and dealerPhone!=''">
+            dealer_phone=#{dealerPhone},
+        </if>
+        <if test="dealerSite!=null and dealerSite!=''">
+            dealer_site=#{dealerSite},
+        </if>
+        <if test="createTime=null">
+            create_time=#{createTime},
+        </if>
+        <if test="updateTime!=null">
+            update_time=#{updateTime},
+        </if>
+        <if test="isDelete!=null">
+            is_delete=#{isDelete},
+        </if>
+    </trim>
+</sql>
+
+    <sql id="add_value">
+        <trim suffixOverrides=",">
+            <if test="id!=null and id!=''">
+                #{id},
+            </if>
+            <if test="dealerName!=null and dealerName!=null">
+                #{dealerName},
+            </if>
+            <if test="dealerPhone!=null and dealerPhone!=''">
+                #{dealerPhone},
+            </if>
+            <if test="dealerSite!=null and dealerSite!=''">
+                #{dealerSite},
+            </if>
+            <if test="createTime!=null">
+                #{createTime},
+            </if>
+            <if test="updateTime!=null">
+                #{updateTime},
+            </if>
+            <if test="isDelete!=null">
+                #{isDelete},
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="add_key">
+        <trim suffixOverrides=",">
+            <if test="id!=null and id!=''">
+                id,
+            </if>
+            <if test="dealerName!=null and dealerName!=null">
+                dealer_name,
+            </if>
+            <if test="dealerPhone!=null and dealerPhone!=''">
+                dealer_phone,
+            </if>
+            <if test="dealerSite!=null and dealerSite!=''">
+                dealer_site,
+            </if>
+            <if test="createTime!=null">
+                create_time,
+            </if>
+            <if test="updateTime!=null">
+                update_time,
+            </if>
+            <if test="isDelete!=null">
+                is_delete,
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="add" parameterType="nh.beans.Dealer">
+        INSERT  INTO dealer(<include refid="add_key"/>) VALUES (<include refid="add_value"/>)
+    </insert>
+
+    <select id="list" resultType="nh.beans.Dealer">
+        SELECT * FROM dealer   WHERE is_delete=0
+        ORDER BY create_time
+        DESC
+        LIMIT #{page.pageNext},#{page.pageSize}
+    </select>
+
+    <select id="listOne" resultType="nh.beans.Dealer">
+        SELECT * FROM dealer WHERE is_delete=0 AND id=#{id}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM dealer WHERE is_delete=0
+    </select>
+
+    <update id="update" parameterType="nh.beans.Dealer">
+        UPDATE dealer SET <include refid="update_key"/> WHERE id=#{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.String">
+        UPDATE dealer SET is_delete=1 WHERE id=#{id}
+    </update>
+
+</mapper>

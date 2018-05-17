@@ -2,6 +2,7 @@ package nh.controller;
 
 import io.swagger.annotations.ApiOperation;
 
+import nh.ExceptionHandle;
 import nh.ReturnMsg;
 import nh.beans.Page;
 import nh.beans.PageMax;
@@ -11,6 +12,8 @@ import nh.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +28,7 @@ import static nh.ReturnMsg.success;
 public class UserController {
     @Autowired
     UserService userService;
-
+    private static final Logger log= LoggerFactory.getLogger(UserController.class);
 
     @ApiOperation(value = "登录")
     @PostMapping("/user/login")
@@ -38,6 +41,7 @@ public class UserController {
 //          subject.getSession().setTimeout(10);
             return success(200,user,"成功");
         } catch (Exception e) {
+            log.error(e.getMessage());
             e.printStackTrace();
             return err(500,"用户名或者密码错误");
         }
